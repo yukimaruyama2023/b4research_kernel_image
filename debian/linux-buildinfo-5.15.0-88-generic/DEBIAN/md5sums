@@ -1,0 +1,12 @@
+cbfee28b0001e398706d2332647584ac  usr/lib/linux/5.15.0-88-generic/abi
+a499aec9214444d103bba4f987571a5f  usr/lib/linux/5.15.0-88-generic/canonical-certs.pem
+199debb080f2b5b5deb32575d64b6679  usr/lib/linux/5.15.0-88-generic/canonical-revoked-certs.pem
+ed968243230023e5b3b82b324fad3058  usr/lib/linux/5.15.0-88-generic/compiler
+1218f7d6e849684b00da7dbc4e093af4  usr/lib/linux/5.15.0-88-generic/config
+663eafe9cbbe6336e13957dd124db33d  usr/lib/linux/5.15.0-88-generic/fwinfo
+d41d8cd98f00b204e9800998ecf8427e  usr/lib/linux/5.15.0-88-generic/fwinfo.builtin
+349d60c210c1e475a4f56506ba759af5  usr/lib/linux/5.15.0-88-generic/modules
+e9d4646109742fedef42433cdf36d409  usr/lib/linux/5.15.0-88-generic/modules.builtin
+1265549751680980b1fbe6e0d39c2eda  usr/lib/linux/5.15.0-88-generic/retpoline
+be12bbbed04c82a61991c89b3f56c026  usr/share/doc/linux-buildinfo-5.15.0-88-generic/changelog.Debian.gz
+a8941f8b5b3adb2ab3bb8d0fd69bc2ac  usr/share/doc/linux-buildinfo-5.15.0-88-generic/copyright

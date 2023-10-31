@@ -1,0 +1,17 @@
+Package: linux-modules-iwlwifi-5.15.0-88-generic
+Source: linux
+Version: 5.15.0-88.98
+Architecture: amd64
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Installed-Size: 6443
+Depends: linux-image-5.15.0-88-generic | linux-image-unsigned-5.15.0-88-generic
+Section: kernel
+Priority: optional
+Description: Linux kernel iwlwifi modules for version 5.15.0-88
+ This package provides the Linux kernel iwlwifi modules for version
+ 5.15.0-88.
+ .
+ You likely do not want to install this package directly. Instead, install the
+ one of the linux-modules-iwlwifi-generic* meta-packages,
+ which will ensure that upgrades work correctly, and that supporting packages are
+ also installed.
