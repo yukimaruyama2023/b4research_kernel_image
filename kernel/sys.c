@@ -944,7 +944,7 @@ SYSCALL_DEFINE1(setfsgid, gid_t, gid)
  */
 SYSCALL_DEFINE0(getpid)
 {
-    printk("10/26 watashi no kernel!\n");
+    printk("11/6 watashi no kernel!\n");
 	return task_tgid_vnr(current);
 }
 

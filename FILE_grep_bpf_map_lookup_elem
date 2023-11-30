@@ -1,0 +1,1427 @@
+include/uapi/linux/bpf.h: * void *bpf_map_lookup_elem(struct bpf_map *map, const void *key)
+include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+include/linux/bpf.h:extern const struct bpf_func_proto bpf_map_lookup_elem_proto;
+Documentation/networking/af_xdp.rst:       if (bpf_map_lookup_elem(&xsks_map, &index))
+Documentation/bpf/libbpf/libbpf_naming_convention.rst:For example ``bpf_map_lookup_elem`` wraps ``BPF_MAP_LOOKUP_ELEM``
+Documentation/bpf/btf.rst:    ; counts = bpf_map_lookup_elem(&btf_map, &key);
+Documentation/bpf/map_cgroup_storage.rst:            bpf_map_lookup_elem(bpf_map__fd(map), &key, &value);
+Documentation/bpf/map_cgroup_storage.rst:            bpf_map_lookup_elem(bpf_map__fd(map), &cgrp, &value);
+debian/linux-headers-5.15.0-88-generic/usr/src/linux-headers-5.15.0-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * bpf_map_lookup_elem
+debian/linux-headers-5.15.0-88-generic/usr/src/linux-headers-5.15.0-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h:static void *(*bpf_map_lookup_elem)(void *map, const void *key) = (void *) 1;
+debian/linux-headers-5.15.0-88-generic/usr/src/linux-headers-5.15.0-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/linux-headers-5.15.0-88-generic/usr/src/linux-headers-5.15.0-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/linux-headers-5.15.0-88-generic/usr/src/linux-headers-5.15.0-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/linux-headers-5.15.0-88/usr/src/linux-headers-5.15.0-88/include/uapi/linux/bpf.h: * void *bpf_map_lookup_elem(struct bpf_map *map, const void *key)
+debian/linux-headers-5.15.0-88/usr/src/linux-headers-5.15.0-88/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/linux-headers-5.15.0-88/usr/src/linux-headers-5.15.0-88/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/linux-headers-5.15.0-88/usr/src/linux-headers-5.15.0-88/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/linux-headers-5.15.0-88/usr/src/linux-headers-5.15.0-88/include/linux/bpf.h:extern const struct bpf_func_proto bpf_map_lookup_elem_proto;
+debian/build/tools-perarch/include/uapi/linux/bpf.h: * void *bpf_map_lookup_elem(struct bpf_map *map, const void *key)
+debian/build/tools-perarch/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/build/tools-perarch/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/build/tools-perarch/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/build/tools-perarch/include/linux/bpf.h:extern const struct bpf_func_proto bpf_map_lookup_elem_proto;
+debian/build/tools-perarch/Documentation/networking/af_xdp.rst:       if (bpf_map_lookup_elem(&xsks_map, &index))
+debian/build/tools-perarch/Documentation/bpf/libbpf/libbpf_naming_convention.rst:For example ``bpf_map_lookup_elem`` wraps ``BPF_MAP_LOOKUP_ELEM``
+debian/build/tools-perarch/Documentation/bpf/btf.rst:    ; counts = bpf_map_lookup_elem(&btf_map, &key);
+debian/build/tools-perarch/Documentation/bpf/map_cgroup_storage.rst:            bpf_map_lookup_elem(bpf_map__fd(map), &key, &value);
+debian/build/tools-perarch/Documentation/bpf/map_cgroup_storage.rst:            bpf_map_lookup_elem(bpf_map__fd(map), &cgrp, &value);
+debian/build/tools-perarch/samples/bpf/test_map_in_map_user.c:	ret = bpf_map_lookup_elem(map_in_map_fd, &key, &id);
+debian/build/tools-perarch/samples/bpf/test_map_in_map_user.c:		ret = bpf_map_lookup_elem(REG_RESULT_H, &result_key, &result);
+debian/build/tools-perarch/samples/bpf/test_map_in_map_user.c:		ret = bpf_map_lookup_elem(INLINE_RESULT_H, &result_key,
+debian/build/tools-perarch/samples/bpf/test_current_task_under_cgroup_user.c:	bpf_map_lookup_elem(map_fd[1], &idx, &remote_pid);
+debian/build/tools-perarch/samples/bpf/test_current_task_under_cgroup_user.c:	bpf_map_lookup_elem(map_fd[1], &idx, &remote_pid);
+debian/build/tools-perarch/samples/bpf/fds_example.c:		ret = bpf_map_lookup_elem(fd, &key, &value);
+debian/build/tools-perarch/samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&redir_err_cnt, &idx);
+debian/build/tools-perarch/samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&cpumap_enqueue_cnt, &idx);
+debian/build/tools-perarch/samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&cpumap_kthread_cnt, &cpu);
+debian/build/tools-perarch/samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&exception_cnt, &idx);
+debian/build/tools-perarch/samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&devmap_xmit_cnt, &cpu);
+debian/build/tools-perarch/samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&devmap_xmit_cnt_multi, &idx);
+debian/build/tools-perarch/samples/bpf/xdp1_kern.c:	value = bpf_map_lookup_elem(&rxcnt, &ipproto);
+debian/build/tools-perarch/samples/bpf/sockex2_kern.c:	value = bpf_map_lookup_elem(&hash_map, &key);
+debian/build/tools-perarch/samples/bpf/ibumad_kern.c:	val = bpf_map_lookup_elem(&read_count, &class);
+debian/build/tools-perarch/samples/bpf/ibumad_kern.c:		val = bpf_map_lookup_elem(&read_count, &class);
+debian/build/tools-perarch/samples/bpf/ibumad_kern.c:	val = bpf_map_lookup_elem(&read_count, &class);
+debian/build/tools-perarch/samples/bpf/ibumad_kern.c:		val = bpf_map_lookup_elem(&read_count, &class);
+debian/build/tools-perarch/samples/bpf/ibumad_kern.c:	val = bpf_map_lookup_elem(&write_count, &class);
+debian/build/tools-perarch/samples/bpf/ibumad_kern.c:		val = bpf_map_lookup_elem(&write_count, &class);
+debian/build/tools-perarch/samples/bpf/tracex2_user.c:		bpf_map_lookup_elem(fd, &next_key, values);
+debian/build/tools-perarch/samples/bpf/tracex2_user.c:			bpf_map_lookup_elem(map_fd[0], &next_key, &value);
+debian/build/tools-perarch/samples/bpf/lwt_len_hist_kern.c:	value = bpf_map_lookup_elem(&lwt_len_hist_map, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_user.c:			bpf_map_lookup_elem(cstate_fd, &key, &value);
+debian/build/tools-perarch/samples/bpf/cpustat_user.c:			bpf_map_lookup_elem(pstate_fd, &key, &value);
+debian/build/tools-perarch/samples/bpf/hbm_edt_kern.c:	qsp = bpf_map_lookup_elem(&queue_stats, &queue_index);
+debian/build/tools-perarch/samples/bpf/hbm_out_kern.c:	qsp = bpf_map_lookup_elem(&queue_stats, &queue_index);
+debian/build/tools-perarch/samples/bpf/lathist_kern.c:	u64 *ts = bpf_map_lookup_elem(&my_map, &cpu);
+debian/build/tools-perarch/samples/bpf/lathist_kern.c:	ts = bpf_map_lookup_elem(&my_map, &cpu);
+debian/build/tools-perarch/samples/bpf/lathist_kern.c:	val = bpf_map_lookup_elem(&my_lat, &key);
+debian/build/tools-perarch/samples/bpf/tracex4_user.c:		bpf_map_lookup_elem(fd, &next_key, &v);
+debian/build/tools-perarch/samples/bpf/xdp2_kern.c:	value = bpf_map_lookup_elem(&rxcnt, &ipproto);
+debian/build/tools-perarch/samples/bpf/sampleip_kern.c:	value = bpf_map_lookup_elem(&ip_map, &ip);
+debian/build/tools-perarch/samples/bpf/tracex3_kern.c:	value = bpf_map_lookup_elem(&my_map, &rq);
+debian/build/tools-perarch/samples/bpf/tracex3_kern.c:	value = bpf_map_lookup_elem(&lat_map, &index);
+debian/build/tools-perarch/samples/bpf/ibumad_user.c:		if (bpf_map_lookup_elem(fd, &key, &value)) {
+debian/build/tools-perarch/samples/bpf/xdp_tx_iptunnel_user.c:			assert(bpf_map_lookup_elem(rxcnt_map_fd, &proto,
+debian/build/tools-perarch/samples/bpf/cookie_uid_helper_example.c:		res = bpf_map_lookup_elem(map_fd, &curN, &curEntry);
+debian/build/tools-perarch/samples/bpf/cookie_uid_helper_example.c:	res = bpf_map_lookup_elem(map_fd, &cookie, &dataEntry);
+debian/build/tools-perarch/samples/bpf/cookie_uid_helper_example.c:		res = bpf_map_lookup_elem(map_fd, &cookie, &dataEntry);
+debian/build/tools-perarch/samples/bpf/spintest_kern.c:	val = bpf_map_lookup_elem(&my_map, &v); \
+debian/build/tools-perarch/samples/bpf/tracex6_kern.c:	val = bpf_map_lookup_elem(&values, &key);
+debian/build/tools-perarch/samples/bpf/tracex6_kern.c:	val = bpf_map_lookup_elem(&values2, &key);
+debian/build/tools-perarch/samples/bpf/sockex3_kern.c:	return bpf_map_lookup_elem(&percpu_map, &key);
+debian/build/tools-perarch/samples/bpf/sockex3_kern.c:	value = bpf_map_lookup_elem(&hash_map, &key);
+debian/build/tools-perarch/samples/bpf/sampleip_user.c:		bpf_map_lookup_elem(fd, &next_key, &value);
+debian/build/tools-perarch/samples/bpf/syscall_tp_user.c:	if (bpf_map_lookup_elem(map_id, &key, &val) != 0) {
+debian/build/tools-perarch/samples/bpf/xdp_fwd_user.c:			 *  "cannot pass map_type 14 into func bpf_map_lookup_elem#1"
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:	cts = bpf_map_lookup_elem(&my_map, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:	cstate = bpf_map_lookup_elem(&my_map, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:	pts = bpf_map_lookup_elem(&my_map, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:	pstate = bpf_map_lookup_elem(&my_map, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:		val = bpf_map_lookup_elem(&pstate_duration, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:		val = bpf_map_lookup_elem(&cstate_duration, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:	pts = bpf_map_lookup_elem(&my_map, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:	pstate = bpf_map_lookup_elem(&my_map, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:	cstate = bpf_map_lookup_elem(&my_map, &key);
+debian/build/tools-perarch/samples/bpf/cpustat_kern.c:	val = bpf_map_lookup_elem(&pstate_duration, &key);
+debian/build/tools-perarch/samples/bpf/sockex1_kern.c:	value = bpf_map_lookup_elem(&my_map, &index);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_map_multi.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_map_multi.bpf.c:	mac = bpf_map_lookup_elem(&mac_map, &key);
+debian/build/tools-perarch/samples/bpf/xdp_rxq_info_user.c:	if ((bpf_map_lookup_elem(fd, &key, values)) != 0) {
+debian/build/tools-perarch/samples/bpf/xdp_rxq_info_user.c:			"ERR: bpf_map_lookup_elem failed key:0x%X\n", key);
+debian/build/tools-perarch/samples/bpf/offwaketime_user.c:	if (bpf_map_lookup_elem(map_fd[1], &key->tret, ip) != 0) {
+debian/build/tools-perarch/samples/bpf/offwaketime_user.c:	if (bpf_map_lookup_elem(map_fd[1], &key->wret, ip) != 0) {
+debian/build/tools-perarch/samples/bpf/offwaketime_user.c:		bpf_map_lookup_elem(fd, &next_key, &value);
+debian/build/tools-perarch/samples/bpf/offwaketime_kern.c:	woke = bpf_map_lookup_elem(&wokeby, &pid);
+debian/build/tools-perarch/samples/bpf/offwaketime_kern.c:	val = bpf_map_lookup_elem(&counts, &key);
+debian/build/tools-perarch/samples/bpf/offwaketime_kern.c:		val = bpf_map_lookup_elem(&counts, &key);
+debian/build/tools-perarch/samples/bpf/offwaketime_kern.c:	tsp = bpf_map_lookup_elem(&start, &pid);
+debian/build/tools-perarch/samples/bpf/xdp_tx_iptunnel_kern.c:	rxcnt_count = bpf_map_lookup_elem(&rxcnt, &protocol);
+debian/build/tools-perarch/samples/bpf/xdp_tx_iptunnel_kern.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+debian/build/tools-perarch/samples/bpf/xdp_tx_iptunnel_kern.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+debian/build/tools-perarch/samples/bpf/xdp_redirect.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+debian/build/tools-perarch/samples/bpf/syscall_tp_kern.c:	value = bpf_map_lookup_elem(map, &key);
+debian/build/tools-perarch/samples/bpf/xdp_router_ipv4_user.c:					if (bpf_map_lookup_elem(arp_table_map_fd,
+debian/build/tools-perarch/samples/bpf/xdp_router_ipv4_user.c:			if (bpf_map_lookup_elem(lpm_map_fd, prefix_key,
+debian/build/tools-perarch/samples/bpf/xdp_router_ipv4_user.c:			if (bpf_map_lookup_elem(exact_match_map_fd,
+debian/build/tools-perarch/samples/bpf/xdp_router_ipv4_user.c:			assert(bpf_map_lookup_elem(rxcnt_map_fd,
+debian/build/tools-perarch/samples/bpf/tracex6_user.c:	if (bpf_map_lookup_elem(map_fd[1], &cpu, &value)) {
+debian/build/tools-perarch/samples/bpf/tracex6_user.c:	/* The above bpf_map_lookup_elem should trigger the second kprobe */
+debian/build/tools-perarch/samples/bpf/tracex6_user.c:	if (bpf_map_lookup_elem(map_fd[2], &cpu, &value2)) {
+debian/build/tools-perarch/samples/bpf/spintest_user.c:			bpf_map_lookup_elem(map_fd, &next_key, &value);
+debian/build/tools-perarch/samples/bpf/test_map_in_map_kern.c:	result = bpf_map_lookup_elem(inner_map, &port);
+debian/build/tools-perarch/samples/bpf/test_map_in_map_kern.c:	result = bpf_map_lookup_elem(&port_a, &port);
+debian/build/tools-perarch/samples/bpf/test_map_in_map_kern.c:	result = bpf_map_lookup_elem(&port_h, &port);
+debian/build/tools-perarch/samples/bpf/test_map_in_map_kern.c:	inner_map = bpf_map_lookup_elem(outer_map, &port_key);
+debian/build/tools-perarch/samples/bpf/map_perf_test_kern.c:	value = bpf_map_lookup_elem(&hash_map, &key);
+debian/build/tools-perarch/samples/bpf/map_perf_test_kern.c:	value = bpf_map_lookup_elem(&percpu_hash_map, &key);
+debian/build/tools-perarch/samples/bpf/map_perf_test_kern.c:	value = bpf_map_lookup_elem(&hash_map_alloc, &key);
+debian/build/tools-perarch/samples/bpf/map_perf_test_kern.c:	value = bpf_map_lookup_elem(&percpu_hash_map_alloc, &key);
+debian/build/tools-perarch/samples/bpf/map_perf_test_kern.c:		nolocal_lru_map = bpf_map_lookup_elem(&array_of_lru_hashs,
+debian/build/tools-perarch/samples/bpf/map_perf_test_kern.c:			bpf_map_lookup_elem(&lru_hash_lookup_map, &key);
+debian/build/tools-perarch/samples/bpf/map_perf_test_kern.c:		bpf_map_lookup_elem(&lpm_trie_map_alloc, &key);
+debian/build/tools-perarch/samples/bpf/map_perf_test_kern.c:		value = bpf_map_lookup_elem(&hash_map, &key);
+debian/build/tools-perarch/samples/bpf/map_perf_test_kern.c:		value = bpf_map_lookup_elem(&array_map, &key);
+debian/build/tools-perarch/samples/bpf/sockex3_user.c:			bpf_map_lookup_elem(hash_map_fd, &next_key, &value);
+debian/build/tools-perarch/samples/bpf/tracex3_user.c:		bpf_map_lookup_elem(fd, &key, values);
+debian/build/tools-perarch/samples/bpf/tracex2_kern.c:	value = bpf_map_lookup_elem(&my_map, &loc);
+debian/build/tools-perarch/samples/bpf/tracex2_kern.c:	value = bpf_map_lookup_elem(&my_hist_map, &key);
+debian/build/tools-perarch/samples/bpf/sockex1_user.c:		assert(bpf_map_lookup_elem(map_fd, &key, &tcp_cnt) == 0);
+debian/build/tools-perarch/samples/bpf/sockex1_user.c:		assert(bpf_map_lookup_elem(map_fd, &key, &udp_cnt) == 0);
+debian/build/tools-perarch/samples/bpf/sockex1_user.c:		assert(bpf_map_lookup_elem(map_fd, &key, &icmp_cnt) == 0);
+debian/build/tools-perarch/samples/bpf/tc_l2_redirect_kern.c:	ifindex = bpf_map_lookup_elem(&tun_iface, &key);
+debian/build/tools-perarch/samples/bpf/tc_l2_redirect_kern.c:	ifindex = bpf_map_lookup_elem(&tun_iface, &key);
+debian/build/tools-perarch/samples/bpf/tc_l2_redirect_kern.c:	ifindex = bpf_map_lookup_elem(&tun_iface, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_selected = bpf_map_lookup_elem(&cpus_available, &key0);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_selected = bpf_map_lookup_elem(&cpus_available, &key0);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_max = bpf_map_lookup_elem(&cpus_count, &key0);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_iterator = bpf_map_lookup_elem(&cpus_iterator, &key0);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_selected = bpf_map_lookup_elem(&cpus_available, &cpu_idx);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_lookup = bpf_map_lookup_elem(&cpus_available, &cpu_idx);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_lookup = bpf_map_lookup_elem(&cpus_available, &cpu_idx);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_max = bpf_map_lookup_elem(&cpus_count, &key0);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_lookup = bpf_map_lookup_elem(&cpus_available, &cpu_idx);
+debian/build/tools-perarch/samples/bpf/test_lru_dist.c:	if (!bpf_map_lookup_elem(lru->map_fd, &key, &node)) {
+debian/build/tools-perarch/samples/bpf/test_lru_dist.c:		if (!bpf_map_lookup_elem(lru_map_fd, &key, &value))
+debian/build/tools-perarch/samples/bpf/test_lru_dist.c:			bpf_map_lookup_elem(map_fd, &start_key, value);
+debian/build/tools-perarch/samples/bpf/test_lru_dist.c:		if (bpf_map_lookup_elem(map_fd, &key, value)) {
+debian/build/tools-perarch/samples/bpf/test_lru_dist.c:		if (bpf_map_lookup_elem(map_fd, &key, value))
+debian/build/tools-perarch/samples/bpf/test_lru_dist.c:			bpf_map_lookup_elem(map_fd, &key, value);
+debian/build/tools-perarch/samples/bpf/test_lru_dist.c:		if (bpf_map_lookup_elem(map_fd, &key, value))
+debian/build/tools-perarch/samples/bpf/test_cgrp2_attach.c:		assert(bpf_map_lookup_elem(map_fd, &key, &pkt_cnt) == 0);
+debian/build/tools-perarch/samples/bpf/test_cgrp2_attach.c:		assert(bpf_map_lookup_elem(map_fd, &key, &byte_cnt) == 0);
+debian/build/tools-perarch/samples/bpf/lwt_len_hist_user.c:		bpf_map_lookup_elem(map_fd, &next_key, values);
+debian/build/tools-perarch/samples/bpf/xdp1_user.c:			assert(bpf_map_lookup_elem(map_fd, &key, values) == 0);
+debian/build/tools-perarch/samples/bpf/xdp_adjust_tail_user.c:		assert(bpf_map_lookup_elem(map_fd, &key, &value) == 0);
+debian/build/tools-perarch/samples/bpf/test_probe_write_user_kern.c:	mapped_addr = bpf_map_lookup_elem(&dnat_map, &orig_addr);
+debian/build/tools-perarch/samples/bpf/sock_example.c: *   value = bpf_map_lookup_elem(map_fd, fp - 4);
+debian/build/tools-perarch/samples/bpf/sock_example.c:		assert(bpf_map_lookup_elem(map_fd, &key, &tcp_cnt) == 0);
+debian/build/tools-perarch/samples/bpf/sock_example.c:		assert(bpf_map_lookup_elem(map_fd, &key, &udp_cnt) == 0);
+debian/build/tools-perarch/samples/bpf/sock_example.c:		assert(bpf_map_lookup_elem(map_fd, &key, &icmp_cnt) == 0);
+debian/build/tools-perarch/samples/bpf/xdp_router_ipv4_kern.c:		direct_entry = bpf_map_lookup_elem(&exact_match, &dest_ip);
+debian/build/tools-perarch/samples/bpf/xdp_router_ipv4_kern.c:			prefix_value = bpf_map_lookup_elem(&lpm_map, &key4);
+debian/build/tools-perarch/samples/bpf/xdp_router_ipv4_kern.c:			dest_mac = bpf_map_lookup_elem(&arp_table, &dest_ip);
+debian/build/tools-perarch/samples/bpf/xdp_router_ipv4_kern.c:				dest_mac = bpf_map_lookup_elem(&arp_table, &dest_ip);
+debian/build/tools-perarch/samples/bpf/xdp_router_ipv4_kern.c:		value = bpf_map_lookup_elem(&rxcnt, &ipproto);
+debian/build/tools-perarch/samples/bpf/hbm.c:		bpf_map_lookup_elem(queue_stats_fd, &key, &qstats);
+debian/build/tools-perarch/samples/bpf/hbm.c:			bpf_map_lookup_elem(queue_stats_fd, &key, &qstats);
+debian/build/tools-perarch/samples/bpf/hbm.c:	if (stats_flag && bpf_map_lookup_elem(queue_stats_fd, &key, &qstats)) {
+debian/build/tools-perarch/samples/bpf/xdp_adjust_tail_kern.c:	icmp_count = bpf_map_lookup_elem(&icmpcnt, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_cpu_user.c:	ret = bpf_map_lookup_elem(count_fd, &key, &curr_cpus_count);
+debian/build/tools-perarch/samples/bpf/lathist_user.c:			bpf_map_lookup_elem(fd, &key, &value);
+debian/build/tools-perarch/samples/bpf/xdp_fwd_kern.c:		 *  cannot pass map_type 14 into func bpf_map_lookup_elem#1:
+debian/build/tools-perarch/samples/bpf/xdp_fwd_kern.c:		if (!bpf_map_lookup_elem(&xdp_tx_ports, &fib_params.ifindex))
+debian/build/tools-perarch/samples/bpf/trace_event_user.c:	if (bpf_map_lookup_elem(map_fd[1], &key->kernstack, ip) != 0) {
+debian/build/tools-perarch/samples/bpf/trace_event_user.c:	if (bpf_map_lookup_elem(map_fd[1], &key->userstack, ip) != 0) {
+debian/build/tools-perarch/samples/bpf/trace_event_user.c:		bpf_map_lookup_elem(fd, &next_key, &value);
+debian/build/tools-perarch/samples/bpf/sockex2_user.c:			bpf_map_lookup_elem(map_fd, &next_key, &value);
+debian/build/tools-perarch/samples/bpf/trace_event_kern.c:	val = bpf_map_lookup_elem(&counts, &key);
+debian/build/tools-perarch/samples/bpf/xdp_rxq_info_kern.c:	rec = bpf_map_lookup_elem(&stats_global_map, &key);
+debian/build/tools-perarch/samples/bpf/xdp_rxq_info_kern.c:	config = bpf_map_lookup_elem(&config_map, &key);
+debian/build/tools-perarch/samples/bpf/xdp_rxq_info_kern.c:	rxq_rec = bpf_map_lookup_elem(&rx_queue_index_map, &key);
+debian/build/tools-perarch/samples/bpf/xdp_redirect_map.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+debian/build/tools-perarch/tools/include/uapi/linux/bpf.h: * void *bpf_map_lookup_elem(struct bpf_map *map, const void *key)
+debian/build/tools-perarch/tools/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/build/tools-perarch/tools/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/build/tools-perarch/tools/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/build/tools-perarch/tools/perf/examples/bpf/augmented_raw_syscalls.c:	return bpf_map_lookup_elem(&augmented_args_tmp, &key);
+debian/build/tools-perarch/tools/perf/tests/llvm-src-base.c:"static void *(*bpf_map_lookup_elem)(void *map, void *key) =\n"
+debian/build/tools-perarch/tools/perf/tests/llvm-src-base.c:"	int *flag = bpf_map_lookup_elem(&flip_table, &ind);\n"
+debian/build/tools-perarch/tools/perf/tests/llvm-src-relocation.c:"static void *(*bpf_map_lookup_elem)(void *map, void *key) =\n"
+debian/build/tools-perarch/tools/perf/tests/bpf-script-example.c:static void *(*bpf_map_lookup_elem)(void *map, void *key) =
+debian/build/tools-perarch/tools/perf/tests/bpf-script-example.c:	int *flag = bpf_map_lookup_elem(&flip_table, &ind);
+debian/build/tools-perarch/tools/perf/tests/bpf-script-test-relocation.c:static void *(*bpf_map_lookup_elem)(void *map, void *key) =
+debian/build/tools-perarch/tools/perf/include/bpf/pid_filter.h:	return bpf_map_lookup_elem(pids, &pid) != NULL;
+debian/build/tools-perarch/tools/perf/include/bpf/bpf.h:static void *(*bpf_map_lookup_elem)(struct bpf_map *map, void *key) = (void *)BPF_FUNC_map_lookup_elem;
+debian/build/tools-perarch/tools/perf/util/bpf_counter_cgroup.c:		err = bpf_map_lookup_elem(reading_map_fd, &idx, values);
+debian/build/tools-perarch/tools/perf/util/bpf_counter.c:		err = bpf_map_lookup_elem(reading_map_fd, &key, values);
+debian/build/tools-perarch/tools/perf/util/bpf_counter.c:	err = bpf_map_lookup_elem(attr_map_fd, &evsel->core.attr, &entry);
+debian/build/tools-perarch/tools/perf/util/bpf_counter.c:		err = bpf_map_lookup_elem(reading_map_fd, &i, values);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_follower.bpf.c:	accum_key = bpf_map_lookup_elem(&filter, &filter_key);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_follower.bpf.c:	diff_val = bpf_map_lookup_elem(&diff_readings, &zero);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_follower.bpf.c:	accum_val = bpf_map_lookup_elem(&accum_readings, accum_key);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:		elem = bpf_map_lookup_elem(&cgrp_idx, &cgrp_id);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:		elem = bpf_map_lookup_elem(&cgrp_idx, &cgrp_id);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:		prev_val = bpf_map_lookup_elem(&prev_readings, &key);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:			prev_val = bpf_map_lookup_elem(&prev_readings, &key);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:				cgrp_val = bpf_map_lookup_elem(&cgrp_readings, &key);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_leader.bpf.c:	prev_val = bpf_map_lookup_elem(&prev_readings, &zero);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bperf_leader.bpf.c:	diff_val = bpf_map_lookup_elem(&diff_readings, &zero);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bpf_prog_profiler.bpf.c:	ptr = bpf_map_lookup_elem(&fentry_readings, &zero);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bpf_prog_profiler.bpf.c:	before = bpf_map_lookup_elem(&fentry_readings, &zero);
+debian/build/tools-perarch/tools/perf/util/bpf_skel/bpf_prog_profiler.bpf.c:		accum = bpf_map_lookup_elem(&accum_readings, &zero);
+debian/build/tools-perarch/tools/perf/util/bpf_map.c:		if (!bpf_map_lookup_elem(fd, key, value)) {
+debian/build/tools-perarch/tools/lib/bpf/bpf_helper_defs.h: * bpf_map_lookup_elem
+debian/build/tools-perarch/tools/lib/bpf/bpf_helper_defs.h:static void *(*bpf_map_lookup_elem)(void *map, const void *key) = (void *) 1;
+debian/build/tools-perarch/tools/lib/bpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/build/tools-perarch/tools/lib/bpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/build/tools-perarch/tools/lib/bpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/build/tools-perarch/tools/lib/bpf/xsk.c:	 *     if (bpf_map_lookup_elem(&xsks_map, &index))
+debian/build/tools-perarch/tools/lib/bpf/xsk.c:		/* call bpf_map_lookup_elem */
+debian/build/tools-perarch/tools/lib/bpf/libbpf.map:		bpf_map_lookup_elem;
+debian/build/tools-perarch/tools/lib/bpf/libbpf.map:		bpf_map_lookup_elem_flags;
+debian/build/tools-perarch/tools/lib/bpf/libbpf.h: *     bpf_map_lookup_elem(per_cpu_map_fd, key, values);
+debian/build/tools-perarch/tools/lib/bpf/bpf.h:LIBBPF_API int bpf_map_lookup_elem(int fd, const void *key, void *value);
+debian/build/tools-perarch/tools/lib/bpf/bpf.h:LIBBPF_API int bpf_map_lookup_elem_flags(int fd, const void *key, void *value,
+debian/build/tools-perarch/tools/lib/bpf/bpf.c:int bpf_map_lookup_elem(int fd, const void *key, void *value)
+debian/build/tools-perarch/tools/lib/bpf/bpf.c:int bpf_map_lookup_elem_flags(int fd, const void *key, void *value, __u64 flags)
+debian/build/tools-perarch/tools/bpf/bpftool/vmlinux.h:typedef u64 (*btf_bpf_map_lookup_elem)(struct bpf_map *, void *);
+debian/build/tools-perarch/tools/bpf/bpftool/Documentation/bpftool-gen.rst:  	bpf_map_lookup_elem(&my_map, &zero);
+debian/build/tools-perarch/tools/bpf/bpftool/map.c:	if (bpf_map_lookup_elem(fd, key, value)) {
+debian/build/tools-perarch/tools/bpf/bpftool/map.c:	err = bpf_map_lookup_elem(fd, key, value);
+debian/build/tools-perarch/tools/bpf/bpftool/map.c:	/* here means bpf_map_lookup_elem() succeeded */
+debian/build/tools-perarch/tools/bpf/bpftool/struct_ops.c:	if (bpf_map_lookup_elem(fd, &zero, value)) {
+debian/build/tools-perarch/tools/bpf/bpftool/prog.c:		if (bpf_map_lookup_elem(map_fd, &key, value)) {
+debian/build/tools-perarch/tools/bpf/bpftool/prog.c:	err = bpf_map_lookup_elem(count_map_fd, &key, counts);
+debian/build/tools-perarch/tools/bpf/bpftool/prog.c:		err = bpf_map_lookup_elem(reading_map_fd, &key, values);
+debian/build/tools-perarch/tools/bpf/bpftool/bootstrap/libbpf/bpf_helper_defs.h: * bpf_map_lookup_elem
+debian/build/tools-perarch/tools/bpf/bpftool/bootstrap/libbpf/bpf_helper_defs.h:static void *(*bpf_map_lookup_elem)(void *map, const void *key) = (void *) 1;
+debian/build/tools-perarch/tools/bpf/bpftool/bootstrap/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/build/tools-perarch/tools/bpf/bpftool/bootstrap/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/build/tools-perarch/tools/bpf/bpftool/bootstrap/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/build/tools-perarch/tools/bpf/bpftool/skeleton/profiler.bpf.c:		ptrs[i] = bpf_map_lookup_elem(&fentry_readings, &flag);
+debian/build/tools-perarch/tools/bpf/bpftool/skeleton/profiler.bpf.c:	before = bpf_map_lookup_elem(&fentry_readings, &id);
+debian/build/tools-perarch/tools/bpf/bpftool/skeleton/profiler.bpf.c:		accum = bpf_map_lookup_elem(&accum_readings, &id);
+debian/build/tools-perarch/tools/bpf/bpftool/skeleton/profiler.bpf.c:	count = bpf_map_lookup_elem(&counts, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/tcp_rtt.c:	if (CHECK_FAIL(bpf_map_lookup_elem(map_fd, &client_fd, &val) < 0)) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/netcnt.c:	if (!ASSERT_OK(bpf_map_lookup_elem(map_fd, &key, &netcnt), "bpf_map_lookup_elem(netcnt)"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/netcnt.c:	if (!ASSERT_OK(bpf_map_lookup_elem(percpu_map_fd, &key, &percpu_netcnt[0]),
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/netcnt.c:		       "bpf_map_lookup_elem(percpu_netcnt)"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/flow_dissector.c:		err = bpf_map_lookup_elem(keys_fd, &key, &flow_keys);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/flow_dissector.c:		CHECK_ATTR(err, tests[i].name, "bpf_map_lookup_elem %d\n", err);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/mmap.c:	CHECK_FAIL(bpf_map_lookup_elem(data_map_fd, &zero, &val));
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/mmap.c:	CHECK_FAIL(bpf_map_lookup_elem(data_map_fd, &one, &val));
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/mmap.c:	CHECK_FAIL(bpf_map_lookup_elem(data_map_fd, &two, &val));
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/mmap.c:	CHECK_FAIL(bpf_map_lookup_elem(data_map_fd, &far, &val));
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/stacktrace_build_id.c:		err = bpf_map_lookup_elem(stackmap_fd, &key, id_offs);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/syscall.c:	err = bpf_map_lookup_elem(ctx.map_fd, &key, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_obj_id.c:		err = bpf_map_lookup_elem(map_fd, &array_key, &array_value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/tcp_hdr_options.c:	if (CHECK(bpf_map_lookup_elem(hdr_stg_map_fd, &fd, &act),
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/tcp_hdr_options.c:	if (!bpf_map_lookup_elem(lport_linum_map_fd, &lport, &linum_err)) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/tcp_hdr_options.c:	if (!bpf_map_lookup_elem(lport_linum_map_fd, &lport, &linum_err)) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/probe_user.c:	err = bpf_map_lookup_elem(results_map_fd, &zero, &tmp);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/tailcalls.c:	err = bpf_map_lookup_elem(data_fd, &i, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/tailcalls.c:	err = bpf_map_lookup_elem(data_fd, &i, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/tailcalls.c:	err = bpf_map_lookup_elem(data_fd, &i, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/kfree_skb.c:	err = bpf_map_lookup_elem(bpf_map__fd(global_data), &zero, test_ok);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sk_storage_tracing.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.sk_stg_map), &sk_fd,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sk_storage_tracing.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.del_sk_stg_map),
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/global_data.c:		err = bpf_map_lookup_elem(map_fd, &tests[i].key, &num);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/global_data.c:		err = bpf_map_lookup_elem(map_fd, &tests[i].key, str);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/global_data.c:		err = bpf_map_lookup_elem(map_fd, &tests[i].key, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_iter.c:		err = bpf_map_lookup_elem(map_fd, &i, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	err = bpf_map_lookup_elem(map_fd, &sock_fd, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	if (CHECK(!err || errno != ENOENT, "bpf_map_lookup_elem",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	err = bpf_map_lookup_elem(map_fd, &sock_fd, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	if (CHECK(err || val != getpid(), "bpf_map_lookup_elem",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	err = bpf_map_lookup_elem(map_fd, &sock_fd, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	CHECK(err || val != -getpid(), "bpf_map_lookup_elem",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/fexit_bpf2bpf.c:	ret = bpf_map_lookup_elem(bpf_map__fd(data_map), &zero, result);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/rdonly_maps.c:		err = bpf_map_lookup_elem(bpf_map__fd(bss_map), &zero, &bss);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/core_retro.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.results), &zero, &res);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/map_init.c:	err = bpf_map_lookup_elem(map_fd, &key, value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/map_init.c:	if (!ASSERT_OK(err, "bpf_map_lookup_elem"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/map_init.c:	err = bpf_map_lookup_elem(map_fd, &key, value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/map_init.c:	if (!ASSERT_OK(err, "bpf_map_lookup_elem"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/core_autosize.c:	err = bpf_map_lookup_elem(bpf_map__fd(bss_map), &zero, (void *)&out);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/socket_cookie.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.socket_cookies),
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/select_reuseport.c:	err = bpf_map_lookup_elem(linum_map, &index_zero, &linum);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/select_reuseport.c:	err = bpf_map_lookup_elem(data_check_map, &index_zero, &result);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/select_reuseport.c:		err = bpf_map_lookup_elem(result_map, &i, &results[i]);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/select_reuseport.c:	err = bpf_map_lookup_elem(tmp_index_ovr_map, &index_zero,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/select_reuseport.c:		err = bpf_map_lookup_elem(result_map, &i, &tmp);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/select_reuseport.c:		err = bpf_map_lookup_elem(result_map, &i, &tmp);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/xdp_devmap_attach.c:	err = bpf_map_lookup_elem(map_fd, &idx, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/stacktrace_build_id_nmi.c:		err = bpf_map_lookup_elem(stackmap_fd, &key, id_offs);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/load_bytes_relative.c:	err = bpf_map_lookup_elem(map_fd, &map_key, &map_value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:#define xbpf_map_lookup_elem(fd, key, val)                                     \
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:		int __ret = bpf_map_lookup_elem((fd), (key), (val));           \
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	xbpf_map_lookup_elem(mapfd, &key, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = bpf_map_lookup_elem(mapfd, &key, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = bpf_map_lookup_elem(mapfd, &key, &value32);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &drop);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_map, &key, &pass);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_map, &key, &drop);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_map, &key, &drop);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/netns_cookie.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.sockops_netns_cookies),
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/netns_cookie.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.sk_msg_netns_cookies),
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/migrate_reuseport.c:		err = bpf_map_lookup_elem(reuseport_map_fd, &i, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/migrate_reuseport.c:		if (!ASSERT_OK(err, "bpf_map_lookup_elem - reuseport_map"))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/hash_large_key.c:	err = bpf_map_lookup_elem(hash_map_fd, &key, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/hash_large_key.c:	if (CHECK(err, "bpf_map_lookup_elem", "errno=%d\n", errno))
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/xdp_cpumap_attach.c:	err = bpf_map_lookup_elem(map_fd, &idx, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/global_func_args.c:		err = bpf_map_lookup_elem(map_fd, &i, &actual_value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_basic.c:		err = bpf_map_lookup_elem(src_fd, &i, &src_cookie);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_basic.c:			err = bpf_map_lookup_elem(dst_fd, &i, &dst_cookie);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sockmap_basic.c:		err = bpf_map_lookup_elem(dst_fd, &i, &dst_cookie);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/xdp_noinline.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.stats), &stats_key, stats);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/recursion.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.hash1), &key, 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/recursion.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.hash1), &key, 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/recursion.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.hash2), &key, 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/recursion.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.hash2), &key, 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/cg_storage_multi.c:	if (CHECK(bpf_map_lookup_elem(map_fd, key, &value) < 0,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/cg_storage_multi.c:	if (CHECK(bpf_map_lookup_elem(map_fd, key, &value) == 0,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(linum_map_fd, &idx, &egress_linum);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	CHECK(err < 0, "bpf_map_lookup_elem(linum_map_fd)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(linum_map_fd, &idx, &ingress_linum);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	CHECK(err < 0, "bpf_map_lookup_elem(linum_map_fd)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(linum_map_fd, &idx, &linum);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	ASSERT_OK(err, "bpf_map_lookup_elem(linum_map_fd, READ_SK_DST_PORT_IDX)");
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(sk_pkt_out_cnt_fd, &accept_fd, &pkt_out_cnt);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:		err = bpf_map_lookup_elem(sk_pkt_out_cnt10_fd, &accept_fd,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	      "bpf_map_lookup_elem(sk_pkt_out_cnt, &accept_fd)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(sk_pkt_out_cnt_fd, &cli_fd, &pkt_out_cnt);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:		err = bpf_map_lookup_elem(sk_pkt_out_cnt10_fd, &cli_fd,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sock_fields.c:	      "bpf_map_lookup_elem(sk_pkt_out_cnt, &cli_fd)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map1_fd, &key, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map2_fd, &key, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map3_fd, &key, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map1_fd, &key, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map2_fd, &key, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map4_fd, &key, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map5_fd, &key, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/l4lb_all.c:	bpf_map_lookup_elem(map_fd, &stats_key, stats);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	err = bpf_map_lookup_elem(map_fd, &prog_idx, &done);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	CHECK(err, "bpf_map_lookup_elem", "failed\n");
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	CHECK(!done, "bpf_map_lookup_elem", "PROG1 !done\n");
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	err = bpf_map_lookup_elem(map_fd, &prog_idx, &done);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	CHECK(err, "bpf_map_lookup_elem", "failed\n");
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	CHECK(!done, "bpf_map_lookup_elem", "PROG2 !done\n");
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/global_data_init.c:		err = bpf_map_lookup_elem(map_fd, &zero, buff);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/for_each.c:	err = bpf_map_lookup_elem(hashmap_fd, &key, &val);
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	err = bpf_map_lookup_elem_flags(map_fd, &obj_fd, &lookup_val,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	if (CHECK(!err || errno != ENOENT, "bpf_map_lookup_elem",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	err = bpf_map_lookup_elem_flags(map_fd, &obj_fd, &lookup_val,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	if (CHECK(err < 0, "bpf_map_lookup_elem", "err:%d errno:%d", err,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	if (CHECK(lookup_val.value != val.value, "bpf_map_lookup_elem",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	err = bpf_map_lookup_elem_flags(map_fd, &obj_fd, &lookup_val,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	if (CHECK(!err || errno != ENOENT, "bpf_map_lookup_elem",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_tcp_ca.c:		err = bpf_map_lookup_elem(bpf_map__fd(sk_stg_map), &fd,
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/bpf_tcp_ca.c:			  "bpf_map_lookup_elem(sk_stg_map)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/prog_tests/map_lock.c:		err = bpf_map_lookup_elem_flags(map_fd, &key, vars, BPF_F_LOCK);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_tcpnotify_user.c:	rv = bpf_map_lookup_elem(bpf_map__fd(global_map), &key, &g);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_tcpnotify_user.c:		printf("FAILED: bpf_map_lookup_elem returns %d\n", rv);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_skb_cgroup_id_user.c:		if (bpf_map_lookup_elem(map_fd, &level, &actual_ids[level])) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) == 0 && value == 1234);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == ENOENT);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, value) == 0 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, value) < 0 && errno == ENOENT);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &next_key, value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) == 0 && value == 1234);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) == 0 && value == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == ENOENT);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, values) == 0 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, values) == 0 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, values) < 0 && errno == ENOENT);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, values) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, NULL, &val) == 0 && val == vals[0]);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, NULL, &val) == 0 && val == vals[i - 1]);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) == 0 && value == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == ENOENT);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, &value) == 0 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == ENOENT);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == EPERM);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, NULL, &value) < 0 && errno == EPERM);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	err = bpf_map_lookup_elem(map_fd, &bad_index, &map_cookie);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	err = bpf_map_lookup_elem(map_fd, &index3, &map_cookie);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:		err = bpf_map_lookup_elem(map_fd, &index3, &map_cookie);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:		err = bpf_map_lookup_elem(map_fd, &index3, &map_cookie);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_maps.c:	err = bpf_map_lookup_elem(map_fd, &index3, &map_cookie);
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+debian/build/tools-perarch/tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_progs.c:	err = bpf_map_lookup_elem(map2_fd, &key, val_buf);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_progs.c:		err = bpf_map_lookup_elem(map2_fd, &next_key, val_buf);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_progs.c:		err = bpf_map_lookup_elem(smap_fd, next_key_p, val_buf1);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_progs.c:		err = bpf_map_lookup_elem(amap_fd, next_key_p, val_buf2);
+debian/build/tools-perarch/tools/testing/selftests/bpf/xdping.c:	if (bpf_map_lookup_elem(fd, &raddr, &pinginfo)) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/verifier/prevent_map_lookup.c:	.errstr = "cannot pass map_type 7 into func bpf_map_lookup_elem",
+debian/build/tools-perarch/tools/testing/selftests/bpf/verifier/prevent_map_lookup.c:	.errstr = "cannot pass map_type 3 into func bpf_map_lookup_elem",
+debian/build/tools-perarch/tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(smap, &key)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/verifier/sock.c:	.errstr = "cannot pass map_type 24 into func bpf_map_lookup_elem",
+debian/build/tools-perarch/tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(xskmap, &key); xs->queue_id",
+debian/build/tools-perarch/tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(sockmap, &key)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(sockhash, &key)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(sockmap, &key); sk->type [fullsock field]; bpf_sk_release(sk)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(sockhash, &key); sk->type [fullsock field]; bpf_sk_release(sk)",
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_cgroup_storage.c:	if (bpf_map_lookup_elem(map_fd, &key, &value)) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_cgroup_storage.c:	if (bpf_map_lookup_elem(map_fd, &key, &value)) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_cgroup_storage.c:	if (bpf_map_lookup_elem(map_fd, &key, &value)) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_cgroup_storage.c:	if (bpf_map_lookup_elem(percpu_map_fd, &key, percpu_value)) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/get_cgroup_id_user.c:	err = bpf_map_lookup_elem(cgidmap_fd, &key, &kcgid);
+debian/build/tools-perarch/tools/testing/selftests/bpf/get_cgroup_id_user.c:	if (CHECK(err, "bpf_map_lookup_elem", "err %d errno %d\n", err, errno))
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:		r = bpf_map_lookup_elem(map, key, value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:		r = bpf_map_lookup_elem(map, key, value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv4, key_ipv4, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv4, key_ipv4, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv6, key_ipv6, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv6, key_ipv6, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv4, key_ipv4, &value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv4, key_ipv4, &value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv6, key_ipv6, &value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == 0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lpm_map.c:				ret = bpf_map_lookup_elem(info->map_fd, key_p, &value);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_hash_large_key.c:	key = bpf_map_lookup_elem(&key_map, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&array, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&hash, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&lru_hash, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&percpu_array, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&percpu_hash, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&lru_percpu_hash, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:	inner_map = bpf_map_lookup_elem(&outer_arr, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:		value = bpf_map_lookup_elem(inner_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:	inner_map = bpf_map_lookup_elem(&outer_hash, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/lsm.c:		value = bpf_map_lookup_elem(inner_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/linked_maps2.c:	value_struct = bpf_map_lookup_elem(&map1, &key_struct);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/linked_maps2.c:	val = bpf_map_lookup_elem(&map2, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/linked_maps2.c:	val = bpf_map_lookup_elem(&map_weak, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/xdp_redirect_multi_kern.c:	mac = bpf_map_lookup_elem(&mac_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/pyperf.h:	PidData* pidData = bpf_map_lookup_elem(&pidmap, &pid);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/pyperf.h:	Event* event = bpf_map_lookup_elem(&eventmap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/pyperf.h:		int32_t* symbol_counter = bpf_map_lookup_elem(&symbolmap, &sym);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/pyperf.h:				int32_t *symbol_id = bpf_map_lookup_elem(&symbolmap, &sym);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/pyperf.h:					symbol_id = bpf_map_lookup_elem(&symbolmap, &sym);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/pyperf.h:	Stats* stats = bpf_map_lookup_elem(&statsmap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_kill_data_t* kill_data = bpf_map_lookup_elem(&data_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_kill_data_arr_t* arr_struct = bpf_map_lookup_elem(&var_tpid_to_data, &tpid);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:		arr_struct = bpf_map_lookup_elem(&data_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:		bpf_map_lookup_elem(&bpf_func_stats, &func_id_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:		bool* allowed_dir = bpf_map_lookup_elem(&allowed_directory_inodes, &dir_ino);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	bool* allowed_device = bpf_map_lookup_elem(&allowed_devices, &dev_id);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	bool* allowed_file = bpf_map_lookup_elem(&allowed_file_inodes, &ino);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:		bpf_map_lookup_elem(&data_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_kill_data_arr_t* arr_struct = bpf_map_lookup_elem(&var_tpid_to_data, &tpid);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_kill_data_t* kill_data = bpf_map_lookup_elem(&data_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	bool* should_filter_binprm = bpf_map_lookup_elem(&disallowed_exec_inodes, &inode);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_exec_data_t* proc_exec_data = bpf_map_lookup_elem(&data_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_filemod_data_t* filemod_data = bpf_map_lookup_elem(&data_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_filemod_data_t* filemod_data = bpf_map_lookup_elem(&data_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_filemod_data_t* filemod_data = bpf_map_lookup_elem(&data_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_fork_data_t* fork_data = bpf_map_lookup_elem(&data_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/strobemeta.h:	cfg = bpf_map_lookup_elem(&strobemeta_cfgs, &pid);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/strobemeta.h:	sample = bpf_map_lookup_elem(&sample_heap, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_global_func9.c:		const struct S *s = bpf_map_lookup_elem(&map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_btf_nokv.c:	counts = bpf_map_lookup_elem(&btf_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/tailcall_bpf2bpf4.c:	bpf_map_lookup_elem(&nop_table, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/xdping_kern.c:	pinginfo = bpf_map_lookup_elem(&ping_map, &raddr);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer_mim.c:	bpf_map_lookup_elem(map, key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer_mim.c:	inner_map = bpf_map_lookup_elem(&outer_arr, &array_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer_mim.c:	val = bpf_map_lookup_elem(inner_map, &hash_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_mmap.c:	p = bpf_map_lookup_elem(&data_map, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_map_lock.c:	val = bpf_map_lookup_elem(&hash_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_map_lock.c:	q = bpf_map_lookup_elem(&array_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer_mim_reject.c:	inner_map = bpf_map_lookup_elem(&outer_arr, &array_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer_mim_reject.c:	inner_map2 = bpf_map_lookup_elem(&outer_arr, &array_key2);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer_mim_reject.c:	val = bpf_map_lookup_elem(inner_map, &hash_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk1 = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk2 = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_tcpnotify_kern.c:			gp = bpf_map_lookup_elem(&global_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_ringbuf_multi.c:	rb = bpf_map_lookup_elem(&ringbuf_arr, &target_ring);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_assign.c:	sk = bpf_map_lookup_elem(&server_map, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sk_assign.c:	sk = bpf_map_lookup_elem(&server_map, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_obj_id.c:	value = bpf_map_lookup_elem(&test_map_id, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_btf_map_in_map.c:	inner_map = bpf_map_lookup_elem(&outer_arr, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_btf_map_in_map.c:	inner_map = bpf_map_lookup_elem(&outer_hash, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_btf_map_in_map.c:	inner_map = bpf_map_lookup_elem(&outer_arr_dyn, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/sample_map_ret0.c:	value = bpf_map_lookup_elem(&htab, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/sample_map_ret0.c:	value = bpf_map_lookup_elem(&array, &key64);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/linked_maps1.c:	value_struct = bpf_map_lookup_elem(&map1, &key_struct);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/linked_maps1.c:	val = bpf_map_lookup_elem(&map2, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/linked_maps1.c:	val = bpf_map_lookup_elem(&map_weak, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_btf_haskv.c:	counts = bpf_map_lookup_elem(&btf_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_select_reuseport_kern.c:	reuseport_array = bpf_map_lookup_elem(&outer_map, &index_zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_select_reuseport_kern.c:	index_ovr = bpf_map_lookup_elem(&tmp_index_ovr_map, &index_zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_select_reuseport_kern.c:	result_cnt = bpf_map_lookup_elem(&result_map, &result);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_btf_newkv.c:	counts = bpf_map_lookup_elem(&btf_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_btf_newkv.c:	counts = bpf_map_lookup_elem(&btf_map_legacy, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_stacktrace_build_id.c:	value_p = bpf_map_lookup_elem(&control_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_stacktrace_build_id.c:		stack_p = bpf_map_lookup_elem(&stack_amap, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_get_stack_rawtp.c:	data = bpf_map_lookup_elem(&stackdata_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_get_stack_rawtp.c:	raw_data = bpf_map_lookup_elem(&rawdata_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_update.c:	sk = bpf_map_lookup_elem(&src, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/recursion.c:		bpf_map_lookup_elem(&hash2, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_cls_redirect.c:	return bpf_map_lookup_elem(&metrics_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_skb_opts, &two);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_skb_opts, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_skb_opts, &one);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_skb_opts, &one);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_apply_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_cork_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start = bpf_map_lookup_elem(&sock_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end = bpf_map_lookup_elem(&sock_bytes, &one);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_push = bpf_map_lookup_elem(&sock_bytes, &two);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end_push = bpf_map_lookup_elem(&sock_bytes, &three);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_pop = bpf_map_lookup_elem(&sock_bytes, &four);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	pop = bpf_map_lookup_elem(&sock_bytes, &five);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_apply_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_cork_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start = bpf_map_lookup_elem(&sock_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end = bpf_map_lookup_elem(&sock_bytes, &one);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_push = bpf_map_lookup_elem(&sock_bytes, &two);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end_push = bpf_map_lookup_elem(&sock_bytes, &three);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_pop = bpf_map_lookup_elem(&sock_bytes, &four);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	pop = bpf_map_lookup_elem(&sock_bytes, &five);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_redir_flags, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_apply_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_cork_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_apply_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_cork_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start = bpf_map_lookup_elem(&sock_bytes, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end = bpf_map_lookup_elem(&sock_bytes, &one);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_push = bpf_map_lookup_elem(&sock_bytes, &two);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end_push = bpf_map_lookup_elem(&sock_bytes, &three);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_pop = bpf_map_lookup_elem(&sock_bytes, &four);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	pop = bpf_map_lookup_elem(&sock_bytes, &five);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/netif_receive_skb.c:	str = bpf_map_lookup_elem(&strdata, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_map_in_map.c:	map = bpf_map_lookup_elem(&mim_array, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_map_in_map.c:	value_p = bpf_map_lookup_elem(map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_map_in_map.c:	map = bpf_map_lookup_elem(&mim_hash, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_core_retro.c:	int *exp_tgid = bpf_map_lookup_elem(&exp_tgid_map, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_loop.c:	rxcnt_count = bpf_map_lookup_elem(&rxcnt, &protocol);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_loop.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_loop.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/freplace_cls_redirect.c:	sk = bpf_map_lookup_elem(&sock_map, &zero);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/map_ptr_kern.c:		__u32 *val = bpf_map_lookup_elem(array, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb.c:	real_pos = bpf_map_lookup_elem(&ch_rings, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb.c:	*real = bpf_map_lookup_elem(&reals, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb.c:	vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb.c:		vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb.c:		cval = bpf_map_lookup_elem(&ctl_array, &v6_intf_pos);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb.c:		cval = bpf_map_lookup_elem(&ctl_array, &v4_intf_pos);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb.c:	data_stats = bpf_map_lookup_elem(&stats, &vip_num);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_spin_lock.c:	val = bpf_map_lookup_elem(&hmap, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_spin_lock.c:		val = bpf_map_lookup_elem(&hmap, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_spin_lock.c:	q = bpf_map_lookup_elem(&vqueue, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/perf_event_stackmap.c:	trace = bpf_map_lookup_elem(&stackdata_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_subprogs.c:	bpf_map_lookup_elem(&array, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_subprogs.c:	bpf_map_lookup_elem(&array, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_stacktrace_map.c:	value_p = bpf_map_lookup_elem(&control_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_stacktrace_map.c:		stack_p = bpf_map_lookup_elem(&stack_amap, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/get_cgroup_id_kern.c:	expected_pid = bpf_map_lookup_elem(&pidmap, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/get_cgroup_id_kern.c:	val = bpf_map_lookup_elem(&cg_ids, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_tc_edt.c:	uint64_t *last_tstamp = bpf_map_lookup_elem(&flow_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_migrate_reuseport.c:	key = bpf_map_lookup_elem(&migrate_map, &cookie);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_listen.c:	count = bpf_map_lookup_elem(&verdict_map, &verdict);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_listen.c:	count = bpf_map_lookup_elem(&verdict_map, &verdict);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_listen.c:	count = bpf_map_lookup_elem(&verdict_map, &verdict);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_sockmap_listen.c:	count = bpf_map_lookup_elem(&verdict_map, &verdict);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:	real_pos = bpf_map_lookup_elem(&ch_rings, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:	*real = bpf_map_lookup_elem(&reals, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:	vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:		vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:		cval = bpf_map_lookup_elem(&ctl_array, &v6_intf_pos);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:		cval = bpf_map_lookup_elem(&ctl_array, &v4_intf_pos);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:	data_stats = bpf_map_lookup_elem(&stats, &vip_num);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:		lru_timer = bpf_map_lookup_elem(&lru, &lru_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:			bpf_map_lookup_elem(map, &lru_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	arr_timer = bpf_map_lookup_elem(&array, &array_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	lru_timer = bpf_map_lookup_elem(&lru, &lru_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	arr_timer = bpf_map_lookup_elem(&array, &array_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:		arr_timer = bpf_map_lookup_elem(&array, &array_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap_malloc, &key_malloc);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap_malloc, &key_malloc);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap_malloc, &key_malloc);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap_malloc, &key_malloc);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp.c:	rxcnt_count = bpf_map_lookup_elem(&rxcnt, &protocol);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/freplace_attach_probe.c:	val = bpf_map_lookup_elem(&hash_map, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	real_pos = bpf_map_lookup_elem(&ch_rings, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	*real = bpf_map_lookup_elem(&reals, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:		    bpf_map_lookup_elem(&stats, &conn_rate_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	dst_lru = bpf_map_lookup_elem(lru_map, &pckt->flow);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	*real = bpf_map_lookup_elem(&reals, &key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:		vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	data_stats = bpf_map_lookup_elem(&stats, &stats_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:			    bpf_map_lookup_elem(&stats, &lru_stats_key);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	cval = bpf_map_lookup_elem(&ctl_array, &mac_addr_pos);
+debian/build/tools-perarch/tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	data_stats = bpf_map_lookup_elem(&stats, &vip_num);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:static int bpf_map_lookup_elem_with_ref_bit(int fd, unsigned long long key,
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem(mfd, &zero, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem(map1, &next_key, value1));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:		ret = bpf_map_lookup_elem(map0, &next_key, value0);
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:		assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(map_fd, last_key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(map_fd, key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(map_fd, &last_key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:			assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd,
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem(lru_map_fd, &key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem(lru_map_fd, &key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_tcp_check_syncookie_user.c:	if (bpf_map_lookup_elem(results_fd, &key, &value) < 0) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_tcp_check_syncookie_user.c:	if (bpf_map_lookup_elem(results_fd, &key_gen, &value_gen) < 0) {
+debian/build/tools-perarch/tools/testing/selftests/bpf/test_tcp_check_syncookie_user.c:	if (bpf_map_lookup_elem(results_fd, &key_mss, &value_mss) < 0) {
+debian/build/tools-perarch/kernel/trace/bpf_trace.c:		return &bpf_map_lookup_elem_proto;
+debian/build/tools-perarch/kernel/bpf/core.c:const struct bpf_func_proto bpf_map_lookup_elem_proto __weak;
+debian/build/tools-perarch/kernel/bpf/hashtab.c: * arguments have to match bpf_map_lookup_elem() exactly.
+debian/build/tools-perarch/kernel/bpf/hashtab.c:/* inline bpf_map_lookup_elem() call.
+debian/build/tools-perarch/kernel/bpf/hashtab.c: *   bpf_map_lookup_elem
+debian/build/tools-perarch/kernel/bpf/hashtab.c:	 * same as the one seen by the bpf program with bpf_map_lookup_elem().
+debian/build/tools-perarch/kernel/bpf/verifier.c: * For example the argument constraints for bpf_map_lookup_elem():
+debian/build/tools-perarch/kernel/bpf/verifier.c: * u64 bpf_map_lookup_elem(u64 r1, u64 r2, u64 r3, u64 r4, u64 r5)
+debian/build/tools-perarch/kernel/bpf/verifier.c: * R0->type = PTR_TO_MAP_VALUE_OR_NULL which means bpf_map_lookup_elem() function
+debian/build/tools-perarch/kernel/bpf/verifier.c:			 * inner_map1 = bpf_map_lookup_elem(outer_map, key1)
+debian/build/tools-perarch/kernel/bpf/verifier.c:			 * inner_map2 = bpf_map_lookup_elem(outer_map, key2)
+debian/build/tools-perarch/kernel/bpf/verifier.c:			 *     timer = bpf_map_lookup_elem(inner_map1);
+debian/build/tools-perarch/kernel/bpf/verifier.c:		 * to map element returned from bpf_map_lookup_elem()
+debian/build/tools-perarch/kernel/bpf/verifier.c:	/* detect if R == 0 where R is returned from bpf_map_lookup_elem().
+debian/build/tools-perarch/kernel/bpf/helpers.c: * bpf_map_lookup_elem_proto, so that verifier can properly check the arguments
+debian/build/tools-perarch/kernel/bpf/helpers.c:BPF_CALL_2(bpf_map_lookup_elem, struct bpf_map *, map, void *, key)
+debian/build/tools-perarch/kernel/bpf/helpers.c:const struct bpf_func_proto bpf_map_lookup_elem_proto = {
+debian/build/tools-perarch/kernel/bpf/helpers.c:	.func		= bpf_map_lookup_elem,
+debian/build/tools-perarch/kernel/bpf/helpers.c:		return &bpf_map_lookup_elem_proto;
+debian/build/tools-perarch/drivers/media/rc/bpf-lirc.c:		return &bpf_map_lookup_elem_proto;
+debian/build/build-generic/.tmp_vmlinux.btf.map:                0xffffffff81269270                bpf_map_lookup_elem
+debian/build/build-generic/.tmp_vmlinux.btf.map:                0xffffffff82239580                bpf_map_lookup_elem_proto
+debian/build/build-generic/.tmp_vmlinux.kallsyms2.map:                0xffffffff81269270                bpf_map_lookup_elem
+debian/build/build-generic/.tmp_vmlinux.kallsyms2.map:                0xffffffff82239580                bpf_map_lookup_elem_proto
+debian/build/build-generic/.tmp_System.map:ffffffff81269270 T bpf_map_lookup_elem
+debian/build/build-generic/.tmp_System.map:ffffffff82239580 D bpf_map_lookup_elem_proto
+debian/build/build-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * bpf_map_lookup_elem
+debian/build/build-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h:static void *(*bpf_map_lookup_elem)(void *map, const void *key) = (void *) 1;
+debian/build/build-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/build/build-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/build/build-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/build/build-generic/vmlinux.map:                0xffffffff81269270                bpf_map_lookup_elem
+debian/build/build-generic/vmlinux.map:                0xffffffff82239580                bpf_map_lookup_elem_proto
+debian/build/build-generic/.tmp_vmlinux.kallsyms1.map:                0xffffffff81269270                bpf_map_lookup_elem
+debian/build/build-generic/.tmp_vmlinux.kallsyms1.map:                0xffffffff82239580                bpf_map_lookup_elem_proto
+debian/build/build-generic/System.map:ffffffff81269270 T bpf_map_lookup_elem
+debian/build/build-generic/System.map:ffffffff82239580 D bpf_map_lookup_elem_proto
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * bpf_map_lookup_elem
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h:static void *(*bpf_map_lookup_elem)(void *map, const void *key) = (void *) 1;
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88/include/uapi/linux/bpf.h: * void *bpf_map_lookup_elem(struct bpf_map *map, const void *key)
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/build/build-generic/_____________dkms/headers/linux-headers-5.15.0a-88/include/linux/bpf.h:extern const struct bpf_func_proto bpf_map_lookup_elem_proto;
+debian/linux-modules-5.15.0a-88-generic/boot/System.map-5.15.0a-88-generic:ffffffff81269270 T bpf_map_lookup_elem
+debian/linux-modules-5.15.0a-88-generic/boot/System.map-5.15.0a-88-generic:ffffffff82239580 D bpf_map_lookup_elem_proto
+debian/linux-headers-5.15.0a-88-generic/usr/src/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * bpf_map_lookup_elem
+debian/linux-headers-5.15.0a-88-generic/usr/src/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h:static void *(*bpf_map_lookup_elem)(void *map, const void *key) = (void *) 1;
+debian/linux-headers-5.15.0a-88-generic/usr/src/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/linux-headers-5.15.0a-88-generic/usr/src/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/linux-headers-5.15.0a-88-generic/usr/src/linux-headers-5.15.0a-88-generic/tools/bpf/resolve_btfids/libbpf/bpf_helper_defs.h: * 	**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/linux-headers-5.15.0a-88/usr/src/linux-headers-5.15.0a-88/include/uapi/linux/bpf.h: * void *bpf_map_lookup_elem(struct bpf_map *map, const void *key)
+debian/linux-headers-5.15.0a-88/usr/src/linux-headers-5.15.0a-88/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/linux-headers-5.15.0a-88/usr/src/linux-headers-5.15.0a-88/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/linux-headers-5.15.0a-88/usr/src/linux-headers-5.15.0a-88/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/linux-headers-5.15.0a-88/usr/src/linux-headers-5.15.0a-88/include/linux/bpf.h:extern const struct bpf_func_proto bpf_map_lookup_elem_proto;
+debian/linux-libc-dev/usr/include/linux/bpf.h: * void *bpf_map_lookup_elem(struct bpf_map *map, const void *key)
+debian/linux-libc-dev/usr/include/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+debian/linux-libc-dev/usr/include/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+debian/linux-libc-dev/usr/include/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+debian/linux-modules-5.15.0-88-generic/boot/System.map-5.15.0-88-generic:ffffffff81269270 T bpf_map_lookup_elem
+debian/linux-modules-5.15.0-88-generic/boot/System.map-5.15.0-88-generic:ffffffff82239580 D bpf_map_lookup_elem_proto
+samples/bpf/test_map_in_map_user.c:	ret = bpf_map_lookup_elem(map_in_map_fd, &key, &id);
+samples/bpf/test_map_in_map_user.c:		ret = bpf_map_lookup_elem(REG_RESULT_H, &result_key, &result);
+samples/bpf/test_map_in_map_user.c:		ret = bpf_map_lookup_elem(INLINE_RESULT_H, &result_key,
+samples/bpf/test_current_task_under_cgroup_user.c:	bpf_map_lookup_elem(map_fd[1], &idx, &remote_pid);
+samples/bpf/test_current_task_under_cgroup_user.c:	bpf_map_lookup_elem(map_fd[1], &idx, &remote_pid);
+samples/bpf/fds_example.c:		ret = bpf_map_lookup_elem(fd, &key, &value);
+samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&redir_err_cnt, &idx);
+samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&cpumap_enqueue_cnt, &idx);
+samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&cpumap_kthread_cnt, &cpu);
+samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&exception_cnt, &idx);
+samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&devmap_xmit_cnt, &cpu);
+samples/bpf/xdp_sample.bpf.c:	rec = bpf_map_lookup_elem(&devmap_xmit_cnt_multi, &idx);
+samples/bpf/xdp1_kern.c:	value = bpf_map_lookup_elem(&rxcnt, &ipproto);
+samples/bpf/sockex2_kern.c:	value = bpf_map_lookup_elem(&hash_map, &key);
+samples/bpf/ibumad_kern.c:	val = bpf_map_lookup_elem(&read_count, &class);
+samples/bpf/ibumad_kern.c:		val = bpf_map_lookup_elem(&read_count, &class);
+samples/bpf/ibumad_kern.c:	val = bpf_map_lookup_elem(&read_count, &class);
+samples/bpf/ibumad_kern.c:		val = bpf_map_lookup_elem(&read_count, &class);
+samples/bpf/ibumad_kern.c:	val = bpf_map_lookup_elem(&write_count, &class);
+samples/bpf/ibumad_kern.c:		val = bpf_map_lookup_elem(&write_count, &class);
+samples/bpf/tracex2_user.c:		bpf_map_lookup_elem(fd, &next_key, values);
+samples/bpf/tracex2_user.c:			bpf_map_lookup_elem(map_fd[0], &next_key, &value);
+samples/bpf/lwt_len_hist_kern.c:	value = bpf_map_lookup_elem(&lwt_len_hist_map, &key);
+samples/bpf/cpustat_user.c:			bpf_map_lookup_elem(cstate_fd, &key, &value);
+samples/bpf/cpustat_user.c:			bpf_map_lookup_elem(pstate_fd, &key, &value);
+samples/bpf/hbm_edt_kern.c:	qsp = bpf_map_lookup_elem(&queue_stats, &queue_index);
+samples/bpf/hbm_out_kern.c:	qsp = bpf_map_lookup_elem(&queue_stats, &queue_index);
+samples/bpf/lathist_kern.c:	u64 *ts = bpf_map_lookup_elem(&my_map, &cpu);
+samples/bpf/lathist_kern.c:	ts = bpf_map_lookup_elem(&my_map, &cpu);
+samples/bpf/lathist_kern.c:	val = bpf_map_lookup_elem(&my_lat, &key);
+samples/bpf/tracex4_user.c:		bpf_map_lookup_elem(fd, &next_key, &v);
+samples/bpf/xdp2_kern.c:	value = bpf_map_lookup_elem(&rxcnt, &ipproto);
+samples/bpf/sampleip_kern.c:	value = bpf_map_lookup_elem(&ip_map, &ip);
+samples/bpf/tracex3_kern.c:	value = bpf_map_lookup_elem(&my_map, &rq);
+samples/bpf/tracex3_kern.c:	value = bpf_map_lookup_elem(&lat_map, &index);
+samples/bpf/ibumad_user.c:		if (bpf_map_lookup_elem(fd, &key, &value)) {
+samples/bpf/xdp_tx_iptunnel_user.c:			assert(bpf_map_lookup_elem(rxcnt_map_fd, &proto,
+samples/bpf/cookie_uid_helper_example.c:		res = bpf_map_lookup_elem(map_fd, &curN, &curEntry);
+samples/bpf/cookie_uid_helper_example.c:	res = bpf_map_lookup_elem(map_fd, &cookie, &dataEntry);
+samples/bpf/cookie_uid_helper_example.c:		res = bpf_map_lookup_elem(map_fd, &cookie, &dataEntry);
+samples/bpf/spintest_kern.c:	val = bpf_map_lookup_elem(&my_map, &v); \
+samples/bpf/tracex6_kern.c:	val = bpf_map_lookup_elem(&values, &key);
+samples/bpf/tracex6_kern.c:	val = bpf_map_lookup_elem(&values2, &key);
+samples/bpf/sockex3_kern.c:	return bpf_map_lookup_elem(&percpu_map, &key);
+samples/bpf/sockex3_kern.c:	value = bpf_map_lookup_elem(&hash_map, &key);
+samples/bpf/sampleip_user.c:		bpf_map_lookup_elem(fd, &next_key, &value);
+samples/bpf/syscall_tp_user.c:	if (bpf_map_lookup_elem(map_id, &key, &val) != 0) {
+samples/bpf/xdp_fwd_user.c:			 *  "cannot pass map_type 14 into func bpf_map_lookup_elem#1"
+samples/bpf/cpustat_kern.c:	cts = bpf_map_lookup_elem(&my_map, &key);
+samples/bpf/cpustat_kern.c:	cstate = bpf_map_lookup_elem(&my_map, &key);
+samples/bpf/cpustat_kern.c:	pts = bpf_map_lookup_elem(&my_map, &key);
+samples/bpf/cpustat_kern.c:	pstate = bpf_map_lookup_elem(&my_map, &key);
+samples/bpf/cpustat_kern.c:		val = bpf_map_lookup_elem(&pstate_duration, &key);
+samples/bpf/cpustat_kern.c:		val = bpf_map_lookup_elem(&cstate_duration, &key);
+samples/bpf/cpustat_kern.c:	pts = bpf_map_lookup_elem(&my_map, &key);
+samples/bpf/cpustat_kern.c:	pstate = bpf_map_lookup_elem(&my_map, &key);
+samples/bpf/cpustat_kern.c:	cstate = bpf_map_lookup_elem(&my_map, &key);
+samples/bpf/cpustat_kern.c:	val = bpf_map_lookup_elem(&pstate_duration, &key);
+samples/bpf/sockex1_kern.c:	value = bpf_map_lookup_elem(&my_map, &index);
+samples/bpf/xdp_redirect_map_multi.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+samples/bpf/xdp_redirect_map_multi.bpf.c:	mac = bpf_map_lookup_elem(&mac_map, &key);
+samples/bpf/xdp_rxq_info_user.c:	if ((bpf_map_lookup_elem(fd, &key, values)) != 0) {
+samples/bpf/xdp_rxq_info_user.c:			"ERR: bpf_map_lookup_elem failed key:0x%X\n", key);
+samples/bpf/offwaketime_user.c:	if (bpf_map_lookup_elem(map_fd[1], &key->tret, ip) != 0) {
+samples/bpf/offwaketime_user.c:	if (bpf_map_lookup_elem(map_fd[1], &key->wret, ip) != 0) {
+samples/bpf/offwaketime_user.c:		bpf_map_lookup_elem(fd, &next_key, &value);
+samples/bpf/offwaketime_kern.c:	woke = bpf_map_lookup_elem(&wokeby, &pid);
+samples/bpf/offwaketime_kern.c:	val = bpf_map_lookup_elem(&counts, &key);
+samples/bpf/offwaketime_kern.c:		val = bpf_map_lookup_elem(&counts, &key);
+samples/bpf/offwaketime_kern.c:	tsp = bpf_map_lookup_elem(&start, &pid);
+samples/bpf/xdp_tx_iptunnel_kern.c:	rxcnt_count = bpf_map_lookup_elem(&rxcnt, &protocol);
+samples/bpf/xdp_tx_iptunnel_kern.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+samples/bpf/xdp_tx_iptunnel_kern.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+samples/bpf/xdp_redirect.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+samples/bpf/syscall_tp_kern.c:	value = bpf_map_lookup_elem(map, &key);
+samples/bpf/xdp_router_ipv4_user.c:					if (bpf_map_lookup_elem(arp_table_map_fd,
+samples/bpf/xdp_router_ipv4_user.c:			if (bpf_map_lookup_elem(lpm_map_fd, prefix_key,
+samples/bpf/xdp_router_ipv4_user.c:			if (bpf_map_lookup_elem(exact_match_map_fd,
+samples/bpf/xdp_router_ipv4_user.c:			assert(bpf_map_lookup_elem(rxcnt_map_fd,
+samples/bpf/tracex6_user.c:	if (bpf_map_lookup_elem(map_fd[1], &cpu, &value)) {
+samples/bpf/tracex6_user.c:	/* The above bpf_map_lookup_elem should trigger the second kprobe */
+samples/bpf/tracex6_user.c:	if (bpf_map_lookup_elem(map_fd[2], &cpu, &value2)) {
+samples/bpf/spintest_user.c:			bpf_map_lookup_elem(map_fd, &next_key, &value);
+samples/bpf/test_map_in_map_kern.c:	result = bpf_map_lookup_elem(inner_map, &port);
+samples/bpf/test_map_in_map_kern.c:	result = bpf_map_lookup_elem(&port_a, &port);
+samples/bpf/test_map_in_map_kern.c:	result = bpf_map_lookup_elem(&port_h, &port);
+samples/bpf/test_map_in_map_kern.c:	inner_map = bpf_map_lookup_elem(outer_map, &port_key);
+samples/bpf/map_perf_test_kern.c:	value = bpf_map_lookup_elem(&hash_map, &key);
+samples/bpf/map_perf_test_kern.c:	value = bpf_map_lookup_elem(&percpu_hash_map, &key);
+samples/bpf/map_perf_test_kern.c:	value = bpf_map_lookup_elem(&hash_map_alloc, &key);
+samples/bpf/map_perf_test_kern.c:	value = bpf_map_lookup_elem(&percpu_hash_map_alloc, &key);
+samples/bpf/map_perf_test_kern.c:		nolocal_lru_map = bpf_map_lookup_elem(&array_of_lru_hashs,
+samples/bpf/map_perf_test_kern.c:			bpf_map_lookup_elem(&lru_hash_lookup_map, &key);
+samples/bpf/map_perf_test_kern.c:		bpf_map_lookup_elem(&lpm_trie_map_alloc, &key);
+samples/bpf/map_perf_test_kern.c:		value = bpf_map_lookup_elem(&hash_map, &key);
+samples/bpf/map_perf_test_kern.c:		value = bpf_map_lookup_elem(&array_map, &key);
+samples/bpf/sockex3_user.c:			bpf_map_lookup_elem(hash_map_fd, &next_key, &value);
+samples/bpf/tracex3_user.c:		bpf_map_lookup_elem(fd, &key, values);
+samples/bpf/tracex2_kern.c:	value = bpf_map_lookup_elem(&my_map, &loc);
+samples/bpf/tracex2_kern.c:	value = bpf_map_lookup_elem(&my_hist_map, &key);
+samples/bpf/sockex1_user.c:		assert(bpf_map_lookup_elem(map_fd, &key, &tcp_cnt) == 0);
+samples/bpf/sockex1_user.c:		assert(bpf_map_lookup_elem(map_fd, &key, &udp_cnt) == 0);
+samples/bpf/sockex1_user.c:		assert(bpf_map_lookup_elem(map_fd, &key, &icmp_cnt) == 0);
+samples/bpf/tc_l2_redirect_kern.c:	ifindex = bpf_map_lookup_elem(&tun_iface, &key);
+samples/bpf/tc_l2_redirect_kern.c:	ifindex = bpf_map_lookup_elem(&tun_iface, &key);
+samples/bpf/tc_l2_redirect_kern.c:	ifindex = bpf_map_lookup_elem(&tun_iface, &key);
+samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_selected = bpf_map_lookup_elem(&cpus_available, &key0);
+samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_selected = bpf_map_lookup_elem(&cpus_available, &key0);
+samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_max = bpf_map_lookup_elem(&cpus_count, &key0);
+samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_iterator = bpf_map_lookup_elem(&cpus_iterator, &key0);
+samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_selected = bpf_map_lookup_elem(&cpus_available, &cpu_idx);
+samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_lookup = bpf_map_lookup_elem(&cpus_available, &cpu_idx);
+samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_lookup = bpf_map_lookup_elem(&cpus_available, &cpu_idx);
+samples/bpf/xdp_redirect_cpu.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_max = bpf_map_lookup_elem(&cpus_count, &key0);
+samples/bpf/xdp_redirect_cpu.bpf.c:	cpu_lookup = bpf_map_lookup_elem(&cpus_available, &cpu_idx);
+samples/bpf/test_lru_dist.c:	if (!bpf_map_lookup_elem(lru->map_fd, &key, &node)) {
+samples/bpf/test_lru_dist.c:		if (!bpf_map_lookup_elem(lru_map_fd, &key, &value))
+samples/bpf/test_lru_dist.c:			bpf_map_lookup_elem(map_fd, &start_key, value);
+samples/bpf/test_lru_dist.c:		if (bpf_map_lookup_elem(map_fd, &key, value)) {
+samples/bpf/test_lru_dist.c:		if (bpf_map_lookup_elem(map_fd, &key, value))
+samples/bpf/test_lru_dist.c:			bpf_map_lookup_elem(map_fd, &key, value);
+samples/bpf/test_lru_dist.c:		if (bpf_map_lookup_elem(map_fd, &key, value))
+samples/bpf/test_cgrp2_attach.c:		assert(bpf_map_lookup_elem(map_fd, &key, &pkt_cnt) == 0);
+samples/bpf/test_cgrp2_attach.c:		assert(bpf_map_lookup_elem(map_fd, &key, &byte_cnt) == 0);
+samples/bpf/lwt_len_hist_user.c:		bpf_map_lookup_elem(map_fd, &next_key, values);
+samples/bpf/xdp1_user.c:			assert(bpf_map_lookup_elem(map_fd, &key, values) == 0);
+samples/bpf/xdp_adjust_tail_user.c:		assert(bpf_map_lookup_elem(map_fd, &key, &value) == 0);
+samples/bpf/test_probe_write_user_kern.c:	mapped_addr = bpf_map_lookup_elem(&dnat_map, &orig_addr);
+samples/bpf/sock_example.c: *   value = bpf_map_lookup_elem(map_fd, fp - 4);
+samples/bpf/sock_example.c:		assert(bpf_map_lookup_elem(map_fd, &key, &tcp_cnt) == 0);
+samples/bpf/sock_example.c:		assert(bpf_map_lookup_elem(map_fd, &key, &udp_cnt) == 0);
+samples/bpf/sock_example.c:		assert(bpf_map_lookup_elem(map_fd, &key, &icmp_cnt) == 0);
+samples/bpf/xdp_router_ipv4_kern.c:		direct_entry = bpf_map_lookup_elem(&exact_match, &dest_ip);
+samples/bpf/xdp_router_ipv4_kern.c:			prefix_value = bpf_map_lookup_elem(&lpm_map, &key4);
+samples/bpf/xdp_router_ipv4_kern.c:			dest_mac = bpf_map_lookup_elem(&arp_table, &dest_ip);
+samples/bpf/xdp_router_ipv4_kern.c:				dest_mac = bpf_map_lookup_elem(&arp_table, &dest_ip);
+samples/bpf/xdp_router_ipv4_kern.c:		value = bpf_map_lookup_elem(&rxcnt, &ipproto);
+samples/bpf/hbm.c:		bpf_map_lookup_elem(queue_stats_fd, &key, &qstats);
+samples/bpf/hbm.c:			bpf_map_lookup_elem(queue_stats_fd, &key, &qstats);
+samples/bpf/hbm.c:	if (stats_flag && bpf_map_lookup_elem(queue_stats_fd, &key, &qstats)) {
+samples/bpf/xdp_adjust_tail_kern.c:	icmp_count = bpf_map_lookup_elem(&icmpcnt, &key);
+samples/bpf/xdp_redirect_cpu_user.c:	ret = bpf_map_lookup_elem(count_fd, &key, &curr_cpus_count);
+samples/bpf/lathist_user.c:			bpf_map_lookup_elem(fd, &key, &value);
+samples/bpf/xdp_fwd_kern.c:		 *  cannot pass map_type 14 into func bpf_map_lookup_elem#1:
+samples/bpf/xdp_fwd_kern.c:		if (!bpf_map_lookup_elem(&xdp_tx_ports, &fib_params.ifindex))
+samples/bpf/trace_event_user.c:	if (bpf_map_lookup_elem(map_fd[1], &key->kernstack, ip) != 0) {
+samples/bpf/trace_event_user.c:	if (bpf_map_lookup_elem(map_fd[1], &key->userstack, ip) != 0) {
+samples/bpf/trace_event_user.c:		bpf_map_lookup_elem(fd, &next_key, &value);
+samples/bpf/sockex2_user.c:			bpf_map_lookup_elem(map_fd, &next_key, &value);
+samples/bpf/trace_event_kern.c:	val = bpf_map_lookup_elem(&counts, &key);
+samples/bpf/xdp_rxq_info_kern.c:	rec = bpf_map_lookup_elem(&stats_global_map, &key);
+samples/bpf/xdp_rxq_info_kern.c:	config = bpf_map_lookup_elem(&config_map, &key);
+samples/bpf/xdp_rxq_info_kern.c:	rxq_rec = bpf_map_lookup_elem(&rx_queue_index_map, &key);
+samples/bpf/xdp_redirect_map.bpf.c:	rec = bpf_map_lookup_elem(&rx_cnt, &key);
+tools/include/uapi/linux/bpf.h: * void *bpf_map_lookup_elem(struct bpf_map *map, const void *key)
+tools/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *sk*) except this
+tools/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *inode*) except this
+tools/include/uapi/linux/bpf.h: *		**bpf_map_lookup_elem**\ (*map*, **&**\ *task*) except this
+tools/perf/examples/bpf/augmented_raw_syscalls.c:	return bpf_map_lookup_elem(&augmented_args_tmp, &key);
+tools/perf/tests/bpf-script-example.c:static void *(*bpf_map_lookup_elem)(void *map, void *key) =
+tools/perf/tests/bpf-script-example.c:	int *flag = bpf_map_lookup_elem(&flip_table, &ind);
+tools/perf/tests/bpf-script-test-relocation.c:static void *(*bpf_map_lookup_elem)(void *map, void *key) =
+tools/perf/include/bpf/pid_filter.h:	return bpf_map_lookup_elem(pids, &pid) != NULL;
+tools/perf/include/bpf/bpf.h:static void *(*bpf_map_lookup_elem)(struct bpf_map *map, void *key) = (void *)BPF_FUNC_map_lookup_elem;
+tools/perf/util/bpf_counter_cgroup.c:		err = bpf_map_lookup_elem(reading_map_fd, &idx, values);
+tools/perf/util/bpf_counter.c:		err = bpf_map_lookup_elem(reading_map_fd, &key, values);
+tools/perf/util/bpf_counter.c:	err = bpf_map_lookup_elem(attr_map_fd, &evsel->core.attr, &entry);
+tools/perf/util/bpf_counter.c:		err = bpf_map_lookup_elem(reading_map_fd, &i, values);
+tools/perf/util/bpf_skel/bperf_follower.bpf.c:	accum_key = bpf_map_lookup_elem(&filter, &filter_key);
+tools/perf/util/bpf_skel/bperf_follower.bpf.c:	diff_val = bpf_map_lookup_elem(&diff_readings, &zero);
+tools/perf/util/bpf_skel/bperf_follower.bpf.c:	accum_val = bpf_map_lookup_elem(&accum_readings, accum_key);
+tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:		elem = bpf_map_lookup_elem(&cgrp_idx, &cgrp_id);
+tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:		elem = bpf_map_lookup_elem(&cgrp_idx, &cgrp_id);
+tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:		prev_val = bpf_map_lookup_elem(&prev_readings, &key);
+tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:			prev_val = bpf_map_lookup_elem(&prev_readings, &key);
+tools/perf/util/bpf_skel/bperf_cgroup.bpf.c:				cgrp_val = bpf_map_lookup_elem(&cgrp_readings, &key);
+tools/perf/util/bpf_skel/bperf_leader.bpf.c:	prev_val = bpf_map_lookup_elem(&prev_readings, &zero);
+tools/perf/util/bpf_skel/bperf_leader.bpf.c:	diff_val = bpf_map_lookup_elem(&diff_readings, &zero);
+tools/perf/util/bpf_skel/bpf_prog_profiler.bpf.c:	ptr = bpf_map_lookup_elem(&fentry_readings, &zero);
+tools/perf/util/bpf_skel/bpf_prog_profiler.bpf.c:	before = bpf_map_lookup_elem(&fentry_readings, &zero);
+tools/perf/util/bpf_skel/bpf_prog_profiler.bpf.c:		accum = bpf_map_lookup_elem(&accum_readings, &zero);
+tools/perf/util/bpf_map.c:		if (!bpf_map_lookup_elem(fd, key, value)) {
+tools/lib/bpf/xsk.c:	 *     if (bpf_map_lookup_elem(&xsks_map, &index))
+tools/lib/bpf/xsk.c:		/* call bpf_map_lookup_elem */
+tools/lib/bpf/libbpf.map:		bpf_map_lookup_elem;
+tools/lib/bpf/libbpf.map:		bpf_map_lookup_elem_flags;
+tools/lib/bpf/libbpf.h: *     bpf_map_lookup_elem(per_cpu_map_fd, key, values);
+tools/lib/bpf/bpf.h:LIBBPF_API int bpf_map_lookup_elem(int fd, const void *key, void *value);
+tools/lib/bpf/bpf.h:LIBBPF_API int bpf_map_lookup_elem_flags(int fd, const void *key, void *value,
+tools/lib/bpf/bpf.c:int bpf_map_lookup_elem(int fd, const void *key, void *value)
+tools/lib/bpf/bpf.c:int bpf_map_lookup_elem_flags(int fd, const void *key, void *value, __u64 flags)
+tools/bpf/bpftool/Documentation/bpftool-gen.rst:  	bpf_map_lookup_elem(&my_map, &zero);
+tools/bpf/bpftool/map.c:	if (bpf_map_lookup_elem(fd, key, value)) {
+tools/bpf/bpftool/map.c:	err = bpf_map_lookup_elem(fd, key, value);
+tools/bpf/bpftool/map.c:	/* here means bpf_map_lookup_elem() succeeded */
+tools/bpf/bpftool/struct_ops.c:	if (bpf_map_lookup_elem(fd, &zero, value)) {
+tools/bpf/bpftool/prog.c:		if (bpf_map_lookup_elem(map_fd, &key, value)) {
+tools/bpf/bpftool/prog.c:	err = bpf_map_lookup_elem(count_map_fd, &key, counts);
+tools/bpf/bpftool/prog.c:		err = bpf_map_lookup_elem(reading_map_fd, &key, values);
+tools/bpf/bpftool/skeleton/profiler.bpf.c:		ptrs[i] = bpf_map_lookup_elem(&fentry_readings, &flag);
+tools/bpf/bpftool/skeleton/profiler.bpf.c:	before = bpf_map_lookup_elem(&fentry_readings, &id);
+tools/bpf/bpftool/skeleton/profiler.bpf.c:		accum = bpf_map_lookup_elem(&accum_readings, &id);
+tools/bpf/bpftool/skeleton/profiler.bpf.c:	count = bpf_map_lookup_elem(&counts, &zero);
+tools/testing/selftests/bpf/prog_tests/tcp_rtt.c:	if (CHECK_FAIL(bpf_map_lookup_elem(map_fd, &client_fd, &val) < 0)) {
+tools/testing/selftests/bpf/prog_tests/netcnt.c:	if (!ASSERT_OK(bpf_map_lookup_elem(map_fd, &key, &netcnt), "bpf_map_lookup_elem(netcnt)"))
+tools/testing/selftests/bpf/prog_tests/netcnt.c:	if (!ASSERT_OK(bpf_map_lookup_elem(percpu_map_fd, &key, &percpu_netcnt[0]),
+tools/testing/selftests/bpf/prog_tests/netcnt.c:		       "bpf_map_lookup_elem(percpu_netcnt)"))
+tools/testing/selftests/bpf/prog_tests/flow_dissector.c:		err = bpf_map_lookup_elem(keys_fd, &key, &flow_keys);
+tools/testing/selftests/bpf/prog_tests/flow_dissector.c:		CHECK_ATTR(err, tests[i].name, "bpf_map_lookup_elem %d\n", err);
+tools/testing/selftests/bpf/prog_tests/mmap.c:	CHECK_FAIL(bpf_map_lookup_elem(data_map_fd, &zero, &val));
+tools/testing/selftests/bpf/prog_tests/mmap.c:	CHECK_FAIL(bpf_map_lookup_elem(data_map_fd, &one, &val));
+tools/testing/selftests/bpf/prog_tests/mmap.c:	CHECK_FAIL(bpf_map_lookup_elem(data_map_fd, &two, &val));
+tools/testing/selftests/bpf/prog_tests/mmap.c:	CHECK_FAIL(bpf_map_lookup_elem(data_map_fd, &far, &val));
+tools/testing/selftests/bpf/prog_tests/stacktrace_build_id.c:		err = bpf_map_lookup_elem(stackmap_fd, &key, id_offs);
+tools/testing/selftests/bpf/prog_tests/syscall.c:	err = bpf_map_lookup_elem(ctx.map_fd, &key, &value);
+tools/testing/selftests/bpf/prog_tests/bpf_obj_id.c:		err = bpf_map_lookup_elem(map_fd, &array_key, &array_value);
+tools/testing/selftests/bpf/prog_tests/tcp_hdr_options.c:	if (CHECK(bpf_map_lookup_elem(hdr_stg_map_fd, &fd, &act),
+tools/testing/selftests/bpf/prog_tests/tcp_hdr_options.c:	if (!bpf_map_lookup_elem(lport_linum_map_fd, &lport, &linum_err)) {
+tools/testing/selftests/bpf/prog_tests/tcp_hdr_options.c:	if (!bpf_map_lookup_elem(lport_linum_map_fd, &lport, &linum_err)) {
+tools/testing/selftests/bpf/prog_tests/probe_user.c:	err = bpf_map_lookup_elem(results_map_fd, &zero, &tmp);
+tools/testing/selftests/bpf/prog_tests/tailcalls.c:	err = bpf_map_lookup_elem(data_fd, &i, &val);
+tools/testing/selftests/bpf/prog_tests/tailcalls.c:	err = bpf_map_lookup_elem(data_fd, &i, &val);
+tools/testing/selftests/bpf/prog_tests/tailcalls.c:	err = bpf_map_lookup_elem(data_fd, &i, &val);
+tools/testing/selftests/bpf/prog_tests/kfree_skb.c:	err = bpf_map_lookup_elem(bpf_map__fd(global_data), &zero, test_ok);
+tools/testing/selftests/bpf/prog_tests/sk_storage_tracing.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.sk_stg_map), &sk_fd,
+tools/testing/selftests/bpf/prog_tests/sk_storage_tracing.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.del_sk_stg_map),
+tools/testing/selftests/bpf/prog_tests/global_data.c:		err = bpf_map_lookup_elem(map_fd, &tests[i].key, &num);
+tools/testing/selftests/bpf/prog_tests/global_data.c:		err = bpf_map_lookup_elem(map_fd, &tests[i].key, str);
+tools/testing/selftests/bpf/prog_tests/global_data.c:		err = bpf_map_lookup_elem(map_fd, &tests[i].key, &val);
+tools/testing/selftests/bpf/prog_tests/bpf_iter.c:		err = bpf_map_lookup_elem(map_fd, &i, &val);
+tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	err = bpf_map_lookup_elem(map_fd, &sock_fd, &val);
+tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	if (CHECK(!err || errno != ENOENT, "bpf_map_lookup_elem",
+tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	err = bpf_map_lookup_elem(map_fd, &sock_fd, &val);
+tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	if (CHECK(err || val != getpid(), "bpf_map_lookup_elem",
+tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	err = bpf_map_lookup_elem(map_fd, &sock_fd, &val);
+tools/testing/selftests/bpf/prog_tests/bpf_iter.c:	CHECK(err || val != -getpid(), "bpf_map_lookup_elem",
+tools/testing/selftests/bpf/prog_tests/fexit_bpf2bpf.c:	ret = bpf_map_lookup_elem(bpf_map__fd(data_map), &zero, result);
+tools/testing/selftests/bpf/prog_tests/rdonly_maps.c:		err = bpf_map_lookup_elem(bpf_map__fd(bss_map), &zero, &bss);
+tools/testing/selftests/bpf/prog_tests/core_retro.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.results), &zero, &res);
+tools/testing/selftests/bpf/prog_tests/map_init.c:	err = bpf_map_lookup_elem(map_fd, &key, value);
+tools/testing/selftests/bpf/prog_tests/map_init.c:	if (!ASSERT_OK(err, "bpf_map_lookup_elem"))
+tools/testing/selftests/bpf/prog_tests/map_init.c:	err = bpf_map_lookup_elem(map_fd, &key, value);
+tools/testing/selftests/bpf/prog_tests/map_init.c:	if (!ASSERT_OK(err, "bpf_map_lookup_elem"))
+tools/testing/selftests/bpf/prog_tests/core_autosize.c:	err = bpf_map_lookup_elem(bpf_map__fd(bss_map), &zero, (void *)&out);
+tools/testing/selftests/bpf/prog_tests/socket_cookie.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.socket_cookies),
+tools/testing/selftests/bpf/prog_tests/select_reuseport.c:	err = bpf_map_lookup_elem(linum_map, &index_zero, &linum);
+tools/testing/selftests/bpf/prog_tests/select_reuseport.c:	err = bpf_map_lookup_elem(data_check_map, &index_zero, &result);
+tools/testing/selftests/bpf/prog_tests/select_reuseport.c:		err = bpf_map_lookup_elem(result_map, &i, &results[i]);
+tools/testing/selftests/bpf/prog_tests/select_reuseport.c:	err = bpf_map_lookup_elem(tmp_index_ovr_map, &index_zero,
+tools/testing/selftests/bpf/prog_tests/select_reuseport.c:		err = bpf_map_lookup_elem(result_map, &i, &tmp);
+tools/testing/selftests/bpf/prog_tests/select_reuseport.c:		err = bpf_map_lookup_elem(result_map, &i, &tmp);
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, value);
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	err = bpf_map_lookup_elem(map_fd, &key, &value);
+tools/testing/selftests/bpf/prog_tests/lookup_and_delete.c:	if (!ASSERT_ERR(err, "bpf_map_lookup_elem"))
+tools/testing/selftests/bpf/prog_tests/xdp_devmap_attach.c:	err = bpf_map_lookup_elem(map_fd, &idx, &val);
+tools/testing/selftests/bpf/prog_tests/stacktrace_build_id_nmi.c:		err = bpf_map_lookup_elem(stackmap_fd, &key, id_offs);
+tools/testing/selftests/bpf/prog_tests/load_bytes_relative.c:	err = bpf_map_lookup_elem(map_fd, &map_key, &map_value);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:#define xbpf_map_lookup_elem(fd, key, val)                                     \
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:		int __ret = bpf_map_lookup_elem((fd), (key), (val));           \
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	xbpf_map_lookup_elem(mapfd, &key, &value);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = bpf_map_lookup_elem(mapfd, &key, &value);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = bpf_map_lookup_elem(mapfd, &key, &value32);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &drop);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_map, &key, &pass);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_map, &key, &drop);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_map, &key, &drop);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+tools/testing/selftests/bpf/prog_tests/sockmap_listen.c:	err = xbpf_map_lookup_elem(verd_mapfd, &key, &pass);
+tools/testing/selftests/bpf/prog_tests/netns_cookie.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.sockops_netns_cookies),
+tools/testing/selftests/bpf/prog_tests/netns_cookie.c:	err = bpf_map_lookup_elem(bpf_map__fd(skel->maps.sk_msg_netns_cookies),
+tools/testing/selftests/bpf/prog_tests/migrate_reuseport.c:		err = bpf_map_lookup_elem(reuseport_map_fd, &i, &value);
+tools/testing/selftests/bpf/prog_tests/migrate_reuseport.c:		if (!ASSERT_OK(err, "bpf_map_lookup_elem - reuseport_map"))
+tools/testing/selftests/bpf/prog_tests/hash_large_key.c:	err = bpf_map_lookup_elem(hash_map_fd, &key, &value);
+tools/testing/selftests/bpf/prog_tests/hash_large_key.c:	if (CHECK(err, "bpf_map_lookup_elem", "errno=%d\n", errno))
+tools/testing/selftests/bpf/prog_tests/xdp_cpumap_attach.c:	err = bpf_map_lookup_elem(map_fd, &idx, &val);
+tools/testing/selftests/bpf/prog_tests/global_func_args.c:		err = bpf_map_lookup_elem(map_fd, &i, &actual_value);
+tools/testing/selftests/bpf/prog_tests/sockmap_basic.c:		err = bpf_map_lookup_elem(src_fd, &i, &src_cookie);
+tools/testing/selftests/bpf/prog_tests/sockmap_basic.c:			err = bpf_map_lookup_elem(dst_fd, &i, &dst_cookie);
+tools/testing/selftests/bpf/prog_tests/sockmap_basic.c:		err = bpf_map_lookup_elem(dst_fd, &i, &dst_cookie);
+tools/testing/selftests/bpf/prog_tests/xdp_noinline.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.stats), &stats_key, stats);
+tools/testing/selftests/bpf/prog_tests/recursion.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.hash1), &key, 0);
+tools/testing/selftests/bpf/prog_tests/recursion.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.hash1), &key, 0);
+tools/testing/selftests/bpf/prog_tests/recursion.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.hash2), &key, 0);
+tools/testing/selftests/bpf/prog_tests/recursion.c:	bpf_map_lookup_elem(bpf_map__fd(skel->maps.hash2), &key, 0);
+tools/testing/selftests/bpf/prog_tests/cg_storage_multi.c:	if (CHECK(bpf_map_lookup_elem(map_fd, key, &value) < 0,
+tools/testing/selftests/bpf/prog_tests/cg_storage_multi.c:	if (CHECK(bpf_map_lookup_elem(map_fd, key, &value) == 0,
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(linum_map_fd, &idx, &egress_linum);
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	CHECK(err < 0, "bpf_map_lookup_elem(linum_map_fd)",
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(linum_map_fd, &idx, &ingress_linum);
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	CHECK(err < 0, "bpf_map_lookup_elem(linum_map_fd)",
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(linum_map_fd, &idx, &linum);
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	ASSERT_OK(err, "bpf_map_lookup_elem(linum_map_fd, READ_SK_DST_PORT_IDX)");
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(sk_pkt_out_cnt_fd, &accept_fd, &pkt_out_cnt);
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:		err = bpf_map_lookup_elem(sk_pkt_out_cnt10_fd, &accept_fd,
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	      "bpf_map_lookup_elem(sk_pkt_out_cnt, &accept_fd)",
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	err = bpf_map_lookup_elem(sk_pkt_out_cnt_fd, &cli_fd, &pkt_out_cnt);
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:		err = bpf_map_lookup_elem(sk_pkt_out_cnt10_fd, &cli_fd,
+tools/testing/selftests/bpf/prog_tests/sock_fields.c:	      "bpf_map_lookup_elem(sk_pkt_out_cnt, &cli_fd)",
+tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map1_fd, &key, &val);
+tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map2_fd, &key, &val);
+tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map3_fd, &key, &val);
+tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map1_fd, &key, &val);
+tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map2_fd, &key, &val);
+tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map4_fd, &key, &val);
+tools/testing/selftests/bpf/prog_tests/btf_map_in_map.c:	bpf_map_lookup_elem(map5_fd, &key, &val);
+tools/testing/selftests/bpf/prog_tests/l4lb_all.c:	bpf_map_lookup_elem(map_fd, &stats_key, stats);
+tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+tools/testing/selftests/bpf/prog_tests/cgroup_attach_multi.c:	CHECK_FAIL(bpf_map_lookup_elem(map_fd, &key, &value));
+tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	err = bpf_map_lookup_elem(map_fd, &prog_idx, &done);
+tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	CHECK(err, "bpf_map_lookup_elem", "failed\n");
+tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	CHECK(!done, "bpf_map_lookup_elem", "PROG1 !done\n");
+tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	err = bpf_map_lookup_elem(map_fd, &prog_idx, &done);
+tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	CHECK(err, "bpf_map_lookup_elem", "failed\n");
+tools/testing/selftests/bpf/prog_tests/sk_lookup.c:	CHECK(!done, "bpf_map_lookup_elem", "PROG2 !done\n");
+tools/testing/selftests/bpf/prog_tests/global_data_init.c:		err = bpf_map_lookup_elem(map_fd, &zero, buff);
+tools/testing/selftests/bpf/prog_tests/for_each.c:	err = bpf_map_lookup_elem(hashmap_fd, &key, &val);
+tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	err = bpf_map_lookup_elem_flags(map_fd, &obj_fd, &lookup_val,
+tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	if (CHECK(!err || errno != ENOENT, "bpf_map_lookup_elem",
+tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	err = bpf_map_lookup_elem_flags(map_fd, &obj_fd, &lookup_val,
+tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	if (CHECK(err < 0, "bpf_map_lookup_elem", "err:%d errno:%d", err,
+tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	if (CHECK(lookup_val.value != val.value, "bpf_map_lookup_elem",
+tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	err = bpf_map_lookup_elem_flags(map_fd, &obj_fd, &lookup_val,
+tools/testing/selftests/bpf/prog_tests/test_local_storage.c:	if (CHECK(!err || errno != ENOENT, "bpf_map_lookup_elem",
+tools/testing/selftests/bpf/prog_tests/bpf_tcp_ca.c:		err = bpf_map_lookup_elem(bpf_map__fd(sk_stg_map), &fd,
+tools/testing/selftests/bpf/prog_tests/bpf_tcp_ca.c:			  "bpf_map_lookup_elem(sk_stg_map)",
+tools/testing/selftests/bpf/prog_tests/map_lock.c:		err = bpf_map_lookup_elem_flags(map_fd, &key, vars, BPF_F_LOCK);
+tools/testing/selftests/bpf/test_tcpnotify_user.c:	rv = bpf_map_lookup_elem(bpf_map__fd(global_map), &key, &g);
+tools/testing/selftests/bpf/test_tcpnotify_user.c:		printf("FAILED: bpf_map_lookup_elem returns %d\n", rv);
+tools/testing/selftests/bpf/test_skb_cgroup_id_user.c:		if (bpf_map_lookup_elem(map_fd, &level, &actual_ids[level])) {
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) == 0 && value == 1234);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == ENOENT);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, value) == 0 &&
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, value) < 0 && errno == ENOENT);
+tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &next_key, value) == 0);
+tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, &value) == 0);
+tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, &value) == 0);
+tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, &value) == 0);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) == 0 && value == 1234);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) == 0 && value == 0);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == ENOENT);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, values) == 0 &&
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, values) == 0 &&
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, values) < 0 && errno == ENOENT);
+tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, values) == 0);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, NULL, &val) == 0 && val == vals[0]);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, NULL, &val) == 0 && val == vals[i - 1]);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) == 0 && value == 0);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == ENOENT);
+tools/testing/selftests/bpf/test_maps.c:		assert(bpf_map_lookup_elem(fd, &key, &value) == 0 &&
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == ENOENT);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, &key, &value) < 0 && errno == EPERM);
+tools/testing/selftests/bpf/test_maps.c:	assert(bpf_map_lookup_elem(fd, NULL, &value) < 0 && errno == EPERM);
+tools/testing/selftests/bpf/test_maps.c:	err = bpf_map_lookup_elem(map_fd, &bad_index, &map_cookie);
+tools/testing/selftests/bpf/test_maps.c:	err = bpf_map_lookup_elem(map_fd, &index3, &map_cookie);
+tools/testing/selftests/bpf/test_maps.c:		err = bpf_map_lookup_elem(map_fd, &index3, &map_cookie);
+tools/testing/selftests/bpf/test_maps.c:		err = bpf_map_lookup_elem(map_fd, &index3, &map_cookie);
+tools/testing/selftests/bpf/test_maps.c:	err = bpf_map_lookup_elem(map_fd, &index3, &map_cookie);
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	err = bpf_map_lookup_elem_flags(map_fd, &sk_fd, &lookup_value,
+tools/testing/selftests/bpf/map_tests/sk_storage_map.c:	      "bpf_map_lookup_elem_flags(BPF_F_LOCK)",
+tools/testing/selftests/bpf/test_progs.c:	err = bpf_map_lookup_elem(map2_fd, &key, val_buf);
+tools/testing/selftests/bpf/test_progs.c:		err = bpf_map_lookup_elem(map2_fd, &next_key, val_buf);
+tools/testing/selftests/bpf/test_progs.c:		err = bpf_map_lookup_elem(smap_fd, next_key_p, val_buf1);
+tools/testing/selftests/bpf/test_progs.c:		err = bpf_map_lookup_elem(amap_fd, next_key_p, val_buf2);
+tools/testing/selftests/bpf/xdping.c:	if (bpf_map_lookup_elem(fd, &raddr, &pinginfo)) {
+tools/testing/selftests/bpf/verifier/prevent_map_lookup.c:	.errstr = "cannot pass map_type 7 into func bpf_map_lookup_elem",
+tools/testing/selftests/bpf/verifier/prevent_map_lookup.c:	.errstr = "cannot pass map_type 3 into func bpf_map_lookup_elem",
+tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(smap, &key)",
+tools/testing/selftests/bpf/verifier/sock.c:	.errstr = "cannot pass map_type 24 into func bpf_map_lookup_elem",
+tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(xskmap, &key); xs->queue_id",
+tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(sockmap, &key)",
+tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(sockhash, &key)",
+tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(sockmap, &key); sk->type [fullsock field]; bpf_sk_release(sk)",
+tools/testing/selftests/bpf/verifier/sock.c:	"bpf_map_lookup_elem(sockhash, &key); sk->type [fullsock field]; bpf_sk_release(sk)",
+tools/testing/selftests/bpf/test_cgroup_storage.c:	if (bpf_map_lookup_elem(map_fd, &key, &value)) {
+tools/testing/selftests/bpf/test_cgroup_storage.c:	if (bpf_map_lookup_elem(map_fd, &key, &value)) {
+tools/testing/selftests/bpf/test_cgroup_storage.c:	if (bpf_map_lookup_elem(map_fd, &key, &value)) {
+tools/testing/selftests/bpf/test_cgroup_storage.c:	if (bpf_map_lookup_elem(percpu_map_fd, &key, percpu_value)) {
+tools/testing/selftests/bpf/get_cgroup_id_user.c:	err = bpf_map_lookup_elem(cgidmap_fd, &key, &kcgid);
+tools/testing/selftests/bpf/get_cgroup_id_user.c:	if (CHECK(err, "bpf_map_lookup_elem", "err %d errno %d\n", err, errno))
+tools/testing/selftests/bpf/test_lpm_map.c:		r = bpf_map_lookup_elem(map, key, value);
+tools/testing/selftests/bpf/test_lpm_map.c:		r = bpf_map_lookup_elem(map, key, value);
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv4, key_ipv4, &value) == 0);
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv4, key_ipv4, &value) == 0);
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv6, key_ipv6, &value) == 0);
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv6, key_ipv6, &value) == 0);
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv4, key_ipv4, &value) == -1 &&
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv4, key_ipv4, &value) == -1 &&
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd_ipv6, key_ipv6, &value) == -1 &&
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == -1 &&
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == 0);
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == 0);
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == 0);
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == 0);
+tools/testing/selftests/bpf/test_lpm_map.c:	assert(bpf_map_lookup_elem(map_fd, key, &value) == -1 &&
+tools/testing/selftests/bpf/test_lpm_map.c:				ret = bpf_map_lookup_elem(info->map_fd, key_p, &value);
+tools/testing/selftests/bpf/progs/test_hash_large_key.c:	key = bpf_map_lookup_elem(&key_map, &zero);
+tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&array, &key);
+tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&hash, &key);
+tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&lru_hash, &key);
+tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&percpu_array, &key);
+tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&percpu_hash, &key);
+tools/testing/selftests/bpf/progs/lsm.c:	value = bpf_map_lookup_elem(&lru_percpu_hash, &key);
+tools/testing/selftests/bpf/progs/lsm.c:	inner_map = bpf_map_lookup_elem(&outer_arr, &key);
+tools/testing/selftests/bpf/progs/lsm.c:		value = bpf_map_lookup_elem(inner_map, &key);
+tools/testing/selftests/bpf/progs/lsm.c:	inner_map = bpf_map_lookup_elem(&outer_hash, &key);
+tools/testing/selftests/bpf/progs/lsm.c:		value = bpf_map_lookup_elem(inner_map, &key);
+tools/testing/selftests/bpf/progs/linked_maps2.c:	value_struct = bpf_map_lookup_elem(&map1, &key_struct);
+tools/testing/selftests/bpf/progs/linked_maps2.c:	val = bpf_map_lookup_elem(&map2, &key);
+tools/testing/selftests/bpf/progs/linked_maps2.c:	val = bpf_map_lookup_elem(&map_weak, &key);
+tools/testing/selftests/bpf/progs/xdp_redirect_multi_kern.c:	mac = bpf_map_lookup_elem(&mac_map, &key);
+tools/testing/selftests/bpf/progs/pyperf.h:	PidData* pidData = bpf_map_lookup_elem(&pidmap, &pid);
+tools/testing/selftests/bpf/progs/pyperf.h:	Event* event = bpf_map_lookup_elem(&eventmap, &zero);
+tools/testing/selftests/bpf/progs/pyperf.h:		int32_t* symbol_counter = bpf_map_lookup_elem(&symbolmap, &sym);
+tools/testing/selftests/bpf/progs/pyperf.h:				int32_t *symbol_id = bpf_map_lookup_elem(&symbolmap, &sym);
+tools/testing/selftests/bpf/progs/pyperf.h:					symbol_id = bpf_map_lookup_elem(&symbolmap, &sym);
+tools/testing/selftests/bpf/progs/pyperf.h:	Stats* stats = bpf_map_lookup_elem(&statsmap, &zero);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_kill_data_t* kill_data = bpf_map_lookup_elem(&data_heap, &zero);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_kill_data_arr_t* arr_struct = bpf_map_lookup_elem(&var_tpid_to_data, &tpid);
+tools/testing/selftests/bpf/progs/profiler.inc.h:		arr_struct = bpf_map_lookup_elem(&data_heap, &zero);
+tools/testing/selftests/bpf/progs/profiler.inc.h:		bpf_map_lookup_elem(&bpf_func_stats, &func_id_key);
+tools/testing/selftests/bpf/progs/profiler.inc.h:		bool* allowed_dir = bpf_map_lookup_elem(&allowed_directory_inodes, &dir_ino);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	bool* allowed_device = bpf_map_lookup_elem(&allowed_devices, &dev_id);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	bool* allowed_file = bpf_map_lookup_elem(&allowed_file_inodes, &ino);
+tools/testing/selftests/bpf/progs/profiler.inc.h:		bpf_map_lookup_elem(&data_heap, &zero);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_kill_data_arr_t* arr_struct = bpf_map_lookup_elem(&var_tpid_to_data, &tpid);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_kill_data_t* kill_data = bpf_map_lookup_elem(&data_heap, &zero);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	bool* should_filter_binprm = bpf_map_lookup_elem(&disallowed_exec_inodes, &inode);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_exec_data_t* proc_exec_data = bpf_map_lookup_elem(&data_heap, &zero);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_filemod_data_t* filemod_data = bpf_map_lookup_elem(&data_heap, &zero);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_filemod_data_t* filemod_data = bpf_map_lookup_elem(&data_heap, &zero);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_filemod_data_t* filemod_data = bpf_map_lookup_elem(&data_heap, &zero);
+tools/testing/selftests/bpf/progs/profiler.inc.h:	struct var_fork_data_t* fork_data = bpf_map_lookup_elem(&data_heap, &zero);
+tools/testing/selftests/bpf/progs/strobemeta.h:	cfg = bpf_map_lookup_elem(&strobemeta_cfgs, &pid);
+tools/testing/selftests/bpf/progs/strobemeta.h:	sample = bpf_map_lookup_elem(&sample_heap, &zero);
+tools/testing/selftests/bpf/progs/test_global_func9.c:		const struct S *s = bpf_map_lookup_elem(&map, &key);
+tools/testing/selftests/bpf/progs/test_btf_nokv.c:	counts = bpf_map_lookup_elem(&btf_map, &key);
+tools/testing/selftests/bpf/progs/tailcall_bpf2bpf4.c:	bpf_map_lookup_elem(&nop_table, &key);
+tools/testing/selftests/bpf/progs/xdping_kern.c:	pinginfo = bpf_map_lookup_elem(&ping_map, &raddr);
+tools/testing/selftests/bpf/progs/timer_mim.c:	bpf_map_lookup_elem(map, key);
+tools/testing/selftests/bpf/progs/timer_mim.c:	inner_map = bpf_map_lookup_elem(&outer_arr, &array_key);
+tools/testing/selftests/bpf/progs/timer_mim.c:	val = bpf_map_lookup_elem(inner_map, &hash_key);
+tools/testing/selftests/bpf/progs/test_mmap.c:	p = bpf_map_lookup_elem(&data_map, &zero);
+tools/testing/selftests/bpf/progs/test_map_lock.c:	val = bpf_map_lookup_elem(&hash_map, &key);
+tools/testing/selftests/bpf/progs/test_map_lock.c:	q = bpf_map_lookup_elem(&array_map, &key);
+tools/testing/selftests/bpf/progs/timer_mim_reject.c:	inner_map = bpf_map_lookup_elem(&outer_arr, &array_key);
+tools/testing/selftests/bpf/progs/timer_mim_reject.c:	inner_map2 = bpf_map_lookup_elem(&outer_arr, &array_key2);
+tools/testing/selftests/bpf/progs/timer_mim_reject.c:	val = bpf_map_lookup_elem(inner_map, &hash_key);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk1 = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk2 = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_B);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_sk_lookup.c:	sk = bpf_map_lookup_elem(&redir_map, &KEY_SERVER_A);
+tools/testing/selftests/bpf/progs/test_tcpnotify_kern.c:			gp = bpf_map_lookup_elem(&global_map, &key);
+tools/testing/selftests/bpf/progs/test_ringbuf_multi.c:	rb = bpf_map_lookup_elem(&ringbuf_arr, &target_ring);
+tools/testing/selftests/bpf/progs/test_sk_assign.c:	sk = bpf_map_lookup_elem(&server_map, &zero);
+tools/testing/selftests/bpf/progs/test_sk_assign.c:	sk = bpf_map_lookup_elem(&server_map, &zero);
+tools/testing/selftests/bpf/progs/test_obj_id.c:	value = bpf_map_lookup_elem(&test_map_id, &key);
+tools/testing/selftests/bpf/progs/test_btf_map_in_map.c:	inner_map = bpf_map_lookup_elem(&outer_arr, &key);
+tools/testing/selftests/bpf/progs/test_btf_map_in_map.c:	inner_map = bpf_map_lookup_elem(&outer_hash, &key);
+tools/testing/selftests/bpf/progs/test_btf_map_in_map.c:	inner_map = bpf_map_lookup_elem(&outer_arr_dyn, &key);
+tools/testing/selftests/bpf/progs/sample_map_ret0.c:	value = bpf_map_lookup_elem(&htab, &key);
+tools/testing/selftests/bpf/progs/sample_map_ret0.c:	value = bpf_map_lookup_elem(&array, &key64);
+tools/testing/selftests/bpf/progs/linked_maps1.c:	value_struct = bpf_map_lookup_elem(&map1, &key_struct);
+tools/testing/selftests/bpf/progs/linked_maps1.c:	val = bpf_map_lookup_elem(&map2, &key);
+tools/testing/selftests/bpf/progs/linked_maps1.c:	val = bpf_map_lookup_elem(&map_weak, &key);
+tools/testing/selftests/bpf/progs/test_btf_haskv.c:	counts = bpf_map_lookup_elem(&btf_map, &key);
+tools/testing/selftests/bpf/progs/test_select_reuseport_kern.c:	reuseport_array = bpf_map_lookup_elem(&outer_map, &index_zero);
+tools/testing/selftests/bpf/progs/test_select_reuseport_kern.c:	index_ovr = bpf_map_lookup_elem(&tmp_index_ovr_map, &index_zero);
+tools/testing/selftests/bpf/progs/test_select_reuseport_kern.c:	result_cnt = bpf_map_lookup_elem(&result_map, &result);
+tools/testing/selftests/bpf/progs/test_btf_newkv.c:	counts = bpf_map_lookup_elem(&btf_map, &key);
+tools/testing/selftests/bpf/progs/test_btf_newkv.c:	counts = bpf_map_lookup_elem(&btf_map_legacy, &key);
+tools/testing/selftests/bpf/progs/test_stacktrace_build_id.c:	value_p = bpf_map_lookup_elem(&control_map, &key);
+tools/testing/selftests/bpf/progs/test_stacktrace_build_id.c:		stack_p = bpf_map_lookup_elem(&stack_amap, &key);
+tools/testing/selftests/bpf/progs/test_get_stack_rawtp.c:	data = bpf_map_lookup_elem(&stackdata_map, &key);
+tools/testing/selftests/bpf/progs/test_get_stack_rawtp.c:	raw_data = bpf_map_lookup_elem(&rawdata_map, &key);
+tools/testing/selftests/bpf/progs/test_sockmap_update.c:	sk = bpf_map_lookup_elem(&src, &key);
+tools/testing/selftests/bpf/progs/recursion.c:		bpf_map_lookup_elem(&hash2, &key);
+tools/testing/selftests/bpf/progs/test_cls_redirect.c:	return bpf_map_lookup_elem(&metrics_map, &key);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_skb_opts, &two);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_skb_opts, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_skb_opts, &one);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_skb_opts, &one);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_apply_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_cork_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start = bpf_map_lookup_elem(&sock_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end = bpf_map_lookup_elem(&sock_bytes, &one);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_push = bpf_map_lookup_elem(&sock_bytes, &two);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end_push = bpf_map_lookup_elem(&sock_bytes, &three);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_pop = bpf_map_lookup_elem(&sock_bytes, &four);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	pop = bpf_map_lookup_elem(&sock_bytes, &five);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_apply_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_cork_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start = bpf_map_lookup_elem(&sock_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end = bpf_map_lookup_elem(&sock_bytes, &one);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_push = bpf_map_lookup_elem(&sock_bytes, &two);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end_push = bpf_map_lookup_elem(&sock_bytes, &three);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_pop = bpf_map_lookup_elem(&sock_bytes, &four);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	pop = bpf_map_lookup_elem(&sock_bytes, &five);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	f = bpf_map_lookup_elem(&sock_redir_flags, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_apply_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_cork_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_apply_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	bytes = bpf_map_lookup_elem(&sock_cork_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start = bpf_map_lookup_elem(&sock_bytes, &zero);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end = bpf_map_lookup_elem(&sock_bytes, &one);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_push = bpf_map_lookup_elem(&sock_bytes, &two);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	end_push = bpf_map_lookup_elem(&sock_bytes, &three);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	start_pop = bpf_map_lookup_elem(&sock_bytes, &four);
+tools/testing/selftests/bpf/progs/test_sockmap_kern.h:	pop = bpf_map_lookup_elem(&sock_bytes, &five);
+tools/testing/selftests/bpf/progs/netif_receive_skb.c:	str = bpf_map_lookup_elem(&strdata, &key);
+tools/testing/selftests/bpf/progs/test_map_in_map.c:	map = bpf_map_lookup_elem(&mim_array, &key);
+tools/testing/selftests/bpf/progs/test_map_in_map.c:	value_p = bpf_map_lookup_elem(map, &key);
+tools/testing/selftests/bpf/progs/test_map_in_map.c:	map = bpf_map_lookup_elem(&mim_hash, &key);
+tools/testing/selftests/bpf/progs/test_core_retro.c:	int *exp_tgid = bpf_map_lookup_elem(&exp_tgid_map, &zero);
+tools/testing/selftests/bpf/progs/test_xdp_loop.c:	rxcnt_count = bpf_map_lookup_elem(&rxcnt, &protocol);
+tools/testing/selftests/bpf/progs/test_xdp_loop.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+tools/testing/selftests/bpf/progs/test_xdp_loop.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+tools/testing/selftests/bpf/progs/freplace_cls_redirect.c:	sk = bpf_map_lookup_elem(&sock_map, &zero);
+tools/testing/selftests/bpf/progs/map_ptr_kern.c:		__u32 *val = bpf_map_lookup_elem(array, &key);
+tools/testing/selftests/bpf/progs/test_l4lb.c:	real_pos = bpf_map_lookup_elem(&ch_rings, &key);
+tools/testing/selftests/bpf/progs/test_l4lb.c:	*real = bpf_map_lookup_elem(&reals, &key);
+tools/testing/selftests/bpf/progs/test_l4lb.c:	vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+tools/testing/selftests/bpf/progs/test_l4lb.c:		vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+tools/testing/selftests/bpf/progs/test_l4lb.c:		cval = bpf_map_lookup_elem(&ctl_array, &v6_intf_pos);
+tools/testing/selftests/bpf/progs/test_l4lb.c:		cval = bpf_map_lookup_elem(&ctl_array, &v4_intf_pos);
+tools/testing/selftests/bpf/progs/test_l4lb.c:	data_stats = bpf_map_lookup_elem(&stats, &vip_num);
+tools/testing/selftests/bpf/progs/test_spin_lock.c:	val = bpf_map_lookup_elem(&hmap, &key);
+tools/testing/selftests/bpf/progs/test_spin_lock.c:		val = bpf_map_lookup_elem(&hmap, &key);
+tools/testing/selftests/bpf/progs/test_spin_lock.c:	q = bpf_map_lookup_elem(&vqueue, &key);
+tools/testing/selftests/bpf/progs/perf_event_stackmap.c:	trace = bpf_map_lookup_elem(&stackdata_map, &key);
+tools/testing/selftests/bpf/progs/test_subprogs.c:	bpf_map_lookup_elem(&array, &key);
+tools/testing/selftests/bpf/progs/test_subprogs.c:	bpf_map_lookup_elem(&array, &key);
+tools/testing/selftests/bpf/progs/test_stacktrace_map.c:	value_p = bpf_map_lookup_elem(&control_map, &key);
+tools/testing/selftests/bpf/progs/test_stacktrace_map.c:		stack_p = bpf_map_lookup_elem(&stack_amap, &key);
+tools/testing/selftests/bpf/progs/get_cgroup_id_kern.c:	expected_pid = bpf_map_lookup_elem(&pidmap, &key);
+tools/testing/selftests/bpf/progs/get_cgroup_id_kern.c:	val = bpf_map_lookup_elem(&cg_ids, &key);
+tools/testing/selftests/bpf/progs/test_tc_edt.c:	uint64_t *last_tstamp = bpf_map_lookup_elem(&flow_map, &key);
+tools/testing/selftests/bpf/progs/test_migrate_reuseport.c:	key = bpf_map_lookup_elem(&migrate_map, &cookie);
+tools/testing/selftests/bpf/progs/test_sockmap_listen.c:	count = bpf_map_lookup_elem(&verdict_map, &verdict);
+tools/testing/selftests/bpf/progs/test_sockmap_listen.c:	count = bpf_map_lookup_elem(&verdict_map, &verdict);
+tools/testing/selftests/bpf/progs/test_sockmap_listen.c:	count = bpf_map_lookup_elem(&verdict_map, &verdict);
+tools/testing/selftests/bpf/progs/test_sockmap_listen.c:	count = bpf_map_lookup_elem(&verdict_map, &verdict);
+tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:	real_pos = bpf_map_lookup_elem(&ch_rings, &key);
+tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:	*real = bpf_map_lookup_elem(&reals, &key);
+tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:	vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:		vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:		cval = bpf_map_lookup_elem(&ctl_array, &v6_intf_pos);
+tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:		cval = bpf_map_lookup_elem(&ctl_array, &v4_intf_pos);
+tools/testing/selftests/bpf/progs/test_l4lb_noinline.c:	data_stats = bpf_map_lookup_elem(&stats, &vip_num);
+tools/testing/selftests/bpf/progs/timer.c:		lru_timer = bpf_map_lookup_elem(&lru, &lru_key);
+tools/testing/selftests/bpf/progs/timer.c:			bpf_map_lookup_elem(map, &lru_key);
+tools/testing/selftests/bpf/progs/timer.c:	arr_timer = bpf_map_lookup_elem(&array, &array_key);
+tools/testing/selftests/bpf/progs/timer.c:	lru_timer = bpf_map_lookup_elem(&lru, &lru_key);
+tools/testing/selftests/bpf/progs/timer.c:	arr_timer = bpf_map_lookup_elem(&array, &array_key);
+tools/testing/selftests/bpf/progs/timer.c:		arr_timer = bpf_map_lookup_elem(&array, &array_key);
+tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap, &key);
+tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap_malloc, &key_malloc);
+tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap, &key);
+tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap_malloc, &key_malloc);
+tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap, &key);
+tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap, &key);
+tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap_malloc, &key_malloc);
+tools/testing/selftests/bpf/progs/timer.c:	val = bpf_map_lookup_elem(&hmap_malloc, &key_malloc);
+tools/testing/selftests/bpf/progs/test_xdp.c:	rxcnt_count = bpf_map_lookup_elem(&rxcnt, &protocol);
+tools/testing/selftests/bpf/progs/test_xdp.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+tools/testing/selftests/bpf/progs/test_xdp.c:	tnl = bpf_map_lookup_elem(&vip2tnl, &vip);
+tools/testing/selftests/bpf/progs/freplace_attach_probe.c:	val = bpf_map_lookup_elem(&hash_map, &key);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	real_pos = bpf_map_lookup_elem(&ch_rings, &key);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	*real = bpf_map_lookup_elem(&reals, &key);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:		    bpf_map_lookup_elem(&stats, &conn_rate_key);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	dst_lru = bpf_map_lookup_elem(lru_map, &pckt->flow);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	*real = bpf_map_lookup_elem(&reals, &key);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:		vip_info = bpf_map_lookup_elem(&vip_map, &vip);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	data_stats = bpf_map_lookup_elem(&stats, &stats_key);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:			    bpf_map_lookup_elem(&stats, &lru_stats_key);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	cval = bpf_map_lookup_elem(&ctl_array, &mac_addr_pos);
+tools/testing/selftests/bpf/progs/test_xdp_noinline.c:	data_stats = bpf_map_lookup_elem(&stats, &vip_num);
+tools/testing/selftests/bpf/test_lru_map.c:static int bpf_map_lookup_elem_with_ref_bit(int fd, unsigned long long key,
+tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem(mfd, &zero, value));
+tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem(map1, &next_key, value1));
+tools/testing/selftests/bpf/test_lru_map.c:		ret = bpf_map_lookup_elem(map0, &next_key, value0);
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+tools/testing/selftests/bpf/test_lru_map.c:		assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+tools/testing/selftests/bpf/test_lru_map.c:		assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(map_fd, last_key, value));
+tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(map_fd, key, value));
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(map_fd, &last_key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:			assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd,
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem(lru_map_fd, &key, value));
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem(lru_map_fd, &key, value));
+tools/testing/selftests/bpf/test_lru_map.c:	assert(!bpf_map_lookup_elem_with_ref_bit(lru_map_fd, key, value));
+tools/testing/selftests/bpf/test_lru_map.c:	assert(bpf_map_lookup_elem(lru_map_fd, &key, value) == -1 &&
+tools/testing/selftests/bpf/test_tcp_check_syncookie_user.c:	if (bpf_map_lookup_elem(results_fd, &key, &value) < 0) {
+tools/testing/selftests/bpf/test_tcp_check_syncookie_user.c:	if (bpf_map_lookup_elem(results_fd, &key_gen, &value_gen) < 0) {
+tools/testing/selftests/bpf/test_tcp_check_syncookie_user.c:	if (bpf_map_lookup_elem(results_fd, &key_mss, &value_mss) < 0) {
+kernel/trace/bpf_trace.c:		return &bpf_map_lookup_elem_proto;
+kernel/bpf/core.c:const struct bpf_func_proto bpf_map_lookup_elem_proto __weak;
+kernel/bpf/hashtab.c: * arguments have to match bpf_map_lookup_elem() exactly.
+kernel/bpf/hashtab.c:/* inline bpf_map_lookup_elem() call.
+kernel/bpf/hashtab.c: *   bpf_map_lookup_elem
+kernel/bpf/hashtab.c:	 * same as the one seen by the bpf program with bpf_map_lookup_elem().
+kernel/bpf/verifier.c: * For example the argument constraints for bpf_map_lookup_elem():
+kernel/bpf/verifier.c: * u64 bpf_map_lookup_elem(u64 r1, u64 r2, u64 r3, u64 r4, u64 r5)
+kernel/bpf/verifier.c: * R0->type = PTR_TO_MAP_VALUE_OR_NULL which means bpf_map_lookup_elem() function
+kernel/bpf/verifier.c:			 * inner_map1 = bpf_map_lookup_elem(outer_map, key1)
+kernel/bpf/verifier.c:			 * inner_map2 = bpf_map_lookup_elem(outer_map, key2)
+kernel/bpf/verifier.c:			 *     timer = bpf_map_lookup_elem(inner_map1);
+kernel/bpf/verifier.c:		 * to map element returned from bpf_map_lookup_elem()
+kernel/bpf/verifier.c:	/* detect if R == 0 where R is returned from bpf_map_lookup_elem().
+kernel/bpf/helpers.c: * bpf_map_lookup_elem_proto, so that verifier can properly check the arguments
+kernel/bpf/helpers.c:BPF_CALL_2(bpf_map_lookup_elem, struct bpf_map *, map, void *, key)
+kernel/bpf/helpers.c:const struct bpf_func_proto bpf_map_lookup_elem_proto = {
+kernel/bpf/helpers.c:	.func		= bpf_map_lookup_elem,
+kernel/bpf/helpers.c:		return &bpf_map_lookup_elem_proto;
+drivers/media/rc/bpf-lirc.c:		return &bpf_map_lookup_elem_proto;
