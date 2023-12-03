@@ -1,0 +1,13 @@
+Package: linux-buildinfo-5.15.0g-88-generic
+Source: linux
+Version: 5.15.0g-88.98
+Architecture: amd64
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Installed-Size: 2839
+Section: kernel
+Priority: optional
+Description: Linux kernel buildinfo for version 5.15.0g on 64 bit x86 SMP
+ This package contains the Linux kernel buildinfo for version 5.15.0g on
+ 64 bit x86 SMP.
+ .
+ You likely do not want to install this package.

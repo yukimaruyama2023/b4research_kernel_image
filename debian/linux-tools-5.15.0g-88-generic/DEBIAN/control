@@ -1,0 +1,14 @@
+Package: linux-tools-5.15.0g-88-generic
+Source: linux
+Version: 5.15.0g-88.98
+Architecture: amd64
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Installed-Size: 618
+Depends: linux-tools-5.15.0g-88
+Section: devel
+Priority: optional
+Description: Linux kernel version specific tools for version 5.15.0g-88
+ This package provides the architecture dependant parts for kernel
+ version locked tools (such as perf and x86_energy_perf_policy) for
+ version 5.15.0g-88 on
+ 64 bit x86.

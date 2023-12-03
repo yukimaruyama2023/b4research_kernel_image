@@ -150,6 +150,12 @@ static int show_stat(struct seq_file *p, void *v)
 	}
 	sum += arch_irq_stat();
 
+    pr_info("In proc/stat.c: The value of metrics is %ld in u64 decimal.\n", nsec_to_clock_t(user));
+    pr_info("In proc/stat.c: The value of metrics is %lx in u64 hexadecimal.\n", nsec_to_clock_t(user));
+
+    pr_info("In proc/stat.c: The value of metrics is %ld in long decimal.\n", nsec_to_clock_t((long)user));
+    pr_info("In proc/stat.c: The value of metrics is %lx in long hexadecimal.\n", nsec_to_clock_t((long)user));
+
 	seq_put_decimal_ull(p, "cpu  ", nsec_to_clock_t(user));
 	seq_put_decimal_ull(p, " ", nsec_to_clock_t(nice));
 	seq_put_decimal_ull(p, " ", nsec_to_clock_t(system));

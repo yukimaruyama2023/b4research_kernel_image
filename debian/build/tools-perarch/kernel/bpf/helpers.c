@@ -16,11 +16,35 @@
 #include <linux/proc_ns.h>
 #include <linux/security.h>
 
+/* these are added for nsec_to_t */
+#include <linux/cpumask.h> //for_each_possible_cpu(i)
+#include <linux/fs.h>
+#include <linux/init.h>
+#include <linux/interrupt.h>
+#include <linux/kernel_stat.h> //for kcpustat_cpu_fetch(&kcpustat, i) and struct kernel_cpustat
+#include <linux/proc_fs.h>
+#include <linux/sched.h>
+#include <linux/sched/stat.h>
+#include <linux/seq_file.h>
+#include <linux/slab.h>
+#include <linux/time.h>
+#include <linux/time_namespace.h>
+#include <linux/irqnr.h>
+#include <linux/sched/cputime.h>
+#include <linux/tick.h>
+
 #include "../../lib/kstrtox.h"
 
-#include <linux/kernel_stat.h> //this is added for kcpustat_cpu_fetch(&kcpustat, i) and struct kernel_cpustat
-#include <linux/cpumask.h> //this is added for for_each_possible_cpu(i) 
+/*
+#ifndef arch_irq_stat_cpu
+#define arch_irq_stat_cpu(cpu) 0
+#endif
+#ifndef arch_irq_stat
+#define arch_irq_stat() 0
+#endif
 
+#ifdef arch_idle_time
+*/
 /* If kernel subsystem is allowing eBPF programs to call this function,
  * inside its own verifier_ops->get_func_proto() callback it should return
  * bpf_map_lookup_elem_proto, so that verifier can properly check the arguments
@@ -33,7 +57,7 @@
 
 BPF_CALL_0(bpf_store42)
 {
-	printk("Hooooo!!!!\n");
+	pr_info("Hooooo!!!!\n");
 	return 0;
 }
 
@@ -43,13 +67,13 @@ const struct bpf_func_proto bpf_store42_proto = {
 	.ret_type	= RET_INTEGER,
 };
 
-
 BPF_CALL_1(bpf_get_user_cpu_metrics, long *, addr)
 {
     int i;
 	u64 user;
-    printk("I'll get metrics!!!!!!\n");
+    pr_info("I'll get metrics!!!!!!\n");
 
+    user = 0;
     for_each_possible_cpu(i) {
         struct kernel_cpustat kcpustat;
         u64 *cpustat = kcpustat.cpustat;
@@ -58,11 +82,69 @@ BPF_CALL_1(bpf_get_user_cpu_metrics, long *, addr)
 		user		+= cpustat[CPUTIME_USER];
     }
 
-    printk("I've got metrics!!!\n");
+    user = nsec_to_clock_t(user);
+    pr_info("In helper: The value of cpu metrics is %ld in decimal.\n", (long)user);
+    pr_info("In helper: The value of cpu metrics is %lx in hexadecimal.\n", (long)user);
     *addr = (long)user;
     
     return 0;
 }
+
+/*
+BPF_CALL_1(bpf_get_user_cpu_metrics, long *, addr)
+{
+	int i, j;
+	u64 user, nice, system,  irq, softirq, steal;
+	u64 guest, guest_nice;
+	u64 sum = 0;
+	u64 sum_softirq = 0;
+	unsigned int per_softirq_sums[NR_SOFTIRQS] = {0};
+	struct timespec64 boottime;
+
+	user = nice = system  =
+		irq = softirq = steal = 0;
+	guest = guest_nice = 0;
+	getboottime64(&boottime);
+	// shift boot timestamp according to the timens offset 
+	timens_sub_boottime(&boottime);
+
+	for_each_possible_cpu(i) {
+		struct kernel_cpustat kcpustat;
+		u64 *cpustat = kcpustat.cpustat;
+
+		kcpustat_cpu_fetch(&kcpustat, i);
+
+		user		+= cpustat[CPUTIME_USER];
+		nice		+= cpustat[CPUTIME_NICE];
+		system		+= cpustat[CPUTIME_SYSTEM];
+		// idle		+= get_idle_time(&kcpustat, i);
+		// iowait		+= get_iowait_time(&kcpustat, i);
+		irq		+= cpustat[CPUTIME_IRQ];
+		softirq		+= cpustat[CPUTIME_SOFTIRQ];
+		steal		+= cpustat[CPUTIME_STEAL];
+		guest		+= cpustat[CPUTIME_GUEST];
+		guest_nice	+= cpustat[CPUTIME_GUEST_NICE];
+		sum		+= kstat_cpu_irqs_sum(i);
+		sum		+= arch_irq_stat_cpu(i);
+
+		for (j = 0; j < NR_SOFTIRQS; j++) {
+			unsigned int softirq_stat = kstat_softirqs_cpu(j, i);
+
+			per_softirq_sums[j] += softirq_stat;
+			sum_softirq += softirq_stat;
+		}
+	}
+	sum += arch_irq_stat();
+
+    user = nsec_to_clock_t(user);
+    pr_info("In helper: The value of cpu metrics is %ld in decimal.\n", (long)user);
+    pr_info("In helper: The value of cpu metrics is %lx in hexadecimal.\n", (long)user);
+
+
+    *addr = (long)user;
+    return 0;
+}
+*/
 
 const struct bpf_func_proto bpf_get_user_cpu_metrics_proto = {
     .func       = bpf_get_user_cpu_metrics,
@@ -70,6 +152,7 @@ const struct bpf_func_proto bpf_get_user_cpu_metrics_proto = {
     .ret_type   = RET_INTEGER,
     .arg1_type  = ARG_PTR_TO_LONG,	/* pointer to long */
 };
+
 
 BPF_CALL_2(bpf_map_lookup_elem, struct bpf_map *, map, void *, key)
 {
