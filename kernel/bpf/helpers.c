@@ -90,62 +90,6 @@ BPF_CALL_1(bpf_get_user_cpu_metrics, long *, addr)
     return 0;
 }
 
-/*
-BPF_CALL_1(bpf_get_user_cpu_metrics, long *, addr)
-{
-	int i, j;
-	u64 user, nice, system,  irq, softirq, steal;
-	u64 guest, guest_nice;
-	u64 sum = 0;
-	u64 sum_softirq = 0;
-	unsigned int per_softirq_sums[NR_SOFTIRQS] = {0};
-	struct timespec64 boottime;
-
-	user = nice = system  =
-		irq = softirq = steal = 0;
-	guest = guest_nice = 0;
-	getboottime64(&boottime);
-	// shift boot timestamp according to the timens offset 
-	timens_sub_boottime(&boottime);
-
-	for_each_possible_cpu(i) {
-		struct kernel_cpustat kcpustat;
-		u64 *cpustat = kcpustat.cpustat;
-
-		kcpustat_cpu_fetch(&kcpustat, i);
-
-		user		+= cpustat[CPUTIME_USER];
-		nice		+= cpustat[CPUTIME_NICE];
-		system		+= cpustat[CPUTIME_SYSTEM];
-		// idle		+= get_idle_time(&kcpustat, i);
-		// iowait		+= get_iowait_time(&kcpustat, i);
-		irq		+= cpustat[CPUTIME_IRQ];
-		softirq		+= cpustat[CPUTIME_SOFTIRQ];
-		steal		+= cpustat[CPUTIME_STEAL];
-		guest		+= cpustat[CPUTIME_GUEST];
-		guest_nice	+= cpustat[CPUTIME_GUEST_NICE];
-		sum		+= kstat_cpu_irqs_sum(i);
-		sum		+= arch_irq_stat_cpu(i);
-
-		for (j = 0; j < NR_SOFTIRQS; j++) {
-			unsigned int softirq_stat = kstat_softirqs_cpu(j, i);
-
-			per_softirq_sums[j] += softirq_stat;
-			sum_softirq += softirq_stat;
-		}
-	}
-	sum += arch_irq_stat();
-
-    user = nsec_to_clock_t(user);
-    pr_info("In helper: The value of cpu metrics is %ld in decimal.\n", (long)user);
-    pr_info("In helper: The value of cpu metrics is %lx in hexadecimal.\n", (long)user);
-
-
-    *addr = (long)user;
-    return 0;
-}
-*/
-
 const struct bpf_func_proto bpf_get_user_cpu_metrics_proto = {
     .func       = bpf_get_user_cpu_metrics,
     .gpl_only   = false,
@@ -153,6 +97,54 @@ const struct bpf_func_proto bpf_get_user_cpu_metrics_proto = {
     .arg1_type  = ARG_PTR_TO_LONG,	/* pointer to long */
 };
 
+BPF_CALL_2(bpf_icmp_checksum, u16 *, icmph, int, len)
+{
+	u16 ret = 0;
+	u32 sum = 0;
+	
+	while (len > 1) {
+		sum += *icmph++;
+		len -= 2;
+	}
+	
+	if (len == 1) {
+		sum += *(u8 *)icmph;
+	}
+	
+	sum =  (sum >> 16) + (sum & 0xffff);
+	sum += (sum >> 16);
+	ret =  ~sum;
+    pr_info("In helper: The value of checksum is %d.\n", (int)ret);
+	
+	return ret; 
+}
+
+const struct bpf_func_proto bpf_icmp_checksum_proto = {
+    .func       = bpf_icmp_checksum,
+    .gpl_only   = false,
+    .ret_type   = RET_INTEGER,
+    .arg1_type  = ARG_ANYTHING,	
+    .arg2_type  = ARG_ANYTHING,
+};
+ 
+/* まだインクルードファイルは指定していない． */
+/* BPF_CALL_1(bpf_get_memory_total, long *, addr) */
+/* { */
+/*     struct sysinfo i; */
+
+/*     si_meminfo(&i); */
+/*     si_swapinfo(&i); */
+/*     *addr = i.totalram; */
+
+/*     return 0; */
+/* } */
+
+/* const struct bpf_func_proto bpf_get_user_cpu_metrics_proto = { */
+/*     .func       = bpf_get_memory_total, */
+/*     .gpl_only   = false, */
+/*     .ret_type   = RET_INTEGER, */
+/*     .arg1_type  = ARG_PTR_TO_LONG,	/1* pointer to long *1/ */
+/* }; */
 
 BPF_CALL_2(bpf_map_lookup_elem, struct bpf_map *, map, void *, key)
 {
@@ -1510,6 +1502,8 @@ bpf_base_func_proto(enum bpf_func_id func_id)
 		return &bpf_store42_proto;
     case BPF_FUNC_bpf_get_user_cpu_metrics:
         return &bpf_get_user_cpu_metrics_proto;
+    case BPF_FUNC_bpf_icmp_checksum:
+        return &bpf_icmp_checksum_proto;
 	default:
 		break;
 	}

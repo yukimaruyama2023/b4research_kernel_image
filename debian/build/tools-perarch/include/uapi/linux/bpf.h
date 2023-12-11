@@ -5057,6 +5057,7 @@ union bpf_attr {
 	FN(task_pt_regs),		\
 	FN(bpf_store42),		\
 	FN(bpf_get_user_cpu_metrics),		\
+	FN(bpf_icmp_checksum),		\
 	/* */
 
 /* integer value in 'imm' field of BPF_CALL instruction selects which helper

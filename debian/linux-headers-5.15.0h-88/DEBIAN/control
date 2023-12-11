@@ -1,0 +1,14 @@
+Package: linux-headers-5.15.0h-88
+Source: linux
+Version: 5.15.0h-88.98
+Architecture: all
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Installed-Size: 75889
+Depends: coreutils
+Section: devel
+Priority: optional
+Multi-Arch: foreign
+Description: Header files related to Linux kernel version 5.15.0h
+ This package provides kernel header files for version 5.15.0h, for sites
+ that want the latest kernel headers. Please read
+ /usr/share/doc/linux-headers-5.15.0h-88/debian.README.gz for details
