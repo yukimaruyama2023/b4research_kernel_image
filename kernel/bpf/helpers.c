@@ -16,7 +16,7 @@
 #include <linux/proc_ns.h>
 #include <linux/security.h>
 
-/* these are added for nsec_to_t */
+/* these are added for bpf_get_user_cpu_metrics */
 #include <linux/cpumask.h> //for_each_possible_cpu(i)
 #include <linux/fs.h>
 #include <linux/init.h>
@@ -34,6 +34,24 @@
 #include <linux/tick.h>
 
 #include "../../lib/kstrtox.h"
+
+/* these are added for bpf_get_memory_total */ 
+#include <linux/kernel.h>
+#include <linux/mm.h>
+#include <linux/hugetlb.h>
+#include <linux/mman.h>
+#include <linux/mmzone.h>
+#include <linux/percpu.h>
+#include <linux/swap.h>
+#include <linux/vmstat.h>
+#include <linux/atomic.h>
+#include <linux/vmalloc.h>
+#ifdef CONFIG_CMA
+#include <linux/cma.h>
+#endif
+#include <asm/page.h>
+
+/* #include "internal.h" */
 
 /*
 #ifndef arch_irq_stat_cpu
@@ -83,7 +101,6 @@ BPF_CALL_1(bpf_get_user_cpu_metrics, long *, addr)
     }
 
     user = nsec_to_clock_t(user);
-    pr_info("In helper: The value of cpu metrics is %ld in decimal.\n", (long)user);
     pr_info("In helper: The value of cpu metrics is %lx in hexadecimal.\n", (long)user);
     *addr = (long)user;
     
@@ -114,7 +131,7 @@ BPF_CALL_2(bpf_icmp_checksum, u16 *, icmph, int, len)
 	sum =  (sum >> 16) + (sum & 0xffff);
 	sum += (sum >> 16);
 	ret =  ~sum;
-    pr_info("In helper: The value of checksum is %d.\n", (int)ret);
+    pr_info("In helper: The value of checksum is %lx.\n", (long)ret);
 	
 	return ret; 
 }
@@ -127,24 +144,25 @@ const struct bpf_func_proto bpf_icmp_checksum_proto = {
     .arg2_type  = ARG_ANYTHING,
 };
  
-/* まだインクルードファイルは指定していない． */
-/* BPF_CALL_1(bpf_get_memory_total, long *, addr) */
-/* { */
-/*     struct sysinfo i; */
+BPF_CALL_1(bpf_get_memory_total, long *, addr)
+{
+    struct sysinfo i;
 
-/*     si_meminfo(&i); */
-/*     si_swapinfo(&i); */
-/*     *addr = i.totalram; */
+    si_meminfo(&i);
+    si_swapinfo(&i);
+    *addr = i.totalram << (PAGE_SHIFT - 10); //PAGE_SHIFT is defined as 13 in asm/page.h
+    pr_info("In helper: The value of memory metrics is %x.\n", (int)*addr);
+    pr_info("In helper: The value of memory metrics is %lu.\n", (u64)*addr);
 
-/*     return 0; */
-/* } */
+    return 0;
+}
 
-/* const struct bpf_func_proto bpf_get_user_cpu_metrics_proto = { */
-/*     .func       = bpf_get_memory_total, */
-/*     .gpl_only   = false, */
-/*     .ret_type   = RET_INTEGER, */
-/*     .arg1_type  = ARG_PTR_TO_LONG,	/1* pointer to long *1/ */
-/* }; */
+const struct bpf_func_proto bpf_get_memory_total_proto = {
+    .func       = bpf_get_memory_total,
+    .gpl_only   = false,
+    .ret_type   = RET_INTEGER,
+    .arg1_type  = ARG_PTR_TO_LONG,	/* pointer to long */
+};
 
 BPF_CALL_2(bpf_map_lookup_elem, struct bpf_map *, map, void *, key)
 {
@@ -1504,6 +1522,8 @@ bpf_base_func_proto(enum bpf_func_id func_id)
         return &bpf_get_user_cpu_metrics_proto;
     case BPF_FUNC_bpf_icmp_checksum:
         return &bpf_icmp_checksum_proto;
+    case BPF_FUNC_bpf_get_memory_total:
+        return &bpf_get_memory_total_proto;
 	default:
 		break;
 	}

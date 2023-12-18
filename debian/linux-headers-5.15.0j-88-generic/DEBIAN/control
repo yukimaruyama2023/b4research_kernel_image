@@ -1,0 +1,16 @@
+Package: linux-headers-5.15.0j-88-generic
+Source: linux
+Version: 5.15.0j-88.98
+Architecture: amd64
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Installed-Size: 24387
+Depends: linux-headers-5.15.0j-88, libc6 (>= 2.34), libelf1 (>= 0.142), libssl3 (>= 3.0.0~~alpha1), zlib1g (>= 1:1.2.3.3)
+Provides: linux-headers, linux-headers-3.0
+Section: devel
+Priority: optional
+Description: Linux kernel headers for version 5.15.0j on 64 bit x86 SMP
+ This package provides kernel header files for version 5.15.0j on
+ 64 bit x86 SMP.
+ .
+ This is for sites that want the latest kernel headers.  Please read
+ /usr/share/doc/linux-headers-5.15.0j-88/debian.README.gz for details.

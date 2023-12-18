@@ -1,0 +1,13 @@
+Package: linux-cloud-tools-5.15.0k-88-generic
+Source: linux
+Version: 5.15.0k-88.98
+Architecture: amd64
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Installed-Size: 613
+Depends: linux-cloud-tools-5.15.0k-88
+Section: devel
+Priority: optional
+Description: Linux kernel version specific cloud tools for version 5.15.0k-88
+ This package provides the architecture dependant parts for kernel
+ version locked tools for cloud for version 5.15.0k-88 on
+ 64 bit x86.
