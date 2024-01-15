@@ -1,0 +1,24 @@
+Package: linux-image-unsigned-5.15.0o-88-generic
+Source: linux
+Version: 5.15.0o-88.98
+Architecture: amd64
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Installed-Size: 11967
+Depends: kmod, linux-base (>= 4.5ubuntu1~16.04.1), linux-modules-5.15.0o-88-generic
+Recommends: grub-pc | grub-efi-amd64 | grub-efi-ia32 | grub | lilo, initramfs-tools | linux-initramfs-tool
+Suggests: fdutils, linux-doc | linux-source-5.15.0o, linux-tools, linux-headers-5.15.0o-88-generic, linux-modules-extra-5.15.0o-88-generic
+Conflicts: linux-image-5.15.0o-88-generic
+Provides: fuse-module, ivtv-modules, kvm-api-4, linux-image, redhat-cluster-modules, spl-dkms, spl-modules, v4l2loopback-dkms, v4l2loopback-modules, virtualbox-guest-modules, zfs-dkms, zfs-modules
+Section: kernel
+Priority: optional
+Description: Linux kernel image for version 5.15.0o on 64 bit x86 SMP
+ This package contains the unsigned Linux kernel image for version 5.15.0o on
+ 64 bit x86 SMP.
+ .
+ Supports Generic processors.
+ .
+ Geared toward desktop and server systems.
+ .
+ You likely do not want to install this package directly. Instead, install
+ the linux-generic meta-package, which will ensure that upgrades work
+ correctly, and that supporting packages are also installed.

@@ -1,0 +1,14 @@
+Package: linux-cloud-tools-5.15.0m-88
+Source: linux
+Version: 5.15.0m-88.98
+Architecture: amd64
+Maintainer: Ubuntu Kernel Team <kernel-team@lists.ubuntu.com>
+Installed-Size: 691
+Depends: libc6 (>= 2.34), linux-cloud-tools-common
+Section: devel
+Priority: optional
+Description: Linux kernel version specific cloud tools for version 5.15.0m-88
+ This package provides the architecture dependant parts for kernel
+ version locked tools for cloud tools for version 5.15.0m-88 on
+ 64 bit x86.
+ You probably want to install linux-cloud-tools-5.15.0m-88-<flavour>.

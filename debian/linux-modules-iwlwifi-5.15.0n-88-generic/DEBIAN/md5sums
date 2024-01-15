@@ -1,0 +1,8 @@
+3b73a593b1310761bc30baca8d6f0899  lib/modules/5.15.0n-88-generic/ubuntu/iwlwifi/cfg80211.ko
+c892ce9a48c4fc35004741095ae3a90e  lib/modules/5.15.0n-88-generic/ubuntu/iwlwifi/compat.ko
+36bdbd2ebe34463387c9e045c4a63fc4  lib/modules/5.15.0n-88-generic/ubuntu/iwlwifi/iwlmvm.ko
+a4aaa165b4fe00c000834a3f7d8b158d  lib/modules/5.15.0n-88-generic/ubuntu/iwlwifi/iwlwifi.ko
+798224397e71a4b5af2b09d7f42c60aa  lib/modules/5.15.0n-88-generic/ubuntu/iwlwifi/iwlxvt.ko
+b17aceba0ce9fb60d80419f845d002b5  lib/modules/5.15.0n-88-generic/ubuntu/iwlwifi/mac80211.ko
+79ceedfb593bf8cf3cdd05ce63914652  usr/share/doc/linux-modules-iwlwifi-5.15.0n-88-generic/changelog.Debian.gz
+a8941f8b5b3adb2ab3bb8d0fd69bc2ac  usr/share/doc/linux-modules-iwlwifi-5.15.0n-88-generic/copyright

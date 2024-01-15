@@ -53,7 +53,6 @@
 
 /* #include "internal.h" */
 
-/*
 #ifndef arch_irq_stat_cpu
 #define arch_irq_stat_cpu(cpu) 0
 #endif
@@ -62,7 +61,63 @@
 #endif
 
 #ifdef arch_idle_time
-*/
+
+u64 get_idle_time_in_helpers(struct kernel_cpustat *kcs, int cpu)
+{
+	u64 idle;
+
+	idle = kcs->cpustat[CPUTIME_IDLE];
+	if (cpu_online(cpu) && !nr_iowait_cpu(cpu))
+		idle += arch_idle_time(cpu);
+	return idle;
+}
+
+static u64 get_iowait_time_in_helpers(struct kernel_cpustat *kcs, int cpu)
+{
+	u64 iowait;
+
+	iowait = kcs->cpustat[CPUTIME_IOWAIT];
+	if (cpu_online(cpu) && nr_iowait_cpu(cpu))
+		iowait += arch_idle_time(cpu);
+	return iowait;
+}
+
+#else
+
+u64 get_idle_time_in_helpers(struct kernel_cpustat *kcs, int cpu)
+{
+	u64 idle, idle_usecs = -1ULL;
+
+	if (cpu_online(cpu))
+		idle_usecs = get_cpu_idle_time_us(cpu, NULL);
+
+	if (idle_usecs == -1ULL)
+		/* !NO_HZ or cpu offline so we can rely on cpustat.idle */
+		idle = kcs->cpustat[CPUTIME_IDLE];
+	else
+		idle = idle_usecs * NSEC_PER_USEC;
+
+	return idle;
+}
+
+static u64 get_iowait_time_in_helpers(struct kernel_cpustat *kcs, int cpu)
+{
+	u64 iowait, iowait_usecs = -1ULL;
+
+	if (cpu_online(cpu))
+		iowait_usecs = get_cpu_iowait_time_us(cpu, NULL);
+
+	if (iowait_usecs == -1ULL)
+		/* !NO_HZ or cpu offline so we can rely on cpustat.iowait */
+		iowait = kcs->cpustat[CPUTIME_IOWAIT];
+	else
+		iowait = iowait_usecs * NSEC_PER_USEC;
+
+	return iowait;
+}
+
+#endif
+
 /* If kernel subsystem is allowing eBPF programs to call this function,
  * inside its own verifier_ops->get_func_proto() callback it should return
  * bpf_map_lookup_elem_proto, so that verifier can properly check the arguments
@@ -89,7 +144,7 @@ BPF_CALL_1(bpf_get_user_cpu_metrics, long *, addr)
 {
     int i;
 	u64 user;
-    pr_info("I'll get metrics!!!!!!\n");
+    /* pr_info("I'll get metrics!!!!!!\n"); */
 
     user = 0;
     for_each_possible_cpu(i) {
@@ -101,7 +156,7 @@ BPF_CALL_1(bpf_get_user_cpu_metrics, long *, addr)
     }
 
     user = nsec_to_clock_t(user);
-    pr_info("In helper: The value of cpu metrics is %lx in hexadecimal.\n", (long)user);
+    /* pr_info("In helper: The value of cpu metrics is %lx in hexadecimal.\n", (long)user); */
     *addr = (long)user;
     
     return 0;
@@ -131,7 +186,7 @@ BPF_CALL_2(bpf_icmp_checksum, u16 *, icmph, int, len)
 	sum =  (sum >> 16) + (sum & 0xffff);
 	sum += (sum >> 16);
 	ret =  ~sum;
-    pr_info("In helper: The value of checksum is %lx.\n", (long)ret);
+    /* pr_info("In helper: The value of checksum is %lx.\n", (long)ret); */
 	
 	return ret; 
 }
@@ -151,14 +206,84 @@ BPF_CALL_1(bpf_get_memory_total, long *, addr)
     si_meminfo(&i);
     si_swapinfo(&i);
     *addr = i.totalram << (PAGE_SHIFT - 10); //PAGE_SHIFT is defined as 13 in asm/page.h
-    pr_info("In helper: The value of memory metrics is %x.\n", (int)*addr);
-    pr_info("In helper: The value of memory metrics is %lu.\n", (u64)*addr);
+    /* pr_info("In helper: The value of memory metrics is %x.\n", (int)*addr); */
+    /* pr_info("In helper: The value of memory metrics is %lu.\n", (u64)*addr); */
 
     return 0;
 }
 
 const struct bpf_func_proto bpf_get_memory_total_proto = {
     .func       = bpf_get_memory_total,
+    .gpl_only   = false,
+    .ret_type   = RET_INTEGER,
+    .arg1_type  = ARG_PTR_TO_LONG,	/* pointer to long */
+};
+
+BPF_CALL_1(bpf_get_all_cpu_metrics, long *, ptr)
+{
+	int i;
+	u64 user, nice, system, idle, iowait, irq, softirq, steal;
+	u64 guest, guest_nice;
+	/* u64 sum = 0; */
+	/* u64 sum_softirq = 0; */
+	user = nice = system = idle = iowait =
+		irq = softirq = steal = 0;
+	guest = guest_nice = 0;
+
+	/* unsigned int per_softirq_sums[NR_SOFTIRQS] = {0}; */
+	/* struct timespec64 boottime; */
+
+	/* getboottime64(&boottime); */
+	/* /1* shift boot timestamp according to the timens offset *1/ */
+	/* timens_sub_boottime(&boottime); */
+
+	for_each_possible_cpu(i) {
+		struct kernel_cpustat kcpustat;
+		u64 *cpustat = kcpustat.cpustat;
+
+		kcpustat_cpu_fetch(&kcpustat, i);
+
+		user		+= cpustat[CPUTIME_USER];
+		nice		+= cpustat[CPUTIME_NICE];
+		system		+= cpustat[CPUTIME_SYSTEM];
+		idle		+= get_idle_time_in_helpers(&kcpustat, i);
+		iowait		+= get_iowait_time_in_helpers(&kcpustat, i);
+		irq		+= cpustat[CPUTIME_IRQ];
+		softirq		+= cpustat[CPUTIME_SOFTIRQ];
+		steal		+= cpustat[CPUTIME_STEAL];
+		guest		+= cpustat[CPUTIME_GUEST];
+		guest_nice	+= cpustat[CPUTIME_GUEST_NICE];
+		/* sum		+= kstat_cpu_irqs_sum(i); */
+		/* sum		+= arch_irq_stat_cpu(i); */
+
+		/* for (j = 0; j < NR_SOFTIRQS; j++) { */
+		/* 	unsigned int softirq_stat = kstat_softirqs_cpu(j, i); */
+
+		/* 	per_softirq_sums[j] += softirq_stat; */
+		/* 	sum_softirq += softirq_stat; */
+		/* } */
+	}
+	/* sum += arch_irq_stat(); */
+
+    ptr[0] = nsec_to_clock_t(user);
+    ptr[1] = nsec_to_clock_t(nice);
+    ptr[2] = nsec_to_clock_t(system);
+    ptr[3] = nsec_to_clock_t(idle);
+    ptr[4] = nsec_to_clock_t(iowait);
+    ptr[5] = nsec_to_clock_t(irq);
+    ptr[6] = nsec_to_clock_t(softirq);
+    ptr[7] = nsec_to_clock_t(steal);
+    ptr[8] = nsec_to_clock_t(guest);
+    ptr[9] = nsec_to_clock_t(guest_nice);
+
+    /* pr_info("The value of cpu_nice metrics is %lx in hexadecimal.", ptr[1]); */
+    /* pr_info("The value of cpu_nice metrics is %ld in decimal.", ptr[1]); */
+
+    return 0;
+}
+
+const struct bpf_func_proto bpf_get_all_cpu_metrics_proto = {
+    .func       = bpf_get_all_cpu_metrics,
     .gpl_only   = false,
     .ret_type   = RET_INTEGER,
     .arg1_type  = ARG_PTR_TO_LONG,	/* pointer to long */
@@ -1524,6 +1649,8 @@ bpf_base_func_proto(enum bpf_func_id func_id)
         return &bpf_icmp_checksum_proto;
     case BPF_FUNC_bpf_get_memory_total:
         return &bpf_get_memory_total_proto;
+    case BPF_FUNC_bpf_get_all_cpu_metrics:
+        return &bpf_get_all_cpu_metrics_proto;
 	default:
 		break;
 	}
