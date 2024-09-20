@@ -1,0 +1,12 @@
+afe1889902e9a1ad76ec7e79ea985493  usr/lib/libcpupower.so.5.15.0q-88
+96fe01f232b7c3b0fab19e6d3fb2befc  usr/lib/linux-tools-5.15.0q-88/acpidbg
+59289643f651f2c5a8fbdbd43ae83066  usr/lib/linux-tools-5.15.0q-88/bpftool
+f00f4208cf2ad85e8f8638aa3b8a8293  usr/lib/linux-tools-5.15.0q-88/cpupower
+22aa471c80d204fdfdc5515f943eabf8  usr/lib/linux-tools-5.15.0q-88/libperf-jvmti.so
+9d94f1a7c375ca974c0511175a8204e7  usr/lib/linux-tools-5.15.0q-88/perf
+15a1686d2e70084bf47a880b39688838  usr/lib/linux-tools-5.15.0q-88/turbostat
+0e95a634f5f8b3ad3a86443465077515  usr/lib/linux-tools-5.15.0q-88/usbip
+d88905c9ff6597d5a6533a8fe95acd8e  usr/lib/linux-tools-5.15.0q-88/usbipd
+66123f64c3aa60993a44842f01f3cf44  usr/lib/linux-tools-5.15.0q-88/x86_energy_perf_policy
+ef21f4b8ae609780d8a0509ecc044c21  usr/share/doc/linux-tools-5.15.0q-88/changelog.Debian.gz
+a8941f8b5b3adb2ab3bb8d0fd69bc2ac  usr/share/doc/linux-tools-5.15.0q-88/copyright

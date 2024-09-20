@@ -35,7 +35,7 @@
 
 #include "../../lib/kstrtox.h"
 
-/* these are added for bpf_get_memory_total */ 
+/* these are added for bpf_get_memory_total */
 #include <linux/kernel.h>
 #include <linux/mm.h>
 #include <linux/hugetlb.h>
@@ -135,88 +135,89 @@ BPF_CALL_0(bpf_store42)
 }
 
 const struct bpf_func_proto bpf_store42_proto = {
-	.func		= bpf_store42,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_store42,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_1(bpf_get_user_cpu_metrics, long *, addr)
 {
-    int i;
+	int i;
 	u64 user;
-    /* pr_info("I'll get metrics!!!!!!\n"); */
+	/* pr_info("I'll get metrics!!!!!!\n"); */
 
-    user = 0;
-    for_each_possible_cpu(i) {
-        struct kernel_cpustat kcpustat;
-        u64 *cpustat = kcpustat.cpustat;
-        
-        kcpustat_cpu_fetch(&kcpustat, i);
-		user		+= cpustat[CPUTIME_USER];
-    }
+	user = 0;
+	for_each_possible_cpu (i) {
+		struct kernel_cpustat kcpustat;
+		u64 *cpustat = kcpustat.cpustat;
 
-    user = nsec_to_clock_t(user);
-    /* pr_info("In helper: The value of cpu metrics is %lx in hexadecimal.\n", (long)user); */
-    *addr = (long)user;
-    
-    return 0;
+		kcpustat_cpu_fetch(&kcpustat, i);
+		user += cpustat[CPUTIME_USER];
+	}
+
+	user = nsec_to_clock_t(user);
+	/* pr_info("In helper: The value of cpu metrics is %lx in hexadecimal.\n", (long)user); */
+	*addr = (long)user;
+
+	return 0;
 }
 
 const struct bpf_func_proto bpf_get_user_cpu_metrics_proto = {
-    .func       = bpf_get_user_cpu_metrics,
-    .gpl_only   = false,
-    .ret_type   = RET_INTEGER,
-    .arg1_type  = ARG_PTR_TO_LONG,	/* pointer to long */
+	.func = bpf_get_user_cpu_metrics,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
 };
 
 BPF_CALL_2(bpf_icmp_checksum, u16 *, icmph, int, len)
 {
 	u16 ret = 0;
 	u32 sum = 0;
-	
+
 	while (len > 1) {
 		sum += *icmph++;
 		len -= 2;
 	}
-	
+
 	if (len == 1) {
 		sum += *(u8 *)icmph;
 	}
-	
-	sum =  (sum >> 16) + (sum & 0xffff);
+
+	sum = (sum >> 16) + (sum & 0xffff);
 	sum += (sum >> 16);
-	ret =  ~sum;
-    /* pr_info("In helper: The value of checksum is %lx.\n", (long)ret); */
-	
-	return ret; 
+	ret = ~sum;
+	/* pr_info("In helper: The value of checksum is %lx.\n", (long)ret); */
+
+	return ret;
 }
 
 const struct bpf_func_proto bpf_icmp_checksum_proto = {
-    .func       = bpf_icmp_checksum,
-    .gpl_only   = false,
-    .ret_type   = RET_INTEGER,
-    .arg1_type  = ARG_ANYTHING,	
-    .arg2_type  = ARG_ANYTHING,
+	.func = bpf_icmp_checksum,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_ANYTHING,
+	.arg2_type = ARG_ANYTHING,
 };
- 
+
 BPF_CALL_1(bpf_get_memory_total, long *, addr)
 {
-    struct sysinfo i;
+	struct sysinfo i;
 
-    si_meminfo(&i);
-    si_swapinfo(&i);
-    *addr = i.totalram << (PAGE_SHIFT - 10); //PAGE_SHIFT is defined as 13 in asm/page.h
-    /* pr_info("In helper: The value of memory metrics is %x.\n", (int)*addr); */
-    /* pr_info("In helper: The value of memory metrics is %lu.\n", (u64)*addr); */
+	si_meminfo(&i);
+	si_swapinfo(&i);
+	*addr = i.totalram << (PAGE_SHIFT -
+			       10); //PAGE_SHIFT is defined as 13 in asm/page.h
+	/* pr_info("In helper: The value of memory metrics is %x.\n", (int)*addr); */
+	/* pr_info("In helper: The value of memory metrics is %lu.\n", (u64)*addr); */
 
-    return 0;
+	return 0;
 }
 
 const struct bpf_func_proto bpf_get_memory_total_proto = {
-    .func       = bpf_get_memory_total,
-    .gpl_only   = false,
-    .ret_type   = RET_INTEGER,
-    .arg1_type  = ARG_PTR_TO_LONG,	/* pointer to long */
+	.func = bpf_get_memory_total,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
 };
 
 BPF_CALL_1(bpf_get_all_cpu_metrics, long *, ptr)
@@ -226,8 +227,7 @@ BPF_CALL_1(bpf_get_all_cpu_metrics, long *, ptr)
 	u64 guest, guest_nice;
 	/* u64 sum = 0; */
 	/* u64 sum_softirq = 0; */
-	user = nice = system = idle = iowait =
-		irq = softirq = steal = 0;
+	user = nice = system = idle = iowait = irq = softirq = steal = 0;
 	guest = guest_nice = 0;
 
 	/* unsigned int per_softirq_sums[NR_SOFTIRQS] = {0}; */
@@ -237,22 +237,22 @@ BPF_CALL_1(bpf_get_all_cpu_metrics, long *, ptr)
 	/* /1* shift boot timestamp according to the timens offset *1/ */
 	/* timens_sub_boottime(&boottime); */
 
-	for_each_possible_cpu(i) {
+	for_each_possible_cpu (i) {
 		struct kernel_cpustat kcpustat;
 		u64 *cpustat = kcpustat.cpustat;
 
 		kcpustat_cpu_fetch(&kcpustat, i);
 
-		user		+= cpustat[CPUTIME_USER];
-		nice		+= cpustat[CPUTIME_NICE];
-		system		+= cpustat[CPUTIME_SYSTEM];
-		idle		+= get_idle_time_in_helpers(&kcpustat, i);
-		iowait		+= get_iowait_time_in_helpers(&kcpustat, i);
-		irq		+= cpustat[CPUTIME_IRQ];
-		softirq		+= cpustat[CPUTIME_SOFTIRQ];
-		steal		+= cpustat[CPUTIME_STEAL];
-		guest		+= cpustat[CPUTIME_GUEST];
-		guest_nice	+= cpustat[CPUTIME_GUEST_NICE];
+		user += cpustat[CPUTIME_USER];
+		nice += cpustat[CPUTIME_NICE];
+		system += cpustat[CPUTIME_SYSTEM];
+		idle += get_idle_time_in_helpers(&kcpustat, i);
+		iowait += get_iowait_time_in_helpers(&kcpustat, i);
+		irq += cpustat[CPUTIME_IRQ];
+		softirq += cpustat[CPUTIME_SOFTIRQ];
+		steal += cpustat[CPUTIME_STEAL];
+		guest += cpustat[CPUTIME_GUEST];
+		guest_nice += cpustat[CPUTIME_GUEST_NICE];
 		/* sum		+= kstat_cpu_irqs_sum(i); */
 		/* sum		+= arch_irq_stat_cpu(i); */
 
@@ -265,61 +265,61 @@ BPF_CALL_1(bpf_get_all_cpu_metrics, long *, ptr)
 	}
 	/* sum += arch_irq_stat(); */
 
-    ptr[0] = nsec_to_clock_t(user);
-    ptr[1] = nsec_to_clock_t(nice);
-    ptr[2] = nsec_to_clock_t(system);
-    ptr[3] = nsec_to_clock_t(idle);
-    ptr[4] = nsec_to_clock_t(iowait);
-    ptr[5] = nsec_to_clock_t(irq);
-    ptr[6] = nsec_to_clock_t(softirq);
-    ptr[7] = nsec_to_clock_t(steal);
-    ptr[8] = nsec_to_clock_t(guest);
-    ptr[9] = nsec_to_clock_t(guest_nice);
+	ptr[0] = nsec_to_clock_t(user);
+	ptr[1] = nsec_to_clock_t(nice);
+	ptr[2] = nsec_to_clock_t(system);
+	ptr[3] = nsec_to_clock_t(idle);
+	ptr[4] = nsec_to_clock_t(iowait);
+	ptr[5] = nsec_to_clock_t(irq);
+	ptr[6] = nsec_to_clock_t(softirq);
+	ptr[7] = nsec_to_clock_t(steal);
+	ptr[8] = nsec_to_clock_t(guest);
+	ptr[9] = nsec_to_clock_t(guest_nice);
 
-    /* pr_info("The value of cpu_nice metrics is %lx in hexadecimal.", ptr[1]); */
-    /* pr_info("The value of cpu_nice metrics is %ld in decimal.", ptr[1]); */
+	/* pr_info("The value of cpu_nice metrics is %lx in hexadecimal.", ptr[1]); */
+	/* pr_info("The value of cpu_nice metrics is %ld in decimal.", ptr[1]); */
 
-    return 0;
+	return 0;
 }
 
 const struct bpf_func_proto bpf_get_all_cpu_metrics_proto = {
-    .func       = bpf_get_all_cpu_metrics,
-    .gpl_only   = false,
-    .ret_type   = RET_INTEGER,
-    .arg1_type  = ARG_PTR_TO_LONG,	/* pointer to long */
+	.func = bpf_get_all_cpu_metrics,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
 };
 
 BPF_CALL_2(bpf_map_lookup_elem, struct bpf_map *, map, void *, key)
 {
 	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_bh_held());
-	return (unsigned long) map->ops->map_lookup_elem(map, key);
+	return (unsigned long)map->ops->map_lookup_elem(map, key);
 }
 
 const struct bpf_func_proto bpf_map_lookup_elem_proto = {
-	.func		= bpf_map_lookup_elem,
-	.gpl_only	= false,
-	.pkt_access	= true,
-	.ret_type	= RET_PTR_TO_MAP_VALUE_OR_NULL,
-	.arg1_type	= ARG_CONST_MAP_PTR,
-	.arg2_type	= ARG_PTR_TO_MAP_KEY,
+	.func = bpf_map_lookup_elem,
+	.gpl_only = false,
+	.pkt_access = true,
+	.ret_type = RET_PTR_TO_MAP_VALUE_OR_NULL,
+	.arg1_type = ARG_CONST_MAP_PTR,
+	.arg2_type = ARG_PTR_TO_MAP_KEY,
 };
 
-BPF_CALL_4(bpf_map_update_elem, struct bpf_map *, map, void *, key,
-	   void *, value, u64, flags)
+BPF_CALL_4(bpf_map_update_elem, struct bpf_map *, map, void *, key, void *,
+	   value, u64, flags)
 {
 	WARN_ON_ONCE(!rcu_read_lock_held() && !rcu_read_lock_bh_held());
 	return map->ops->map_update_elem(map, key, value, flags);
 }
 
 const struct bpf_func_proto bpf_map_update_elem_proto = {
-	.func		= bpf_map_update_elem,
-	.gpl_only	= false,
-	.pkt_access	= true,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_CONST_MAP_PTR,
-	.arg2_type	= ARG_PTR_TO_MAP_KEY,
-	.arg3_type	= ARG_PTR_TO_MAP_VALUE,
-	.arg4_type	= ARG_ANYTHING,
+	.func = bpf_map_update_elem,
+	.gpl_only = false,
+	.pkt_access = true,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_CONST_MAP_PTR,
+	.arg2_type = ARG_PTR_TO_MAP_KEY,
+	.arg3_type = ARG_PTR_TO_MAP_VALUE,
+	.arg4_type = ARG_ANYTHING,
 };
 
 BPF_CALL_2(bpf_map_delete_elem, struct bpf_map *, map, void *, key)
@@ -329,12 +329,12 @@ BPF_CALL_2(bpf_map_delete_elem, struct bpf_map *, map, void *, key)
 }
 
 const struct bpf_func_proto bpf_map_delete_elem_proto = {
-	.func		= bpf_map_delete_elem,
-	.gpl_only	= false,
-	.pkt_access	= true,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_CONST_MAP_PTR,
-	.arg2_type	= ARG_PTR_TO_MAP_KEY,
+	.func = bpf_map_delete_elem,
+	.gpl_only = false,
+	.pkt_access = true,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_CONST_MAP_PTR,
+	.arg2_type = ARG_PTR_TO_MAP_KEY,
 };
 
 BPF_CALL_3(bpf_map_push_elem, struct bpf_map *, map, void *, value, u64, flags)
@@ -343,13 +343,13 @@ BPF_CALL_3(bpf_map_push_elem, struct bpf_map *, map, void *, value, u64, flags)
 }
 
 const struct bpf_func_proto bpf_map_push_elem_proto = {
-	.func		= bpf_map_push_elem,
-	.gpl_only	= false,
-	.pkt_access	= true,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_CONST_MAP_PTR,
-	.arg2_type	= ARG_PTR_TO_MAP_VALUE,
-	.arg3_type	= ARG_ANYTHING,
+	.func = bpf_map_push_elem,
+	.gpl_only = false,
+	.pkt_access = true,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_CONST_MAP_PTR,
+	.arg2_type = ARG_PTR_TO_MAP_VALUE,
+	.arg3_type = ARG_ANYTHING,
 };
 
 BPF_CALL_2(bpf_map_pop_elem, struct bpf_map *, map, void *, value)
@@ -358,11 +358,11 @@ BPF_CALL_2(bpf_map_pop_elem, struct bpf_map *, map, void *, value)
 }
 
 const struct bpf_func_proto bpf_map_pop_elem_proto = {
-	.func		= bpf_map_pop_elem,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_CONST_MAP_PTR,
-	.arg2_type	= ARG_PTR_TO_UNINIT_MAP_VALUE,
+	.func = bpf_map_pop_elem,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_CONST_MAP_PTR,
+	.arg2_type = ARG_PTR_TO_UNINIT_MAP_VALUE,
 };
 
 BPF_CALL_2(bpf_map_peek_elem, struct bpf_map *, map, void *, value)
@@ -371,17 +371,17 @@ BPF_CALL_2(bpf_map_peek_elem, struct bpf_map *, map, void *, value)
 }
 
 const struct bpf_func_proto bpf_map_peek_elem_proto = {
-	.func		= bpf_map_peek_elem,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_CONST_MAP_PTR,
-	.arg2_type	= ARG_PTR_TO_UNINIT_MAP_VALUE,
+	.func = bpf_map_peek_elem,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_CONST_MAP_PTR,
+	.arg2_type = ARG_PTR_TO_UNINIT_MAP_VALUE,
 };
 
 const struct bpf_func_proto bpf_get_prandom_u32_proto = {
-	.func		= bpf_user_rnd_u32,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_user_rnd_u32,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_0(bpf_get_smp_processor_id)
@@ -390,9 +390,9 @@ BPF_CALL_0(bpf_get_smp_processor_id)
 }
 
 const struct bpf_func_proto bpf_get_smp_processor_id_proto = {
-	.func		= bpf_get_smp_processor_id,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_get_smp_processor_id,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_0(bpf_get_numa_node_id)
@@ -401,9 +401,9 @@ BPF_CALL_0(bpf_get_numa_node_id)
 }
 
 const struct bpf_func_proto bpf_get_numa_node_id_proto = {
-	.func		= bpf_get_numa_node_id,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_get_numa_node_id,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_0(bpf_ktime_get_ns)
@@ -413,9 +413,9 @@ BPF_CALL_0(bpf_ktime_get_ns)
 }
 
 const struct bpf_func_proto bpf_ktime_get_ns_proto = {
-	.func		= bpf_ktime_get_ns,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_ktime_get_ns,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_0(bpf_ktime_get_boot_ns)
@@ -425,9 +425,9 @@ BPF_CALL_0(bpf_ktime_get_boot_ns)
 }
 
 const struct bpf_func_proto bpf_ktime_get_boot_ns_proto = {
-	.func		= bpf_ktime_get_boot_ns,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_ktime_get_boot_ns,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_0(bpf_ktime_get_coarse_ns)
@@ -436,9 +436,9 @@ BPF_CALL_0(bpf_ktime_get_coarse_ns)
 }
 
 const struct bpf_func_proto bpf_ktime_get_coarse_ns_proto = {
-	.func		= bpf_ktime_get_coarse_ns,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_ktime_get_coarse_ns,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_0(bpf_get_current_pid_tgid)
@@ -448,13 +448,13 @@ BPF_CALL_0(bpf_get_current_pid_tgid)
 	if (unlikely(!task))
 		return -EINVAL;
 
-	return (u64) task->tgid << 32 | task->pid;
+	return (u64)task->tgid << 32 | task->pid;
 }
 
 const struct bpf_func_proto bpf_get_current_pid_tgid_proto = {
-	.func		= bpf_get_current_pid_tgid,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_get_current_pid_tgid,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_0(bpf_get_current_uid_gid)
@@ -467,14 +467,14 @@ BPF_CALL_0(bpf_get_current_uid_gid)
 		return -EINVAL;
 
 	current_uid_gid(&uid, &gid);
-	return (u64) from_kgid(&init_user_ns, gid) << 32 |
-		     from_kuid(&init_user_ns, uid);
+	return (u64)from_kgid(&init_user_ns, gid) << 32 |
+	       from_kuid(&init_user_ns, uid);
 }
 
 const struct bpf_func_proto bpf_get_current_uid_gid_proto = {
-	.func		= bpf_get_current_uid_gid,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_get_current_uid_gid,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_2(bpf_get_current_comm, char *, buf, u32, size)
@@ -498,11 +498,11 @@ err_clear:
 }
 
 const struct bpf_func_proto bpf_get_current_comm_proto = {
-	.func		= bpf_get_current_comm,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_PTR_TO_UNINIT_MEM,
-	.arg2_type	= ARG_CONST_SIZE,
+	.func = bpf_get_current_comm,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_UNINIT_MEM,
+	.arg2_type = ARG_CONST_SIZE,
 };
 
 #if defined(CONFIG_QUEUED_SPINLOCKS) || defined(CONFIG_BPF_ARCH_SPINLOCK)
@@ -567,10 +567,10 @@ notrace BPF_CALL_1(bpf_spin_lock, struct bpf_spin_lock *, lock)
 }
 
 const struct bpf_func_proto bpf_spin_lock_proto = {
-	.func		= bpf_spin_lock,
-	.gpl_only	= false,
-	.ret_type	= RET_VOID,
-	.arg1_type	= ARG_PTR_TO_SPIN_LOCK,
+	.func = bpf_spin_lock,
+	.gpl_only = false,
+	.ret_type = RET_VOID,
+	.arg1_type = ARG_PTR_TO_SPIN_LOCK,
 };
 
 static inline void __bpf_spin_unlock_irqrestore(struct bpf_spin_lock *lock)
@@ -589,10 +589,10 @@ notrace BPF_CALL_1(bpf_spin_unlock, struct bpf_spin_lock *, lock)
 }
 
 const struct bpf_func_proto bpf_spin_unlock_proto = {
-	.func		= bpf_spin_unlock,
-	.gpl_only	= false,
-	.ret_type	= RET_VOID,
-	.arg1_type	= ARG_PTR_TO_SPIN_LOCK,
+	.func = bpf_spin_unlock,
+	.gpl_only = false,
+	.ret_type = RET_VOID,
+	.arg1_type = ARG_PTR_TO_SPIN_LOCK,
 };
 
 void copy_map_value_locked(struct bpf_map *map, void *dst, void *src,
@@ -617,9 +617,9 @@ BPF_CALL_0(bpf_jiffies64)
 }
 
 const struct bpf_func_proto bpf_jiffies64_proto = {
-	.func		= bpf_jiffies64,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_jiffies64,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 #ifdef CONFIG_CGROUPS
@@ -637,9 +637,9 @@ BPF_CALL_0(bpf_get_current_cgroup_id)
 }
 
 const struct bpf_func_proto bpf_get_current_cgroup_id_proto = {
-	.func		= bpf_get_current_cgroup_id,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_get_current_cgroup_id,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
 BPF_CALL_1(bpf_get_current_ancestor_cgroup_id, int, ancestor_level)
@@ -658,10 +658,10 @@ BPF_CALL_1(bpf_get_current_ancestor_cgroup_id, int, ancestor_level)
 }
 
 const struct bpf_func_proto bpf_get_current_ancestor_cgroup_id_proto = {
-	.func		= bpf_get_current_ancestor_cgroup_id,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_ANYTHING,
+	.func = bpf_get_current_ancestor_cgroup_id,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_ANYTHING,
 };
 
 #ifdef CONFIG_CGROUP_BPF
@@ -690,11 +690,11 @@ BPF_CALL_2(bpf_get_local_storage, struct bpf_map *, map, u64, flags)
 }
 
 const struct bpf_func_proto bpf_get_local_storage_proto = {
-	.func		= bpf_get_local_storage,
-	.gpl_only	= false,
-	.ret_type	= RET_PTR_TO_MAP_VALUE,
-	.arg1_type	= ARG_CONST_MAP_PTR,
-	.arg2_type	= ARG_ANYTHING,
+	.func = bpf_get_local_storage,
+	.gpl_only = false,
+	.ret_type = RET_PTR_TO_MAP_VALUE,
+	.arg1_type = ARG_CONST_MAP_PTR,
+	.arg2_type = ARG_ANYTHING,
 };
 #endif
 
@@ -773,8 +773,8 @@ static int __bpf_strtoll(const char *buf, size_t buf_len, u64 flags,
 	return err;
 }
 
-BPF_CALL_4(bpf_strtol, const char *, buf, size_t, buf_len, u64, flags,
-	   long *, res)
+BPF_CALL_4(bpf_strtol, const char *, buf, size_t, buf_len, u64, flags, long *,
+	   res)
 {
 	long long _res;
 	int err;
@@ -789,13 +789,13 @@ BPF_CALL_4(bpf_strtol, const char *, buf, size_t, buf_len, u64, flags,
 }
 
 const struct bpf_func_proto bpf_strtol_proto = {
-	.func		= bpf_strtol,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_PTR_TO_MEM | MEM_RDONLY,
-	.arg2_type	= ARG_CONST_SIZE,
-	.arg3_type	= ARG_ANYTHING,
-	.arg4_type	= ARG_PTR_TO_LONG,
+	.func = bpf_strtol,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_MEM | MEM_RDONLY,
+	.arg2_type = ARG_CONST_SIZE,
+	.arg3_type = ARG_ANYTHING,
+	.arg4_type = ARG_PTR_TO_LONG,
 };
 
 BPF_CALL_4(bpf_strtoul, const char *, buf, size_t, buf_len, u64, flags,
@@ -817,13 +817,13 @@ BPF_CALL_4(bpf_strtoul, const char *, buf, size_t, buf_len, u64, flags,
 }
 
 const struct bpf_func_proto bpf_strtoul_proto = {
-	.func		= bpf_strtoul,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_PTR_TO_MEM | MEM_RDONLY,
-	.arg2_type	= ARG_CONST_SIZE,
-	.arg3_type	= ARG_ANYTHING,
-	.arg4_type	= ARG_PTR_TO_LONG,
+	.func = bpf_strtoul,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_MEM | MEM_RDONLY,
+	.arg2_type = ARG_CONST_SIZE,
+	.arg3_type = ARG_ANYTHING,
+	.arg4_type = ARG_PTR_TO_LONG,
 };
 #endif
 
@@ -856,28 +856,28 @@ BPF_CALL_4(bpf_get_ns_current_pid_tgid, u64, dev, u64, ino,
 	nsdata->tgid = task_tgid_nr_ns(task, pidns);
 	return 0;
 clear:
-	memset((void *)nsdata, 0, (size_t) size);
+	memset((void *)nsdata, 0, (size_t)size);
 	return err;
 }
 
 const struct bpf_func_proto bpf_get_ns_current_pid_tgid_proto = {
-	.func		= bpf_get_ns_current_pid_tgid,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_ANYTHING,
-	.arg2_type	= ARG_ANYTHING,
-	.arg3_type      = ARG_PTR_TO_UNINIT_MEM,
-	.arg4_type      = ARG_CONST_SIZE,
+	.func = bpf_get_ns_current_pid_tgid,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_ANYTHING,
+	.arg2_type = ARG_ANYTHING,
+	.arg3_type = ARG_PTR_TO_UNINIT_MEM,
+	.arg4_type = ARG_CONST_SIZE,
 };
 
 static const struct bpf_func_proto bpf_get_raw_smp_processor_id_proto = {
-	.func		= bpf_get_raw_cpu_id,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
+	.func = bpf_get_raw_cpu_id,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
 };
 
-BPF_CALL_5(bpf_event_output_data, void *, ctx, struct bpf_map *, map,
-	   u64, flags, void *, data, u64, size)
+BPF_CALL_5(bpf_event_output_data, void *, ctx, struct bpf_map *, map, u64,
+	   flags, void *, data, u64, size)
 {
 	if (unlikely(flags & ~(BPF_F_INDEX_MASK)))
 		return -EINVAL;
@@ -885,19 +885,19 @@ BPF_CALL_5(bpf_event_output_data, void *, ctx, struct bpf_map *, map,
 	return bpf_event_output(map, flags, data, size, NULL, 0, NULL);
 }
 
-const struct bpf_func_proto bpf_event_output_data_proto =  {
-	.func		= bpf_event_output_data,
-	.gpl_only       = true,
-	.ret_type       = RET_INTEGER,
-	.arg1_type      = ARG_PTR_TO_CTX,
-	.arg2_type      = ARG_CONST_MAP_PTR,
-	.arg3_type      = ARG_ANYTHING,
-	.arg4_type      = ARG_PTR_TO_MEM | MEM_RDONLY,
-	.arg5_type      = ARG_CONST_SIZE_OR_ZERO,
+const struct bpf_func_proto bpf_event_output_data_proto = {
+	.func = bpf_event_output_data,
+	.gpl_only = true,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_CTX,
+	.arg2_type = ARG_CONST_MAP_PTR,
+	.arg3_type = ARG_ANYTHING,
+	.arg4_type = ARG_PTR_TO_MEM | MEM_RDONLY,
+	.arg5_type = ARG_CONST_SIZE_OR_ZERO,
 };
 
-BPF_CALL_3(bpf_copy_from_user, void *, dst, u32, size,
-	   const void __user *, user_ptr)
+BPF_CALL_3(bpf_copy_from_user, void *, dst, u32, size, const void __user *,
+	   user_ptr)
 {
 	int ret = copy_from_user(dst, user_ptr, size);
 
@@ -910,12 +910,12 @@ BPF_CALL_3(bpf_copy_from_user, void *, dst, u32, size,
 }
 
 const struct bpf_func_proto bpf_copy_from_user_proto = {
-	.func		= bpf_copy_from_user,
-	.gpl_only	= false,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_PTR_TO_UNINIT_MEM,
-	.arg2_type	= ARG_CONST_SIZE_OR_ZERO,
-	.arg3_type	= ARG_ANYTHING,
+	.func = bpf_copy_from_user,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_UNINIT_MEM,
+	.arg2_type = ARG_CONST_SIZE_OR_ZERO,
+	.arg3_type = ARG_ANYTHING,
 };
 
 BPF_CALL_2(bpf_per_cpu_ptr, const void *, ptr, u32, cpu)
@@ -927,11 +927,11 @@ BPF_CALL_2(bpf_per_cpu_ptr, const void *, ptr, u32, cpu)
 }
 
 const struct bpf_func_proto bpf_per_cpu_ptr_proto = {
-	.func		= bpf_per_cpu_ptr,
-	.gpl_only	= false,
-	.ret_type	= RET_PTR_TO_MEM_OR_BTF_ID | PTR_MAYBE_NULL | MEM_RDONLY,
-	.arg1_type	= ARG_PTR_TO_PERCPU_BTF_ID,
-	.arg2_type	= ARG_ANYTHING,
+	.func = bpf_per_cpu_ptr,
+	.gpl_only = false,
+	.ret_type = RET_PTR_TO_MEM_OR_BTF_ID | PTR_MAYBE_NULL | MEM_RDONLY,
+	.arg1_type = ARG_PTR_TO_PERCPU_BTF_ID,
+	.arg2_type = ARG_ANYTHING,
 };
 
 BPF_CALL_1(bpf_this_cpu_ptr, const void *, percpu_ptr)
@@ -940,14 +940,14 @@ BPF_CALL_1(bpf_this_cpu_ptr, const void *, percpu_ptr)
 }
 
 const struct bpf_func_proto bpf_this_cpu_ptr_proto = {
-	.func		= bpf_this_cpu_ptr,
-	.gpl_only	= false,
-	.ret_type	= RET_PTR_TO_MEM_OR_BTF_ID | MEM_RDONLY,
-	.arg1_type	= ARG_PTR_TO_PERCPU_BTF_ID,
+	.func = bpf_this_cpu_ptr,
+	.gpl_only = false,
+	.ret_type = RET_PTR_TO_MEM_OR_BTF_ID | MEM_RDONLY,
+	.arg1_type = ARG_PTR_TO_PERCPU_BTF_ID,
 };
 
 static int bpf_trace_copy_string(char *buf, void *unsafe_ptr, char fmt_ptype,
-		size_t bufsz)
+				 size_t bufsz)
 {
 	void __user *user_ptr = (__force void __user *)unsafe_ptr;
 
@@ -972,10 +972,10 @@ static int bpf_trace_copy_string(char *buf, void *unsafe_ptr, char fmt_ptype,
 /* Per-cpu temp buffers used by printf-like helpers to store the bprintf binary
  * arguments representation.
  */
-#define MAX_BPRINTF_BUF_LEN	512
+#define MAX_BPRINTF_BUF_LEN 512
 
 /* Support executing three nested bprintf helper calls on a given CPU */
-#define MAX_BPRINTF_NEST_LEVEL	3
+#define MAX_BPRINTF_NEST_LEVEL 3
 struct bpf_bprintf_buffers {
 	char tmp_bufs[MAX_BPRINTF_NEST_LEVEL][MAX_BPRINTF_BUF_LEN];
 };
@@ -1045,7 +1045,8 @@ int bpf_bprintf_prepare(char *fmt, u32 fmt_size, const u64 *raw_args,
 	}
 
 	for (i = 0; i < fmt_size; i++) {
-		if ((!isprint(fmt[i]) && !isspace(fmt[i])) || !isascii(fmt[i])) {
+		if ((!isprint(fmt[i]) && !isspace(fmt[i])) ||
+		    !isascii(fmt[i])) {
 			err = -EINVAL;
 			goto out;
 		}
@@ -1069,7 +1070,7 @@ int bpf_bprintf_prepare(char *fmt, u32 fmt_size, const u64 *raw_args,
 		i++;
 
 		/* skip optional "[0 +-][num]" width formatting field */
-		while (fmt[i] == '0' || fmt[i] == '+'  || fmt[i] == '-' ||
+		while (fmt[i] == '0' || fmt[i] == '+' || fmt[i] == '-' ||
 		       fmt[i] == ' ')
 			i++;
 		if (fmt[i] >= '1' && fmt[i] <= '9') {
@@ -1100,11 +1101,12 @@ int bpf_bprintf_prepare(char *fmt, u32 fmt_size, const u64 *raw_args,
 			}
 
 			if (fmt[i + 1] == 'B') {
-				if (tmp_buf)  {
-					err = snprintf(tmp_buf,
-						       (tmp_buf_end - tmp_buf),
-						       "%pB",
-						       (void *)(long)raw_args[num_spec]);
+				if (tmp_buf) {
+					err = snprintf(
+						tmp_buf,
+						(tmp_buf_end - tmp_buf), "%pB",
+						(void *)(long)
+							raw_args[num_spec]);
 					tmp_buf += (err + 1);
 				}
 
@@ -1142,8 +1144,8 @@ int bpf_bprintf_prepare(char *fmt, u32 fmt_size, const u64 *raw_args,
 			 */
 			ip_spec[2] = fmt[i - 1];
 			ip_spec[3] = fmt[i];
-			err = snprintf(tmp_buf, tmp_buf_end - tmp_buf,
-				       ip_spec, &cur_ip);
+			err = snprintf(tmp_buf, tmp_buf_end - tmp_buf, ip_spec,
+				       &cur_ip);
 
 			tmp_buf += err + 1;
 			num_spec++;
@@ -1151,9 +1153,8 @@ int bpf_bprintf_prepare(char *fmt, u32 fmt_size, const u64 *raw_args,
 			continue;
 		} else if (fmt[i] == 's') {
 			fmt_ptype = fmt[i];
-fmt_str:
-			if (fmt[i + 1] != 0 &&
-			    !isspace(fmt[i + 1]) &&
+		fmt_str:
+			if (fmt[i + 1] != 0 && !isspace(fmt[i + 1]) &&
 			    !ispunct(fmt[i + 1])) {
 				err = -EINVAL;
 				goto out;
@@ -1215,7 +1216,7 @@ fmt_str:
 
 		if (tmp_buf)
 			cur_arg = raw_args[num_spec];
-nocopy_fmt:
+	nocopy_fmt:
 		if (tmp_buf) {
 			tmp_buf = PTR_ALIGN(tmp_buf, sizeof(u32));
 			if (tmp_buf_end - tmp_buf < sizeof_cur_arg) {
@@ -1241,10 +1242,10 @@ out:
 	return err;
 }
 
-#define MAX_SNPRINTF_VARARGS		12
+#define MAX_SNPRINTF_VARARGS 12
 
-BPF_CALL_5(bpf_snprintf, char *, str, u32, str_size, char *, fmt,
-	   const void *, data, u32, data_len)
+BPF_CALL_5(bpf_snprintf, char *, str, u32, str_size, char *, fmt, const void *,
+	   data, u32, data_len)
 {
 	int err, num_args;
 	u32 *bin_args;
@@ -1269,14 +1270,14 @@ BPF_CALL_5(bpf_snprintf, char *, str, u32, str_size, char *, fmt,
 }
 
 const struct bpf_func_proto bpf_snprintf_proto = {
-	.func		= bpf_snprintf,
-	.gpl_only	= true,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_PTR_TO_MEM_OR_NULL,
-	.arg2_type	= ARG_CONST_SIZE_OR_ZERO,
-	.arg3_type	= ARG_PTR_TO_CONST_STR,
-	.arg4_type	= ARG_PTR_TO_MEM | PTR_MAYBE_NULL | MEM_RDONLY,
-	.arg5_type	= ARG_CONST_SIZE_OR_ZERO,
+	.func = bpf_snprintf,
+	.gpl_only = true,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_MEM_OR_NULL,
+	.arg2_type = ARG_CONST_SIZE_OR_ZERO,
+	.arg3_type = ARG_PTR_TO_CONST_STR,
+	.arg4_type = ARG_PTR_TO_MEM | PTR_MAYBE_NULL | MEM_RDONLY,
+	.arg5_type = ARG_CONST_SIZE_OR_ZERO,
 };
 
 /* BPF map elements can contain 'struct bpf_timer'.
@@ -1317,14 +1318,16 @@ static DEFINE_PER_CPU(struct bpf_hrtimer *, hrtimer_running);
 
 static enum hrtimer_restart bpf_timer_cb(struct hrtimer *hrtimer)
 {
-	struct bpf_hrtimer *t = container_of(hrtimer, struct bpf_hrtimer, timer);
+	struct bpf_hrtimer *t =
+		container_of(hrtimer, struct bpf_hrtimer, timer);
 	struct bpf_map *map = t->map;
 	void *value = t->value;
 	void *callback_fn;
 	void *key;
 	u32 idx;
 
-	callback_fn = rcu_dereference_check(t->callback_fn, rcu_read_lock_bh_held());
+	callback_fn =
+		rcu_dereference_check(t->callback_fn, rcu_read_lock_bh_held());
 	if (!callback_fn)
 		goto out;
 
@@ -1336,7 +1339,8 @@ static enum hrtimer_restart bpf_timer_cb(struct hrtimer *hrtimer)
 	 */
 	this_cpu_write(hrtimer_running, t);
 	if (map->map_type == BPF_MAP_TYPE_ARRAY) {
-		struct bpf_array *array = container_of(map, struct bpf_array, map);
+		struct bpf_array *array =
+			container_of(map, struct bpf_array, map);
 
 		/* compute the key */
 		idx = ((char *)value - array->value) / array->elem_size;
@@ -1345,8 +1349,8 @@ static enum hrtimer_restart bpf_timer_cb(struct hrtimer *hrtimer)
 		key = value - round_up(map->key_size, 8);
 	}
 
-	BPF_CAST_CALL(callback_fn)((u64)(long)map, (u64)(long)key,
-				   (u64)(long)value, 0, 0);
+	BPF_CAST_CALL(callback_fn)
+	((u64)(long)map, (u64)(long)key, (u64)(long)value, 0, 0);
 	/* The verifier checked that return value is zero. */
 
 	this_cpu_write(hrtimer_running, NULL);
@@ -1354,8 +1358,8 @@ out:
 	return HRTIMER_NORESTART;
 }
 
-BPF_CALL_3(bpf_timer_init, struct bpf_timer_kern *, timer, struct bpf_map *, map,
-	   u64, flags)
+BPF_CALL_3(bpf_timer_init, struct bpf_timer_kern *, timer, struct bpf_map *,
+	   map, u64, flags)
 {
 	clockid_t clockid = flags & (MAX_CLOCKS - 1);
 	struct bpf_hrtimer *t;
@@ -1363,15 +1367,15 @@ BPF_CALL_3(bpf_timer_init, struct bpf_timer_kern *, timer, struct bpf_map *, map
 
 	BUILD_BUG_ON(MAX_CLOCKS != 16);
 	BUILD_BUG_ON(sizeof(struct bpf_timer_kern) > sizeof(struct bpf_timer));
-	BUILD_BUG_ON(__alignof__(struct bpf_timer_kern) != __alignof__(struct bpf_timer));
+	BUILD_BUG_ON(__alignof__(struct bpf_timer_kern) !=
+		     __alignof__(struct bpf_timer));
 
 	if (in_nmi())
 		return -EOPNOTSUPP;
 
 	if (flags >= MAX_CLOCKS ||
 	    /* similar to timerfd except _ALARM variants are not supported */
-	    (clockid != CLOCK_MONOTONIC &&
-	     clockid != CLOCK_REALTIME &&
+	    (clockid != CLOCK_MONOTONIC && clockid != CLOCK_REALTIME &&
 	     clockid != CLOCK_BOOTTIME))
 		return -EINVAL;
 	__bpf_spin_lock_irqsave(&timer->lock);
@@ -1406,16 +1410,16 @@ out:
 }
 
 static const struct bpf_func_proto bpf_timer_init_proto = {
-	.func		= bpf_timer_init,
-	.gpl_only	= true,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_PTR_TO_TIMER,
-	.arg2_type	= ARG_CONST_MAP_PTR,
-	.arg3_type	= ARG_ANYTHING,
+	.func = bpf_timer_init,
+	.gpl_only = true,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_TIMER,
+	.arg2_type = ARG_CONST_MAP_PTR,
+	.arg3_type = ARG_ANYTHING,
 };
 
-BPF_CALL_3(bpf_timer_set_callback, struct bpf_timer_kern *, timer, void *, callback_fn,
-	   struct bpf_prog_aux *, aux)
+BPF_CALL_3(bpf_timer_set_callback, struct bpf_timer_kern *, timer, void *,
+	   callback_fn, struct bpf_prog_aux *, aux)
 {
 	struct bpf_prog *prev, *prog = aux->prog;
 	struct bpf_hrtimer *t;
@@ -1460,14 +1464,15 @@ out:
 }
 
 static const struct bpf_func_proto bpf_timer_set_callback_proto = {
-	.func		= bpf_timer_set_callback,
-	.gpl_only	= true,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_PTR_TO_TIMER,
-	.arg2_type	= ARG_PTR_TO_FUNC,
+	.func = bpf_timer_set_callback,
+	.gpl_only = true,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_TIMER,
+	.arg2_type = ARG_PTR_TO_FUNC,
 };
 
-BPF_CALL_3(bpf_timer_start, struct bpf_timer_kern *, timer, u64, nsecs, u64, flags)
+BPF_CALL_3(bpf_timer_start, struct bpf_timer_kern *, timer, u64, nsecs, u64,
+	   flags)
 {
 	struct bpf_hrtimer *t;
 	int ret = 0;
@@ -1489,12 +1494,12 @@ out:
 }
 
 static const struct bpf_func_proto bpf_timer_start_proto = {
-	.func		= bpf_timer_start,
-	.gpl_only	= true,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_PTR_TO_TIMER,
-	.arg2_type	= ARG_ANYTHING,
-	.arg3_type	= ARG_ANYTHING,
+	.func = bpf_timer_start,
+	.gpl_only = true,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_TIMER,
+	.arg2_type = ARG_ANYTHING,
+	.arg3_type = ARG_ANYTHING,
 };
 
 static void drop_prog_refcnt(struct bpf_hrtimer *t)
@@ -1540,10 +1545,10 @@ out:
 }
 
 static const struct bpf_func_proto bpf_timer_cancel_proto = {
-	.func		= bpf_timer_cancel,
-	.gpl_only	= true,
-	.ret_type	= RET_INTEGER,
-	.arg1_type	= ARG_PTR_TO_TIMER,
+	.func = bpf_timer_cancel,
+	.gpl_only = true,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_TIMER,
 };
 
 /* This function is called by map_delete/update_elem for individual element and
@@ -1601,8 +1606,7 @@ const struct bpf_func_proto bpf_probe_read_kernel_proto __weak;
 const struct bpf_func_proto bpf_probe_read_kernel_str_proto __weak;
 const struct bpf_func_proto bpf_task_pt_regs_proto __weak;
 
-const struct bpf_func_proto *
-bpf_base_func_proto(enum bpf_func_id func_id)
+const struct bpf_func_proto *bpf_base_func_proto(enum bpf_func_id func_id)
 {
 	switch (func_id) {
 	case BPF_FUNC_map_lookup_elem:
@@ -1643,14 +1647,14 @@ bpf_base_func_proto(enum bpf_func_id func_id)
 		return &bpf_for_each_map_elem_proto;
 	case BPF_FUNC_bpf_store42:
 		return &bpf_store42_proto;
-    case BPF_FUNC_bpf_get_user_cpu_metrics:
-        return &bpf_get_user_cpu_metrics_proto;
-    case BPF_FUNC_bpf_icmp_checksum:
-        return &bpf_icmp_checksum_proto;
-    case BPF_FUNC_bpf_get_memory_total:
-        return &bpf_get_memory_total_proto;
-    case BPF_FUNC_bpf_get_all_cpu_metrics:
-        return &bpf_get_all_cpu_metrics_proto;
+	case BPF_FUNC_bpf_get_user_cpu_metrics:
+		return &bpf_get_user_cpu_metrics_proto;
+	case BPF_FUNC_bpf_icmp_checksum:
+		return &bpf_icmp_checksum_proto;
+	case BPF_FUNC_bpf_get_memory_total:
+		return &bpf_get_memory_total_proto;
+	case BPF_FUNC_bpf_get_all_cpu_metrics:
+		return &bpf_get_all_cpu_metrics_proto;
 	default:
 		break;
 	}
@@ -1695,12 +1699,14 @@ bpf_base_func_proto(enum bpf_func_id func_id)
 		return &bpf_probe_read_user_proto;
 	case BPF_FUNC_probe_read_kernel:
 		return security_locked_down(LOCKDOWN_BPF_READ_KERNEL) < 0 ?
-		       NULL : &bpf_probe_read_kernel_proto;
+			       NULL :
+			       &bpf_probe_read_kernel_proto;
 	case BPF_FUNC_probe_read_user_str:
 		return &bpf_probe_read_user_str_proto;
 	case BPF_FUNC_probe_read_kernel_str:
 		return security_locked_down(LOCKDOWN_BPF_READ_KERNEL) < 0 ?
-		       NULL : &bpf_probe_read_kernel_str_proto;
+			       NULL :
+			       &bpf_probe_read_kernel_str_proto;
 	case BPF_FUNC_snprintf_btf:
 		return &bpf_snprintf_btf_proto;
 	case BPF_FUNC_snprintf:

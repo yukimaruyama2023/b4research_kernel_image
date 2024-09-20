@@ -191,6 +191,8 @@ static long do_mincore(unsigned long addr, unsigned long pages, unsigned char *v
 	vma = find_vma(current->mm, addr);
 	if (!vma || addr < vma->vm_start)
 		return -ENOMEM;
+    pr_info("VM_LOCKED of addr 0x%lx is 0x%08lx.\n", addr, vma->vm_flags);
+    pr_info("vm_flags & VM_LOCKED is 0x%08lx.\n", vma->vm_flags & VM_LOCKED);
 	end = min(vma->vm_end, addr + (pages << PAGE_SHIFT));
 	if (!can_do_mincore(vma)) {
 		unsigned long pages = DIV_ROUND_UP(end - addr, PAGE_SIZE);
