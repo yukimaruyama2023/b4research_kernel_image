@@ -189,10 +189,13 @@ static long do_mincore(unsigned long addr, unsigned long pages, unsigned char *v
 	int err;
 
 	vma = find_vma(current->mm, addr);
-	if (!vma || addr < vma->vm_start)
+	// if (!vma || addr < vma->vm_start)
+	// 	return -ENOMEM;
+  pr_info("after find_vma and before if(!vma)");
+	if (!vma)
 		return -ENOMEM;
-    pr_info("VM_LOCKED of addr 0x%lx is 0x%08lx.\n", addr, vma->vm_flags);
-    pr_info("vm_flags & VM_LOCKED is 0x%08lx.\n", vma->vm_flags & VM_LOCKED);
+  pr_info("vm_flags of addr 0x%lx is 0x%08lx.\n", addr, vma->vm_flags);
+  pr_info("vm_flags & VM_LOCKED is 0x%08lx.\n", vma->vm_flags & VM_LOCKED);
 	end = min(vma->vm_end, addr + (pages << PAGE_SHIFT));
 	if (!can_do_mincore(vma)) {
 		unsigned long pages = DIV_ROUND_UP(end - addr, PAGE_SIZE);
@@ -243,8 +246,8 @@ SYSCALL_DEFINE3(mincore, unsigned long, start, size_t, len,
 		return -EINVAL;
 
 	/* ..and we need to be passed a valid user-space range */
-	if (!access_ok((void __user *) start, len))
-		return -ENOMEM;
+	// if (!access_ok((void __user *) start, len))
+	// 	return -ENOMEM;
 
 	/* This also avoids any overflows on PAGE_ALIGN */
 	pages = len >> PAGE_SHIFT;
@@ -264,7 +267,9 @@ SYSCALL_DEFINE3(mincore, unsigned long, start, size_t, len,
 		 * the temporary buffer size.
 		 */
 		mmap_read_lock(current->mm);
+    pr_info("Entering do_mincore : addr is 0x%08lx\n", start);
 		retval = do_mincore(start, min(pages, PAGE_SIZE), tmp);
+    pr_info("Returning from do_mincore : addr is 0x%08lx\n", start);
 		mmap_read_unlock(current->mm);
 
 		if (retval <= 0)
