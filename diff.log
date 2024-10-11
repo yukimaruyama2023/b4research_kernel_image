@@ -1,0 +1,59 @@
+diff --git a/Makefile b/Makefile
+index 327d28775..9de2c2f46 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1162,7 +1162,7 @@ export MODORDER := $(extmod_prefix)modules.order
+ export MODULES_NSDEPS := $(extmod_prefix)modules.nsdeps
+ 
+ ifeq ($(KBUILD_EXTMOD),)
+-core-y			+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/
++core-y			+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ customsyscall/
+ core-$(CONFIG_BLOCK)	+= block/
+ core-$(CONFIG_IO_URING)	+= io_uring/
+ 
+diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
+index 18b5500ea..420a94785 100644
+--- a/arch/x86/entry/syscalls/syscall_64.tbl
++++ b/arch/x86/entry/syscalls/syscall_64.tbl
+@@ -370,6 +370,7 @@
+ 446	common	landlock_restrict_self	sys_landlock_restrict_self
+ 447	common	memfd_secret		sys_memfd_secret
+ 448	common	process_mrelease	sys_process_mrelease
++449	common	hello			sys_hello
+ 
+ #
+ # Due to a historical design error, certain syscalls are numbered differently
+diff --git a/customsyscall/Makefile b/customsyscall/Makefile
+new file mode 100644
+index 000000000..e0ac0b14a
+--- /dev/null
++++ b/customsyscall/Makefile
+@@ -0,0 +1 @@
++obj-y :hello.o
+diff --git a/customsyscall/hello.c b/customsyscall/hello.c
+new file mode 100644
+index 000000000..d381b9ee2
+--- /dev/null
++++ b/customsyscall/hello.c
+@@ -0,0 +1,8 @@
++#include <linux/kernel.h>
++#include <linux/syscalls.h>
++
++SYSCALL_DEFINE0(hello)
++{
++	pr_info("Hello! I'm hello syscall\n");
++	return 0;
++}
+diff --git a/include/linux/syscalls.h b/include/linux/syscalls.h
+index 252243c77..01a9c6e73 100644
+--- a/include/linux/syscalls.h
++++ b/include/linux/syscalls.h
+@@ -312,6 +312,8 @@ static inline void addr_limit_user_check(void)
+  * include the prototypes if CONFIG_ARCH_HAS_SYSCALL_WRAPPER is enabled.
+  */
+ #ifndef CONFIG_ARCH_HAS_SYSCALL_WRAPPER
++asmlinkage long sys_hello(void);
++
+ asmlinkage long sys_io_setup(unsigned nr_reqs, aio_context_t __user *ctx);
+ asmlinkage long sys_io_destroy(aio_context_t ctx);
+ asmlinkage long sys_io_submit(aio_context_t, long,
