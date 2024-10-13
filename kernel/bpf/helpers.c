@@ -128,6 +128,22 @@ static u64 get_iowait_time_in_helpers(struct kernel_cpustat *kcs, int cpu)
  * all three functions.
  */
 
+extern u64 memcached_phys_addr;
+
+BPF_CALL_1(bpf_get_metric_phys_addr, long *, ptr)
+{
+  *ptr = memcached_phys_addr;
+  pr_info("*ptr is 0x%lx\n", *ptr);
+  return 0;
+}
+
+const struct bpf_func_proto bpf_get_metric_phys_addr_proto = {
+	.func = bpf_get_metric_phys_addr,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
+};
+
 BPF_CALL_0(bpf_store42)
 {
 	pr_info("Hooooo!!!!\n");
@@ -1655,6 +1671,8 @@ const struct bpf_func_proto *bpf_base_func_proto(enum bpf_func_id func_id)
 		return &bpf_get_memory_total_proto;
 	case BPF_FUNC_bpf_get_all_cpu_metrics:
 		return &bpf_get_all_cpu_metrics_proto;
+	case BPF_FUNC_bpf_get_metric_phys_addr:
+		return &bpf_get_metric_phys_addr_proto;
 	default:
 		break;
 	}
