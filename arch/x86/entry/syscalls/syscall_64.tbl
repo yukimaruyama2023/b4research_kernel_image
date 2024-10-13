@@ -371,6 +371,7 @@
 447	common	memfd_secret		sys_memfd_secret
 448	common	process_mrelease	sys_process_mrelease
 449	common	hello			sys_hello
+450	common	monitor			sys_monitor
 
 #
 # Due to a historical design error, certain syscalls are numbered differently
