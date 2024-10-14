@@ -144,6 +144,54 @@ const struct bpf_func_proto bpf_get_metric_phys_addr_proto = {
 	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
 };
 
+
+BPF_CALL_1(bpf_get_user_metrics_default, long *, metrics)
+{
+  *metrics = *(u64 *)memcached_phys_addr;
+  pr_info("In bpf_get_user_metrics_default : memcached_phys_addr is 0x%lx\n", memcached_phys_addr);
+  pr_info("In bpf_get_user_metrics_default : *metrics is 0x%lx\n", *metrics);
+  return 0;
+}
+
+const struct bpf_func_proto bpf_get_user_metrics_default_proto = {
+	.func = bpf_get_user_metrics_default,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
+};
+
+
+BPF_CALL_1(bpf_get_user_metrics_va, long *, metrics)
+{
+  *metrics = *(u64 *)__va(memcached_phys_addr);
+  pr_info("In bpf_get_user_metrics_va : __va(memcached_phys_addr) is 0x%lx\n", __va(memcached_phys_addr));
+  pr_info("In bpf_get_user_metrics_va : *metrics is 0x%lx\n", *metrics);
+  return 0;
+}
+
+const struct bpf_func_proto bpf_get_user_metrics_va_proto = {
+	.func = bpf_get_user_metrics_va,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
+};
+
+
+BPF_CALL_1(bpf_get_user_metrics_phys_to_virt, long *, metrics)
+{
+  *metrics = *(u64 *)phys_to_virt(memcached_phys_addr);
+  pr_info("In bpf_get_user_metrics_phys_to_virt : phys_to_virt(memcached_phys_addr) is 0x%lx\n", phys_to_virt(memcached_phys_addr));
+  pr_info("In bpf_get_user_metrics_phys_to_virt : *metrics is 0x%lx\n", *metrics);
+  return 0;
+}
+
+const struct bpf_func_proto bpf_get_user_metrics_phys_to_virt_proto = {
+	.func = bpf_get_user_metrics_phys_to_virt,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
+};
+
 BPF_CALL_0(bpf_store42)
 {
 	pr_info("Hooooo!!!!\n");
@@ -1673,6 +1721,12 @@ const struct bpf_func_proto *bpf_base_func_proto(enum bpf_func_id func_id)
 		return &bpf_get_all_cpu_metrics_proto;
 	case BPF_FUNC_bpf_get_metric_phys_addr:
 		return &bpf_get_metric_phys_addr_proto;
+case BPF_FUNC_bpf_get_user_metrics_default:
+		return &bpf_get_user_metrics_default_proto;
+case BPF_FUNC_bpf_get_user_metrics_va:
+		return &bpf_get_user_metrics_va_proto;
+case BPF_FUNC_bpf_get_user_metrics_phys_to_virt:
+		return &bpf_get_user_metrics_phys_to_virt_proto;
 	default:
 		break;
 	}

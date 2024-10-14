@@ -5061,6 +5061,9 @@ union bpf_attr {
 	FN(bpf_get_memory_total),		\
 	FN(bpf_get_all_cpu_metrics),		\
 	FN(bpf_get_metric_phys_addr),		\
+	FN(bpf_get_user_metrics_default),		\
+	FN(bpf_get_user_metrics_va),		\
+	FN(bpf_get_user_metrics_phys_to_virt),		\
 	/* */
 
 /* integer value in 'imm' field of BPF_CALL instruction selects which helper
