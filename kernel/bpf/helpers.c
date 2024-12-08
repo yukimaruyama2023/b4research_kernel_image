@@ -148,8 +148,6 @@ const struct bpf_func_proto bpf_get_metric_phys_addr_proto = {
 BPF_CALL_1(bpf_get_user_metrics_default, long *, metrics)
 {
   *metrics = *(u64 *)memcached_phys_addr;
-  pr_info("In bpf_get_user_metrics_default : memcached_phys_addr is 0x%lx\n", memcached_phys_addr);
-  pr_info("In bpf_get_user_metrics_default : *metrics is 0x%lx\n", *metrics);
   return 0;
 }
 
@@ -164,8 +162,6 @@ const struct bpf_func_proto bpf_get_user_metrics_default_proto = {
 BPF_CALL_1(bpf_get_user_metrics_va, long *, metrics)
 {
   *metrics = *(u64 *)__va(memcached_phys_addr);
-  pr_info("In bpf_get_user_metrics_va : __va(memcached_phys_addr) is 0x%lx\n", __va(memcached_phys_addr));
-  pr_info("In bpf_get_user_metrics_va : *metrics is 0x%lx\n", *metrics);
   return 0;
 }
 
@@ -180,8 +176,6 @@ const struct bpf_func_proto bpf_get_user_metrics_va_proto = {
 BPF_CALL_1(bpf_get_user_metrics_phys_to_virt, long *, metrics)
 {
   *metrics = *(u64 *)phys_to_virt(memcached_phys_addr);
-  pr_info("In bpf_get_user_metrics_phys_to_virt : phys_to_virt(memcached_phys_addr) is 0x%lx\n", phys_to_virt(memcached_phys_addr));
-  pr_info("In bpf_get_user_metrics_phys_to_virt : *metrics is 0x%lx\n", *metrics);
   return 0;
 }
 
