@@ -3,39 +3,34 @@
 #include <linux/spinlock.h>
 #include <linux/slab.h>
 
-#define MAX_METRICS 200
+#include "metrics.h"
 
-static DEFINE_SPINLOCK(iterator_lock);
-static int iterator = 0;
-
-u64 memcached_phys_addr; // remove lator
-
-struct metrics_info {
-	u32 port;
-	u64 phys_addr;
-	u32 size;
-};
+DEFINE_SPINLOCK(iterator_lock);
 
 struct metrics_info metrics_vector[MAX_METRICS];
+
+int iterator_metrics = 0;
+
+u64 memcached_phys_addr; // remove lator
 
 SYSCALL_DEFINE3(register_metrics, u32, port, u64, phys_addr, u32, size)
 {
 	spin_lock(&iterator_lock);
 
-	if (iterator >= MAX_METRICS) {
+	if (iterator_metrics >= MAX_METRICS) {
 		pr_warn("register_metrics: metrics_vector is full\n");
 		spin_unlock(&iterator_lock);
 		return -ENOMEM;
 	}
 
-	metrics_vector[iterator].port = port;
-	metrics_vector[iterator].phys_addr = phys_addr;
-	metrics_vector[iterator].size = size;
+	metrics_vector[iterator_metrics].port = port;
+	metrics_vector[iterator_metrics].phys_addr = phys_addr;
+	metrics_vector[iterator_metrics].size = size;
 
 	pr_info("register_metrics: Added metric at iterator %d: port=%u, phys_addr=0x%llx, size=%u\n",
-		iterator, port, phys_addr, size);
+		iterator_metrics, port, phys_addr, size);
 
-	iterator++;
+	iterator_metrics++;
 
 	spin_unlock(&iterator_lock);
 
