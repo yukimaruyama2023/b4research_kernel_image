@@ -5064,6 +5064,7 @@ union bpf_attr {
 	FN(bpf_get_user_metrics_default),		\
 	FN(bpf_get_user_metrics_va),		\
 	FN(bpf_get_user_metrics_phys_to_virt),		\
+	FN(bpf_get_application_metrics),		\
 	/* */
 
 /* integer value in 'imm' field of BPF_CALL instruction selects which helper

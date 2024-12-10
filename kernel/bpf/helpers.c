@@ -34,6 +34,7 @@
 #include <linux/tick.h>
 
 #include "../../lib/kstrtox.h"
+#include "../../customsyscall/metrics.h"
 
 /* these are added for bpf_get_memory_total */
 #include <linux/kernel.h>
@@ -170,6 +171,39 @@ const struct bpf_func_proto bpf_get_user_metrics_va_proto = {
 	.gpl_only = false,
 	.ret_type = RET_INTEGER,
 	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
+};
+
+BPF_CALL_2(bpf_get_application_metrics, int, port, char *, buffer)
+{
+  u64 phys_addr;
+  int target = -1;
+  int i;
+  size_t size;
+
+  for (i = 0; i < MAX_METRICS; i++) {
+    if (metrics_vector[i].port == port) {
+      target = i;
+      break;
+    }
+  }
+
+  if (target == -1) {
+    pr_info("In bpf_get_application_metrics: target == -1");
+    return -ENOENT;
+  }
+
+  phys_addr = metrics_vector[target].phys_addr;
+  size = metrics_vector[target].size;
+  memcpy(buffer, (char *)__va(phys_addr), size);
+  return 0;
+}
+
+const struct bpf_func_proto bpf_get_application_metrics_proto = {
+	.func = bpf_get_application_metrics,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_ANYTHING, /* int */
+	.arg2_type = ARG_ANYTHING, /* pointer to char */
 };
 
 
@@ -1721,6 +1755,8 @@ case BPF_FUNC_bpf_get_user_metrics_va:
 		return &bpf_get_user_metrics_va_proto;
 case BPF_FUNC_bpf_get_user_metrics_phys_to_virt:
 		return &bpf_get_user_metrics_phys_to_virt_proto;
+case BPF_FUNC_bpf_get_application_metrics:
+		return &bpf_get_application_metrics_proto;
 	default:
 		break;
 	}
