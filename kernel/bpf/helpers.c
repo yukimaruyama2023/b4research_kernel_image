@@ -173,12 +173,14 @@ const struct bpf_func_proto bpf_get_user_metrics_va_proto = {
 	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
 };
 
-BPF_CALL_2(bpf_get_application_metrics, int, port, char *, buffer)
+#define ERR_NO_TARGET -1
+#define ERR_BUFFER_TOO_SMALL -2
+BPF_CALL_3(bpf_get_application_metrics, int, port, char *, buffer, size_t, buffer_size)
 {
   u64 phys_addr;
   int target = -1;
   int i;
-  size_t size;
+  size_t metrics_size;
 
   for (i = 0; i < MAX_METRICS; i++) {
     if (metrics_vector[i].port == port) {
@@ -189,12 +191,16 @@ BPF_CALL_2(bpf_get_application_metrics, int, port, char *, buffer)
 
   if (target == -1) {
     pr_info("In bpf_get_application_metrics: target == -1");
-    return -ENOENT;
+    return ERR_NO_TARGET;
   }
 
   phys_addr = metrics_vector[target].phys_addr;
-  size = metrics_vector[target].size;
-  memcpy(buffer, (char *)__va(phys_addr), size);
+  metrics_size = metrics_vector[target].size;
+  if (metrics_size > buffer_size) {
+    pr_info("metrics_size(%d) > buffer_size(%d).\n", metrics_size, buffer_size);
+    return ERR_BUFFER_TOO_SMALL;
+  } 
+  memcpy(buffer, (char *)__va(phys_addr), metrics_size);
   return 0;
 }
 
@@ -204,6 +210,7 @@ const struct bpf_func_proto bpf_get_application_metrics_proto = {
 	.ret_type = RET_INTEGER,
 	.arg1_type = ARG_ANYTHING, /* int */
 	.arg2_type = ARG_ANYTHING, /* pointer to char */
+	.arg3_type = ARG_ANYTHING, /* int */
 };
 
 
