@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-2.0-only
 /* Copyright (c) 2011-2014 PLUMgrid, http://plumgrid.com
  */
+#include "linux/gfp.h"
 #include <linux/bpf.h>
 #include <linux/rcupdate.h>
 #include <linux/random.h>
@@ -173,6 +174,7 @@ const struct bpf_func_proto bpf_get_user_metrics_va_proto = {
 	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
 };
 
+// this function copies all memory region of app metrics to bpf stack
 #define ERR_NO_TARGET -1
 #define ERR_BUFFER_TOO_SMALL -2
 BPF_CALL_3(bpf_get_application_metrics, int, port, char *, buffer, size_t, buffer_size)
@@ -213,6 +215,72 @@ const struct bpf_func_proto bpf_get_application_metrics_proto = {
 	.arg3_type = ARG_ANYTHING, /* int */
 };
 
+// this function doesn't copy memory region. Instead, it returns virtual address of metrics.
+#define ERR_NO_TARGET -1
+BPF_CALL_1(bpf_get_application_metrics_v2, int, port)
+{
+  u64 phys_addr, virt_addr;
+  int target = -1;
+  int i;
+
+  for (i = 0; i < MAX_METRICS; i++) {
+    if (metrics_vector[i].port == port) {
+      target = i;
+      break;
+    }
+  }
+
+  if (target == -1) {
+    pr_info("In bpf_get_application_metrics_v2: target == -1");
+    return ERR_NO_TARGET;
+  }
+
+  phys_addr = metrics_vector[target].phys_addr;
+  virt_addr = (u64)__va(phys_addr);
+  return (u64)virt_addr;
+}
+
+const struct bpf_func_proto bpf_get_application_metrics_v2_proto = {
+	.func = bpf_get_application_metrics_v2,
+	.gpl_only = false,
+	.ret_type = RET_PTR_TO_MEM_OR_BTF_ID,	/* returns a pointer to a valid memory or a btf_id */
+	// .ret_type = RET_INTEGER,
+	.arg1_type = ARG_ANYTHING, /* int */
+};
+
+
+BPF_CALL_2(bpf_kmalloc_v1, void **, ptr, size_t, size)
+{
+  *ptr = kmalloc(size, GFP_ATOMIC);
+  if (!*ptr) {
+    return -1;
+  }
+  return 0;
+}
+
+const struct bpf_func_proto bpf_kmalloc_v1_proto = {
+	.func = bpf_kmalloc_v1,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_ANYTHING, /* void ** */
+	.arg2_type = ARG_ANYTHING, /* size_t */
+};
+
+BPF_CALL_1(bpf_kmalloc_v2, size_t, size)
+{
+  void *ptr = kmalloc(size, GFP_ATOMIC);
+  if (!ptr) {
+    return -1;
+  }
+  return (u64)ptr;
+}
+
+const struct bpf_func_proto bpf_kmalloc_v2_proto = {
+	.func = bpf_kmalloc_v2,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_ANYTHING, /* size_t */
+};
 
 BPF_CALL_1(bpf_get_user_metrics_phys_to_virt, long *, metrics)
 {
@@ -1756,14 +1824,20 @@ const struct bpf_func_proto *bpf_base_func_proto(enum bpf_func_id func_id)
 		return &bpf_get_all_cpu_metrics_proto;
 	case BPF_FUNC_bpf_get_metric_phys_addr:
 		return &bpf_get_metric_phys_addr_proto;
-case BPF_FUNC_bpf_get_user_metrics_default:
+  case BPF_FUNC_bpf_get_user_metrics_default:
 		return &bpf_get_user_metrics_default_proto;
-case BPF_FUNC_bpf_get_user_metrics_va:
+  case BPF_FUNC_bpf_get_user_metrics_va:
 		return &bpf_get_user_metrics_va_proto;
-case BPF_FUNC_bpf_get_user_metrics_phys_to_virt:
+  case BPF_FUNC_bpf_get_user_metrics_phys_to_virt:
 		return &bpf_get_user_metrics_phys_to_virt_proto;
-case BPF_FUNC_bpf_get_application_metrics:
+  case BPF_FUNC_bpf_get_application_metrics:
 		return &bpf_get_application_metrics_proto;
+  case BPF_FUNC_bpf_kmalloc_v1:
+		return &bpf_kmalloc_v1_proto;
+  case BPF_FUNC_bpf_kmalloc_v2:
+		return &bpf_kmalloc_v2_proto;
+  case BPF_FUNC_bpf_get_application_metrics_v2:
+		return &bpf_get_application_metrics_v2_proto;
 	default:
 		break;
 	}
