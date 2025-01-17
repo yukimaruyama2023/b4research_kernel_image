@@ -134,9 +134,9 @@ extern u64 memcached_phys_addr;
 
 BPF_CALL_1(bpf_get_metric_phys_addr, long *, ptr)
 {
-  *ptr = memcached_phys_addr;
-  pr_info("*ptr is 0x%lx\n", *ptr);
-  return 0;
+	*ptr = memcached_phys_addr;
+	pr_info("*ptr is 0x%lx\n", *ptr);
+	return 0;
 }
 
 const struct bpf_func_proto bpf_get_metric_phys_addr_proto = {
@@ -146,11 +146,10 @@ const struct bpf_func_proto bpf_get_metric_phys_addr_proto = {
 	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
 };
 
-
 BPF_CALL_1(bpf_get_user_metrics_default, long *, metrics)
 {
-  *metrics = *(u64 *)memcached_phys_addr;
-  return 0;
+	*metrics = *(u64 *)memcached_phys_addr;
+	return 0;
 }
 
 const struct bpf_func_proto bpf_get_user_metrics_default_proto = {
@@ -160,11 +159,10 @@ const struct bpf_func_proto bpf_get_user_metrics_default_proto = {
 	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
 };
 
-
 BPF_CALL_1(bpf_get_user_metrics_va, long *, metrics)
 {
-  *metrics = *(u64 *)__va(memcached_phys_addr);
-  return 0;
+	*metrics = *(u64 *)__va(memcached_phys_addr);
+	return 0;
 }
 
 const struct bpf_func_proto bpf_get_user_metrics_va_proto = {
@@ -174,40 +172,91 @@ const struct bpf_func_proto bpf_get_user_metrics_va_proto = {
 	.arg1_type = ARG_PTR_TO_LONG, /* pointer to long */
 };
 
-// this function copies all memory region of app metrics to bpf stack
 #define ERR_NO_TARGET -1
-#define ERR_BUFFER_TOO_SMALL -2
-BPF_CALL_3(bpf_get_application_metrics, int, port, char *, buffer, size_t, buffer_size)
+BPF_CALL_4(bpf_get_application_metrics, int, port, u32, offset, size_t,
+	   metrics_size, char *, buffer)
 {
-  u64 phys_addr;
-  int target = -1;
-  int i;
-  size_t metrics_size;
+	u64 phys_addr;
+	int target = -1;
+	int i;
 
-  for (i = 0; i < MAX_METRICS; i++) {
-    if (metrics_vector[i].port == port) {
-      target = i;
-      break;
-    }
-  }
+	if (!buffer || metrics_size == 0) {
+		pr_info("Invalid buffer or metrics_size\n");
+		return -EINVAL;
+	}
 
-  if (target == -1) {
-    pr_info("In bpf_get_application_metrics: target == -1");
-    return ERR_NO_TARGET;
-  }
+	for (i = 0; i < MAX_METRICS; i++) {
+		if (metrics_vector[i].port == port) {
+			target = i;
+			break;
+		}
+	}
 
-  phys_addr = metrics_vector[target].phys_addr;
-  metrics_size = metrics_vector[target].size;
-  if (metrics_size > buffer_size) {
-    pr_info("metrics_size(%d) > buffer_size(%d).\n", metrics_size, buffer_size);
-    return ERR_BUFFER_TOO_SMALL;
-  } 
-  memcpy(buffer, (char *)__va(phys_addr), metrics_size);
-  return 0;
+	if (target == -1) {
+		pr_info("In bpf_get_application_metrics: target == -1\n");
+		return ERR_NO_TARGET;
+	}
+
+	phys_addr = metrics_vector[target].phys_addr + (u64)offset;
+	pr_info("In bpf_get_application_metrics: phys_addr is 0x%lx\n", phys_addr);
+	pr_info("In bpf_get_application_metrics: metrics_size is 0x%lx\n", metrics_size);
+	// if (!access_ok((void *)__va(phys_addr), metrics_size)) {
+	//   pr_info("In bpf_get_application_metrics: access_ok is false");
+	//   return -EFAULT;
+	// }
+	// user need to specify metrics_size under the size of buffer
+	memcpy(buffer, (char *)__va(phys_addr), metrics_size);
+	return 0;
 }
 
 const struct bpf_func_proto bpf_get_application_metrics_proto = {
 	.func = bpf_get_application_metrics,
+	.gpl_only = false,
+	.ret_type = RET_INTEGER,
+	.arg1_type = ARG_ANYTHING, /* int */
+	.arg2_type = ARG_ANYTHING, /* pointer to char */
+	.arg3_type = ARG_ANYTHING, /* int */
+	.arg3_type = ARG_ANYTHING, /* int */
+};
+
+// this function copies all memory region of app metrics to bpf stack
+#define ERR_BUFFER_TOO_SMALL -2
+BPF_CALL_3(bpf_get_application_metrics_v3, int, port, char *, buffer, size_t,
+	   buffer_size)
+{
+	u64 phys_addr;
+	int target = -1;
+	int i;
+	size_t metrics_size;
+
+	for (i = 0; i < MAX_METRICS; i++) {
+		if (metrics_vector[i].port == port) {
+			target = i;
+			break;
+		}
+	}
+
+	if (target == -1) {
+		pr_info("In bpf_get_application_metrics_v3: target == -1");
+		return ERR_NO_TARGET;
+	}
+
+	phys_addr = metrics_vector[target].phys_addr;
+	metrics_size = metrics_vector[target].size;
+	if (metrics_size > buffer_size) {
+		pr_info("metrics_size(%d) > buffer_size(%d).\n", metrics_size,
+			buffer_size);
+		return ERR_BUFFER_TOO_SMALL;
+	}
+	pr_info("In bpf_get_application_metrics_v3: phys_addr is 0x%lx\n", phys_addr);
+	pr_info("In bpf_get_application_metrics_v3: metrics_size is 0x%lx\n", metrics_size);
+	pr_info("In bpf_get_application_metrics_v3: buffer_size is 0x%lx\n", buffer);
+	memcpy(buffer, (char *)__va(phys_addr), metrics_size);
+	return 0;
+}
+
+const struct bpf_func_proto bpf_get_application_metrics_v3_proto = {
+	.func = bpf_get_application_metrics_v3,
 	.gpl_only = false,
 	.ret_type = RET_INTEGER,
 	.arg1_type = ARG_ANYTHING, /* int */
@@ -219,43 +268,43 @@ const struct bpf_func_proto bpf_get_application_metrics_proto = {
 #define ERR_NO_TARGET -1
 BPF_CALL_1(bpf_get_application_metrics_v2, int, port)
 {
-  u64 phys_addr, virt_addr;
-  int target = -1;
-  int i;
+	u64 phys_addr, virt_addr;
+	int target = -1;
+	int i;
 
-  for (i = 0; i < MAX_METRICS; i++) {
-    if (metrics_vector[i].port == port) {
-      target = i;
-      break;
-    }
-  }
+	for (i = 0; i < MAX_METRICS; i++) {
+		if (metrics_vector[i].port == port) {
+			target = i;
+			break;
+		}
+	}
 
-  if (target == -1) {
-    pr_info("In bpf_get_application_metrics_v2: target == -1");
-    return ERR_NO_TARGET;
-  }
+	if (target == -1) {
+		pr_info("In bpf_get_application_metrics_v2: target == -1");
+		return ERR_NO_TARGET;
+	}
 
-  phys_addr = metrics_vector[target].phys_addr;
-  virt_addr = (u64)__va(phys_addr);
-  return (u64)virt_addr;
+	phys_addr = metrics_vector[target].phys_addr;
+	virt_addr = (u64)__va(phys_addr);
+	return (u64)virt_addr;
 }
 
 const struct bpf_func_proto bpf_get_application_metrics_v2_proto = {
 	.func = bpf_get_application_metrics_v2,
 	.gpl_only = false,
-	.ret_type = RET_PTR_TO_MEM_OR_BTF_ID,	/* returns a pointer to a valid memory or a btf_id */
+	.ret_type =
+		RET_PTR_TO_MEM_OR_BTF_ID, /* returns a pointer to a valid memory or a btf_id */
 	// .ret_type = RET_INTEGER,
 	.arg1_type = ARG_ANYTHING, /* int */
 };
 
-
 BPF_CALL_2(bpf_kmalloc_v1, void **, ptr, size_t, size)
 {
-  *ptr = kmalloc(size, GFP_ATOMIC);
-  if (!*ptr) {
-    return -1;
-  }
-  return 0;
+	*ptr = kmalloc(size, GFP_ATOMIC);
+	if (!*ptr) {
+		return -1;
+	}
+	return 0;
 }
 
 const struct bpf_func_proto bpf_kmalloc_v1_proto = {
@@ -268,11 +317,11 @@ const struct bpf_func_proto bpf_kmalloc_v1_proto = {
 
 BPF_CALL_1(bpf_kmalloc_v2, size_t, size)
 {
-  void *ptr = kmalloc(size, GFP_ATOMIC);
-  if (!ptr) {
-    return -1;
-  }
-  return (u64)ptr;
+	void *ptr = kmalloc(size, GFP_ATOMIC);
+	if (!ptr) {
+		return -1;
+	}
+	return (u64)ptr;
 }
 
 const struct bpf_func_proto bpf_kmalloc_v2_proto = {
@@ -284,8 +333,8 @@ const struct bpf_func_proto bpf_kmalloc_v2_proto = {
 
 BPF_CALL_1(bpf_get_user_metrics_phys_to_virt, long *, metrics)
 {
-  *metrics = *(u64 *)phys_to_virt(memcached_phys_addr);
-  return 0;
+	*metrics = *(u64 *)phys_to_virt(memcached_phys_addr);
+	return 0;
 }
 
 const struct bpf_func_proto bpf_get_user_metrics_phys_to_virt_proto = {
@@ -1824,20 +1873,22 @@ const struct bpf_func_proto *bpf_base_func_proto(enum bpf_func_id func_id)
 		return &bpf_get_all_cpu_metrics_proto;
 	case BPF_FUNC_bpf_get_metric_phys_addr:
 		return &bpf_get_metric_phys_addr_proto;
-  case BPF_FUNC_bpf_get_user_metrics_default:
+	case BPF_FUNC_bpf_get_user_metrics_default:
 		return &bpf_get_user_metrics_default_proto;
-  case BPF_FUNC_bpf_get_user_metrics_va:
+	case BPF_FUNC_bpf_get_user_metrics_va:
 		return &bpf_get_user_metrics_va_proto;
-  case BPF_FUNC_bpf_get_user_metrics_phys_to_virt:
+	case BPF_FUNC_bpf_get_user_metrics_phys_to_virt:
 		return &bpf_get_user_metrics_phys_to_virt_proto;
-  case BPF_FUNC_bpf_get_application_metrics:
-		return &bpf_get_application_metrics_proto;
-  case BPF_FUNC_bpf_kmalloc_v1:
+	case BPF_FUNC_bpf_get_application_metrics_v3:
+		return &bpf_get_application_metrics_v3_proto;
+	case BPF_FUNC_bpf_kmalloc_v1:
 		return &bpf_kmalloc_v1_proto;
-  case BPF_FUNC_bpf_kmalloc_v2:
+	case BPF_FUNC_bpf_kmalloc_v2:
 		return &bpf_kmalloc_v2_proto;
-  case BPF_FUNC_bpf_get_application_metrics_v2:
+	case BPF_FUNC_bpf_get_application_metrics_v2:
 		return &bpf_get_application_metrics_v2_proto;
+	case BPF_FUNC_bpf_get_application_metrics:
+		return &bpf_get_application_metrics_proto;
 	default:
 		break;
 	}

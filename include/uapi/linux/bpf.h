@@ -5064,10 +5064,11 @@ union bpf_attr {
 	FN(bpf_get_user_metrics_default),		\
 	FN(bpf_get_user_metrics_va),		\
 	FN(bpf_get_user_metrics_phys_to_virt),		\
-	FN(bpf_get_application_metrics),		\
+	FN(bpf_get_application_metrics_v3),		\
 	FN(bpf_kmalloc_v1),		\
 	FN(bpf_kmalloc_v2),		\
 	FN(bpf_get_application_metrics_v2),		\
+	FN(bpf_get_application_metrics),		\
 	/* */
 
 /* integer value in 'imm' field of BPF_CALL instruction selects which helper
