@@ -2,6 +2,7 @@
 /* Copyright (c) 2011-2014 PLUMgrid, http://plumgrid.com
  */
 #include "linux/gfp.h"
+#include "linux/printk.h"
 #include <linux/bpf.h>
 #include <linux/rcupdate.h>
 #include <linux/random.h>
@@ -173,20 +174,22 @@ const struct bpf_func_proto bpf_get_user_metrics_va_proto = {
 };
 
 #define ERR_NO_TARGET -1
-BPF_CALL_4(bpf_get_application_metrics, int, port, u32, offset, size_t,
-	   metrics_size, char *, buffer)
+#define ERR_COPYSIZE_IS_TOO_LARGE -2
+BPF_CALL_4(bpf_get_application_metrics, u32, port, int, struct_id, char *,
+	   buffer, u32, buffer_size)
 {
 	u64 phys_addr;
 	int target = -1;
 	int i;
 
-	if (!buffer || metrics_size == 0) {
+	if (!buffer || buffer_size == 0) {
 		pr_info("Invalid buffer or metrics_size\n");
 		return -EINVAL;
 	}
 
 	for (i = 0; i < MAX_METRICS; i++) {
-		if (metrics_vector[i].port == port) {
+		if (metrics_vector[i].port == port &&
+		    metrics_vector[i].struct_id == struct_id) {
 			target = i;
 			break;
 		}
@@ -197,15 +200,17 @@ BPF_CALL_4(bpf_get_application_metrics, int, port, u32, offset, size_t,
 		return ERR_NO_TARGET;
 	}
 
-	phys_addr = metrics_vector[target].phys_addr + (u64)offset;
-	pr_info("In bpf_get_application_metrics: phys_addr is 0x%lx\n", phys_addr);
-	pr_info("In bpf_get_application_metrics: metrics_size is 0x%lx\n", metrics_size);
-	// if (!access_ok((void *)__va(phys_addr), metrics_size)) {
-	//   pr_info("In bpf_get_application_metrics: access_ok is false");
-	//   return -EFAULT;
-	// }
-	// user need to specify metrics_size under the size of buffer
-	memcpy(buffer, (char *)__va(phys_addr), metrics_size);
+	phys_addr = metrics_vector[target].phys_addr;
+	pr_info("In bpf_get_application_metrics: phys_addr is 0x%lx\n",
+		phys_addr);
+	pr_info("In bpf_get_application_metrics: buffer_size is 0x%lx\n",
+		buffer_size);
+	if (metrics_vector[target].size < buffer_size) {
+		pr_info("buffer_size is larger than original metrics struct: the former is %d, the latter is %d\n",
+			buffer_size, metrics_vector[target].size);
+		return ERR_COPYSIZE_IS_TOO_LARGE;
+	}
+	memcpy(buffer, (char *)__va(phys_addr), buffer_size);
 	return 0;
 }
 
@@ -213,10 +218,10 @@ const struct bpf_func_proto bpf_get_application_metrics_proto = {
 	.func = bpf_get_application_metrics,
 	.gpl_only = false,
 	.ret_type = RET_INTEGER,
-	.arg1_type = ARG_ANYTHING, /* int */
-	.arg2_type = ARG_ANYTHING, /* pointer to char */
-	.arg3_type = ARG_ANYTHING, /* int */
-	.arg3_type = ARG_ANYTHING, /* int */
+	.arg1_type = ARG_ANYTHING,
+	.arg2_type = ARG_ANYTHING,
+	.arg3_type = ARG_ANYTHING,
+	.arg3_type = ARG_ANYTHING,
 };
 
 // this function copies all memory region of app metrics to bpf stack
@@ -248,9 +253,12 @@ BPF_CALL_3(bpf_get_application_metrics_v3, int, port, char *, buffer, size_t,
 			buffer_size);
 		return ERR_BUFFER_TOO_SMALL;
 	}
-	pr_info("In bpf_get_application_metrics_v3: phys_addr is 0x%lx\n", phys_addr);
-	pr_info("In bpf_get_application_metrics_v3: metrics_size is 0x%lx\n", metrics_size);
-	pr_info("In bpf_get_application_metrics_v3: buffer_size is 0x%lx\n", buffer);
+	pr_info("In bpf_get_application_metrics_v3: phys_addr is 0x%lx\n",
+		phys_addr);
+	pr_info("In bpf_get_application_metrics_v3: metrics_size is 0x%lx\n",
+		metrics_size);
+	pr_info("In bpf_get_application_metrics_v3: buffer_size is 0x%lx\n",
+		buffer);
 	memcpy(buffer, (char *)__va(phys_addr), metrics_size);
 	return 0;
 }
