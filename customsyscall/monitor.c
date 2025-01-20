@@ -6,6 +6,7 @@
 #include "metrics.h"
 
 DEFINE_SPINLOCK(iterator_lock);
+// DEFINE_SPINLOCK(iterator_lock_2);
 
 struct metrics_info metrics_vector[MAX_METRICS];
 
@@ -13,7 +14,9 @@ int iterator_metrics = 0;
 
 u64 memcached_phys_addr; // remove lator
 
-SYSCALL_DEFINE3(register_metrics, u32, port, u64, phys_addr, u32, size)
+// this syscall is called per application server
+SYSCALL_DEFINE4(register_metrics, u32, port, int, struct_id, u32, size, u64,
+		phys_addr)
 {
 	spin_lock(&iterator_lock);
 
@@ -24,11 +27,12 @@ SYSCALL_DEFINE3(register_metrics, u32, port, u64, phys_addr, u32, size)
 	}
 
 	metrics_vector[iterator_metrics].port = port;
-	metrics_vector[iterator_metrics].phys_addr = phys_addr;
+	metrics_vector[iterator_metrics].struct_id = struct_id;
 	metrics_vector[iterator_metrics].size = size;
+	metrics_vector[iterator_metrics].phys_addr = phys_addr;
 
-	pr_info("register_metrics: Added metric at iterator %d: port=%u, phys_addr=0x%llx, size=%u\n",
-		iterator_metrics, port, phys_addr, size);
+	pr_info("register_metrics: Added metric at iterator %d: port=%u, struct_id=%d, size=%u, phys_addr=0x%llx\n",
+		iterator_metrics, port, struct_id, size, phys_addr);
 
 	iterator_metrics++;
 
@@ -37,72 +41,29 @@ SYSCALL_DEFINE3(register_metrics, u32, port, u64, phys_addr, u32, size)
 	return 0;
 }
 
-// SYSCALL_DEFINE0(reset_metrics_vector)
-// {
-// 	spin_lock(&iterator_lock);
-//
-// 	memset(metrics_vector, 0, sizeof(metrics_vector));
-//
-// 	iterator = 0;
-//
-// 	spin_unlock(&iterator_lock);
-//
-// 	pr_info("reset_metrics_vector: metrics_vector has been reset\n");
-//
-// 	return 0;
-// }
-
-// #include <linux/gfp.h>
-// #include <linux/kernel.h>
-// #include <linux/syscalls.h>
-// #include <linux/spinlock.h>
-// #include <linux/slab.h>
-//
-// static DEFINE_SPINLOCK(iterator_lock);
-//
-// u64 memcached_phys_addr; // remove lator
-//
-// struct metrics_info {
-// 	u32 port;
-// 	u64 phys_addr;
-// 	u32 size;
-// 	struct metrics_info *ptr;
-// };
-//
-// struct metrics_info *head_to_metrics_list = NULL;
-// struct metrics_info *tail_to_metrics_list = NULL;
-//
-// SYSCALL_DEFINE3(register_metrics, u32, port, u64, phys_addr, u32, size)
-// {
-// 	struct metrics_info *p;
-//
-// 	p = (struct metrics_info *)kmalloc(sizeof(struct metrics_info),
-// 					   GFP_KERNEL);
-// 	if (!p) {
-// 		pr_err("register_metrics: Failed to allocate memory\n");
-// 		return -ENOMEM;
-// 	}
-//
-// 	p->port = port;
-// 	p->phys_addr = phys_addr;
-// 	p->size = size;
-// 	p->ptr = NULL;
-//
-// 	spin_lock(&iterator_lock);
-//
-// 	if (!head_to_metrics_list) {
-// 		head_to_metrics_list = p;
-// 		tail_to_metrics_list = p;
-// 	} else {
-// 		tail_to_metrics_list->ptr = p;
-// 		tail_to_metrics_list = p;
-// 	}
-//
-// 	spin_unlock(&iterator_lock);
-//
-// 	pr_info("register_metrics: Added metric - port: %u, phys_addr: %llx, size: %u\n",
-// 		port, phys_addr, size);
-//
-// 	return 0;
-// }
-//
+/*// this syscall is callced per struct*/
+/*SYSCALL_DEFINE3(register_metrics_2, u32, port, int, struct_identifier, u64,*/
+/*		phys_addr)*/
+/*{*/
+/*	spin_lock(&iterator_lock_2);*/
+/**/
+/*	if (iterator_metrics_2 >= MAX_METRICS) {*/
+/*		pr_warn("register_metrics_2: metrics_vector is full\n");*/
+/*		spin_unlock(&iterator_lock_2);*/
+/*		return -ENOMEM;*/
+/*	}*/
+/**/
+/*	metrics_vector_2[iterator_metrics_2].port = port;*/
+/*	metrics_vector_2[iterator_metrics_2].struct_identifier =*/
+/*		struct_identifier;*/
+/*	metrics_vector_2[iterator_metrics_2].phys_addr = phys_addr;*/
+/**/
+/*	pr_info("register_metrics_2: Added metric at iterator %d: port=%u, struct_identifier=%d, phys_addr=0x%llx\n",*/
+/*		iterator_metrics_2, port, struct_identifier, phys_addr);*/
+/**/
+/*	iterator_metrics_2++;*/
+/**/
+/*	spin_unlock(&iterator_lock_2);*/
+/**/
+/*	return 0;*/
+/*}*/

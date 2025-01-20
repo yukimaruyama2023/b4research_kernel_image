@@ -15,3 +15,14 @@ SYSCALL_DEFINE0(reset_metrics_vector)
 
 	return 0;
 }
+//
+// SYSCALL_DEFINE0(reset_metrics_vector_2)
+// {
+// 	spin_lock(&iterator_lock_2);
+// 	memset(metrics_vector_2, 0, sizeof(metrics_vector_2));
+// 	iterator_metrics_2 = 0;
+// 	spin_unlock(&iterator_lock_2);
+// 	pr_info("reset_metrics_vector_2: metrics_vector_2 has been reset\n");
+//
+// 	return 0;
+// }

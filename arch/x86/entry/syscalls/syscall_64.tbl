@@ -373,6 +373,8 @@
 449	common	hello			sys_hello
 450	common	monitor			sys_register_metrics
 451	common	reset			sys_reset_metrics_vector
+# 452	common	monitor			sys_register_metrics_2
+# 453	common	reset			sys_reset_metrics_vector_2
 
 #
 # Due to a historical design error, certain syscalls are numbered differently
